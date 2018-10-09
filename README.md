@@ -4,7 +4,7 @@ The menus will be filled automaticaly based on the attribute ID and the previous
 
 Sample App
 ------------------
-https://demos.conterra.de/mapapps/resources/apps/downloads_hierarchicalsearch/index.html
+https://demos.conterra.de/mapapps/resources/apps/downloads_hierarchicalsearch/index.html?lang=de 
 
 ![Screenshot Sample App Hierarchical Search](https://github.com/conterra/mapapps-hierarchical-search/blob/master/Screenshot.PNG)
 
