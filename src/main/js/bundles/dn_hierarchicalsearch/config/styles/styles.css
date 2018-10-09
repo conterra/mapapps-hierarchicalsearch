@@ -1,0 +1,134 @@
+/**
+ * Copyright (C) 2017 con terra GmbH (info@conterra.de)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.queryBuilderWizard .inputContainer label {
+    display: inline-block;
+    min-width: 200px;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+.queryBuilderWizard .inputContainer .settingsDiv {
+    margin-bottom: 2px;
+}
+
+.queryBuilderWizard .inputContainer .dijitButton {
+    margin-left: 5px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.queryBuilderWizard .settings {
+    height: 90px;
+}
+
+.queryBuilderWizard .settings label {
+    display: inline-block;
+    min-width: 200px;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+.queryBuilderWizard .settings .settingsDiv {
+    margin-bottom: 2px;
+}
+
+.queryBuilderWizard .settings .dijitButton {
+    margin-left: 5px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.queryBuilderWizard .head {
+    margin-bottom: 8px;
+}
+
+.queryBuilderWizard .rightFloatingButton {
+    float: right;
+}
+
+.queryBuilderWizard .inline {
+    display: inline;
+}
+
+.queryBuilderWizard .fieldWidget {
+    margin-bottom: 5px;
+}
+
+.queryBuilderWizard .fieldWidget .buttonContainer .dijitButtonNode {
+    font-size: 15px;
+    padding: 0px 8px 3px !important;
+}
+
+.queryBuilderWizard .fieldWidget .buttonContainer .dijitIcon {
+    font-size: 14px !important;
+}
+
+.queryBuilderWizard .fieldWidget {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.queryBuilderWizard .fieldWidget .fieldWidgetItem {
+    flex: 1 1 auto;
+    padding: 0 2px
+}
+
+.queryBuilderWizard .fieldWidget .fieldWidgetItem:first-child {
+    padding-left: 0;
+}
+
+.queryBuilderWizard .fieldWidget .buttonContainer {
+    flex: 0 0 70px;
+    display: inline-block;
+}
+
+.queryBuilderWizard .fieldWidget .dijitTextBox {
+    width: 100%;
+}
+
+.ctEnv_IE_8 .queryBuilderWizard .fieldWidget .notSelect,
+.ctEnv_IE_9 .queryBuilderWizard .fieldWidget .notSelect {
+    width: 16%;
+}
+
+.ctEnv_IE_8 .queryBuilderWizard .fieldWidget .fieldSelect,
+.ctEnv_IE_9 .queryBuilderWizard .fieldWidget .fieldSelect {
+    width: 22%;
+}
+
+.ctEnv_IE_8 .queryBuilderWizard .fieldWidget .relationalOperatorSelect,
+.ctEnv_IE_9 .queryBuilderWizard .fieldWidget .relationalOperatorSelect {
+    width: 16%;
+}
+
+.ctEnv_IE_8 .queryBuilderWizard .fieldWidget .valueField,
+.ctEnv_IE_9 .queryBuilderWizard .fieldWidget .valueField {
+    width: 22%;
+}
+
+.ctEnv_IE_8 .queryBuilderWizard .fieldWidget .buttonContainer,
+.ctEnv_IE_9 .queryBuilderWizard .fieldWidget .buttonContainer {
+    width: 70px;
+}
+

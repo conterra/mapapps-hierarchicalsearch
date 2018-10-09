@@ -1,0 +1,56 @@
+{
+  "dataform-version": "1.0.0",
+  "size": {
+    "h": 300,
+    "w": 400
+  },
+  "type": "gridpanel",
+  "showLabels": true,
+  "cols": 1,
+  "children": [
+    {
+      "type": "textbox",
+      "field": "title",
+      "label": "${title}",
+      "tooltip": "${title}",
+      "required": true
+    },
+    {
+      "type": "textbox",
+      "field": "infoText",
+      "label": "${infoText}",
+      "tooltip": "${infoText}",
+      "required": true
+    },
+    {
+      "type": "textbox",
+      "field": "buttonText",
+      "label": "${buttonText}",
+      "tooltip": "${buttonText}"
+    },
+    {
+      "type": "textbox",
+      "field": "checkboxText",
+      "label": "${checkboxText}",
+      "tooltip": "${checkboxText}"
+    },
+    {
+      "type": "textbox",
+      "field": "imgUrl",
+      "label": "${imgUrl}",
+      "tooltip": "${imgUrl}"
+    },
+    {
+      "type": "textbox",
+      "field": "imgHeight",
+      "label": "${imgHeight}",
+      "tooltip": "${imgHeight}"
+    },
+    {
+      "type": "checkbox",
+      "field": "accept",
+      "label": "${enableAcceptance}",
+      "tooltip": "${enableAcceptance}"
+    }
+  ]
+}

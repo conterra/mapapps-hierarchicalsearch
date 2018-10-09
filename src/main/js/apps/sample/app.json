@@ -1,0 +1,176 @@
+{
+    "load": {
+        "bundleLocations": [
+            "localbundles",
+            "bundles"
+        ],
+        "allowedBundles": [
+            "system@^4.3.0",
+            "splashscreen@^4.3.0",
+            "templatelayout@^4.3.0",
+            "template-seasons@^4.3.0",
+            "theme-everlasting@^4.3.0",
+            "toolset@^4.3.0",
+            "map-init@^4.3.0",
+            "agssearch@^4.3.0",
+            "toolrules",
+            "dn_hierarchicalsearch",
+            "resultcenter",
+            "console",
+            "popups-default"
+        ]
+    },
+    "properties": {
+        "usewebgl": true,
+        "title": "Hierarchical Search Sample"
+    },
+    "bundles": {
+        "agssearch": {
+            "AGSStore": [
+                {
+                    "title": "Flurstuecke",
+                    "description": "Flurstueck Berlin",
+                    "omniSearchLabelAttr": "${details} (${melder})",
+                    "omniSearchSearchAttr": "details",
+                    "id": "alkis",
+                    "idProperty": "FID",
+                    "url": "https://services2.arcgis.com/jUpNdisbWqRpMo35/ArcGIS/rest/services/Berlin_Flurst%C3%BCcke/FeatureServer/0",
+                    "useIn": [
+                        "selection",
+                        "flurstueck"
+                    ]
+                }
+            ]
+        },
+        "map-init": {
+            "Config": {
+                "basemaps": [
+                    {
+                        "id": "streets",
+                        "basemap": "streets",
+                        "title": "Strassen",
+                        "selected": true
+                    },
+                    {
+                        "id": "satellite",
+                        "basemap": "satellite",
+                        "title": "Satellit"
+                    },
+                    {
+                        "id": "hybrid",
+                        "basemap": "hybrid",
+                        "title": "Hybrid"
+                    }
+                ],
+                "map": {
+                    "layers": [
+                        {
+                            "title": "Flurstücke - Berlin",
+                            "type": "AGS_FEATURE",
+                            "url": "https://services2.arcgis.com/jUpNdisbWqRpMo35/ArcGIS/rest/services/Berlin_Flurst%C3%BCcke/FeatureServer/0",
+                            "queryable": true,
+                            "id": "berlinFlurstueck",
+                            "active": true
+                        }
+                    ]
+                },
+                "view": {
+                    "viewmode": "2D",
+                    "extent": {
+                        "xmin": 600000,
+                        "ymin": 5800000,
+                        "xmax": 1700000,
+                        "ymax": 7600000,
+                        "spatialReference": 3857
+                    }
+                }
+            }
+        },
+        "templates": {
+            "TemplateModel": {
+                "_templates": [
+                    {
+                        "name": "seasons",
+                        "widgets": [
+                            {
+                                "widgetRole": "hierarchicalsearchWidget",
+                                "sublayout": [
+                                    "desktop",
+                                    "tablet_landscape",
+                                    "tablet_portrait"
+                                ],
+                                "window": {
+                                    "marginBox": {
+                                        "w": 400,
+                                        "h": 140,
+                                        "t": 115,
+                                        "l": 20
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "toolset": {
+            "ToolsetManager": {
+                "toolsets": [
+                    {
+                        "id": "defaultToolSet",
+                        "tools": [
+                            "*"
+                        ],
+                        "registerWidget": {
+                            "widgetRole": "map_topleft"
+                        },
+                        "container": "ignore",
+                        "windowType": "container",
+                        "cssClass": "muted"
+                    }
+                ]
+            }
+        },
+        "dn_hierarchicalsearch": {
+            "HierarchicalsearchWidgetFactory": {
+                "layerID": "berlinFlurstueck",
+                "fields": [
+                    {
+                        "id": "gemarkung_",
+                        "label": "Gemarkung"
+                    },
+                    {
+                        "id": "flur_numme",
+                        "label": "Flur"
+                    },
+                    {
+                        "id": "flurstue_1",
+                        "label": "Flurstück"
+                    }
+                ]
+            }
+        },
+        "toolrules": {
+            "ToolActiveStateManager": {
+                "activateOnStartToolIds": [
+                    "hierarchicalsearchToggleTool"
+                ]
+            }
+        },
+        "resultcenter": {
+            "ActionController": {
+                "zoomToFeatures": true,
+                "zoomToSelected": true,
+                "centerSelected": true,
+                "zoomAfterDeletion": true,
+                "zoomToClicked": true,
+                "centerClicked": true
+            }
+        },
+        "popups": {
+            "Config": {
+                "dockingDisabled": true
+            }
+        }
+    }
+}
