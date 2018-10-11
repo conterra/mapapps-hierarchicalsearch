@@ -12,10 +12,8 @@
             "theme-everlasting@^4.3.0",
             "toolset@^4.3.0",
             "map-init@^4.3.0",
-            "agssearch@^4.3.0",
             "toolrules",
             "dn_hierarchicalsearch",
-            "resultcenter",
             "console",
             "popups-default"
         ]
@@ -25,23 +23,6 @@
         "title": "Hierarchical Search Sample"
     },
     "bundles": {
-        "agssearch": {
-            "AGSStore": [
-                {
-                    "title": "Flurstuecke",
-                    "description": "Flurstueck Berlin",
-                    "omniSearchLabelAttr": "${details} (${melder})",
-                    "omniSearchSearchAttr": "details",
-                    "id": "alkis",
-                    "idProperty": "FID",
-                    "url": "https://services2.arcgis.com/jUpNdisbWqRpMo35/ArcGIS/rest/services/Berlin_Flurst%C3%BCcke/FeatureServer/0",
-                    "useIn": [
-                        "selection",
-                        "flurstueck"
-                    ]
-                }
-            ]
-        },
         "map-init": {
             "Config": {
                 "basemaps": [
@@ -155,16 +136,6 @@
                 "activateOnStartToolIds": [
                     "hierarchicalsearchToggleTool"
                 ]
-            }
-        },
-        "resultcenter": {
-            "ActionController": {
-                "zoomToFeatures": true,
-                "zoomToSelected": true,
-                "centerSelected": true,
-                "zoomAfterDeletion": true,
-                "zoomToClicked": true,
-                "centerClicked": true
             }
         },
         "popups": {

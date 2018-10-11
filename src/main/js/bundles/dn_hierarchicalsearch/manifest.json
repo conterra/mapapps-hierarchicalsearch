@@ -8,9 +8,7 @@
   "dependencies": {
     "apprt-vue": "^4.2.2",
     "apprt-binding": "^4.2.2",
-    "apprt-vuetify": "^4.2.2",
-    "agssearch": "^4.2.0",
-    "resultcenter": "^4.2.0"
+    "apprt-vuetify": "^4.2.2"
   },
   "Config-Bundle-Location": "/config",
   "CSS-Themes-Extension": [
@@ -94,16 +92,6 @@
         {
           "name": "_mapWidgetModel",
           "providing": "map-widget.MapWidgetModel"
-        },
-        {
-          "name": "stores",
-          "providing": "ct.api.Store",
-          "cardinality": "1..n",
-          "filter": "(useIn=selection)"
-        },
-        {
-          "name": "_dataModel",
-          "providing": "resultcenter.DataModel"
         }
       ]
     },

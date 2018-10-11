@@ -41,6 +41,10 @@ class HierarchicalsearchWidgetFactory {
         let thirdField;
         let serviceResolver = this.serviceResolver = new ServiceResolver();
         let bundleCtx = componentContext.getBundleContext();
+        let envs = this.envs = this._componentContext.getBundleContext().getCurrentExecutionEnvironment();
+        let isMobile = this.isMobile = this.envs.some((env) => {
+            return env.name === "Mobile"
+        });
         serviceResolver.setBundleCtx(bundleCtx);
         const vm = this.hierarchicalsearchWidget = new Vue(HierarchicalsearchWidget);
         vm.subdistrictLabel=properties.fields[0].label;
@@ -170,10 +174,17 @@ class HierarchicalsearchWidgetFactory {
                 this.hierarchicalsearchWidget.parcelSelected = false;
             }, this);
 
+
+
+        if(this.isMobile){
+            this._tool.set("active", false);
+        }
+
     };
 
     _zoomToGeometry(selectedGeometry) {
         this.mapModel.view.extent = selectedGeometry.geometry.extent;
+        this.mapModel.view.zoom =  this.mapModel.view.zoom -2;
         this.mapModel.view.popup.open({
             features: [selectedGeometry],
             updateLocationEnabled: true
