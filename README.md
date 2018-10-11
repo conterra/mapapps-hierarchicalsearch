@@ -1,6 +1,6 @@
 # Hierarchical Search
 The Hierarchical Search Bundle is a new Widget for searching features via a drop-down menu based on attributed values.
-The menus will be filled automaticaly based on the attribute ID and the previous user selections.
+The menus will be filled automatically based on the attribute ID and the previous user selections.
 
 Sample App
 ------------------
@@ -69,7 +69,7 @@ Installation Guide
  | Property                       | Type    | Possible Values               | Default            | Description                                                      |
  |--------------------------------|---------|-------------------------------|--------------------|------------------------------------------------------------------|
  | layerID                        | String  |                               |                    | The ID of your search Layer                                      |
- | fields                         | Array   |                               |                    | Array of either 2 or three attribute objects                     |
+ | fields                         | Array   |                               |                    | Array of either 2 or 3 attribute objects                     |
  | fields.id                      | String  |                               |                    | ID of the field of the layer that should appear in the drop-down |
  | field.label                    | String  |                               |                    | Label for specified drop-down                                    |
  
