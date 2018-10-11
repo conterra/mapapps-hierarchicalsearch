@@ -172,6 +172,9 @@ class HierarchicalsearchWidgetFactory {
                 selectedGeometry = response.features[0];
                 this._zoomToGeometry(selectedGeometry);
                 this.hierarchicalsearchWidget.parcelSelected = false;
+                this._eventService.postEvent("HierarchicalsearchResult", {
+                    'geometry': selectedGeometry
+                });
             }, this);
 
 
@@ -179,6 +182,8 @@ class HierarchicalsearchWidgetFactory {
         if(this.isMobile){
             this._tool.set("active", false);
         }
+
+
 
     };
 

@@ -1,115 +1,118 @@
 {
-  "name": "dn_hierarchicalsearch",
-  "version": "1.0.1-SNAPSHOT",
-  "title": "${bundleName}",
-  "description": "${bundleDescription}",
-  "vendor": "con terra GmbH",
-  "productName": "devnet-mapapps-hierarchicalsearch",
-  "dependencies": {
-    "apprt-vue": "^4.2.2",
-    "apprt-binding": "^4.2.2",
-    "apprt-vuetify": "^4.2.2"
-  },
-  "Config-Bundle-Location": "/config",
-  "CSS-Themes-Extension": [
-    {
-      "name": "*",
-      "files": [
-        "./css/styles.css"
-      ]
-    }
-  ],
-  "layout-widgets": [
-    {
-      "widgetRole": "hierarchicalsearchWidget",
-      "template": "seasons",
-      "sublayout": [
-        "desktop",
-        "tablet_landscape",
-        "tablet_portrait"
-      ],
-      "window": {
-        "autofocus": false,
-        "dockTool": "hierarchicalsearchToggleTool",
-        "closable": true,
-        "minimizeOnClose": true,
-        "resizable": true,
-        "marginBox": {
-          "w": 400,
-          "h": 140,
-          "t":40,
-          "l":40
-        },
-        "minSize": {
-          "w": 400,
-          "h": 140,
-          "t":40,
-          "l":40
-        },
-        "windowClass": "noPadding hierarchicalsearch-window"
-      }
+    "name": "dn_hierarchicalsearch",
+    "version": "1.0.1-SNAPSHOT",
+    "title": "${bundleName}",
+    "description": "${bundleDescription}",
+    "vendor": "con terra GmbH",
+    "productName": "devnet-mapapps-hierarchicalsearch",
+    "dependencies": {
+        "apprt-vue": "^4.2.2",
+        "apprt-binding": "^4.2.2",
+        "apprt-vuetify": "^4.2.2"
     },
-    {
-      "widgetRole": "hierarchicalsearchWidget",
-      "template": "seasons",
-      "sublayout": [
-        "mobile_landscape",
-        "mobile_portrait"
-      ],
-      "window": {
-        "autofocus": false,
-        "dockTool": "hierarchicalsearchToggleTool",
-        "minimizeOnClose": true,
-        "resizable": false,
-        "marginBox": {
-          "w": "100%",
-          "h": "100%",
-          "b": 40,
-          "l": 0
-        },
-        "windowClass": "mobileWindow noPadding hierarchicalsearch-window"
-      }
-    }
-  ],
-  "components": [
-    {
-      "name": "HierarchicalsearchWidgetFactory",
-      "provides": "dijit.Widget",
-      "instanceFactory": true,
-      "properties": {
-        "widgetRole": "hierarchicalsearchWidget",
-        "layerID": "",
-        "fields": [
-
-        ]
-      },
-      "references": [
+    "Config-Bundle-Location": "/config",
+    "CSS-Themes-Extension": [
         {
-          "name": "_tool",
-          "providing": "ct.tools.Tool",
-          "filter": "(id=hierarchicalsearchToggleTool)"
-        },
-        {
-          "name": "_mapWidgetModel",
-          "providing": "map-widget.MapWidgetModel"
+            "name": "*",
+            "files": [
+                "./css/styles.css"
+            ]
         }
-      ]
-    },
-    {
-      "name": "HierarchicalsearchToggleTool",
-      "impl": "ct/tools/Tool",
-      "provides": [
-        "ct.tools.Tool"
-      ],
-      "propertiesConstructor": true,
-      "properties": {
-        "id": "hierarchicalsearchToggleTool",
-        "title": "${tool.title}",
-        "tooltip": "${tool.tooltip}",
-        "toolRole": "toolset",
-        "iconClass": "icon-magnifier",
-        "togglable": true
-      }
-    }
-  ]
+    ],
+    "layout-widgets": [
+        {
+            "widgetRole": "hierarchicalsearchWidget",
+            "template": "seasons",
+            "sublayout": [
+                "desktop",
+                "tablet_landscape",
+                "tablet_portrait"
+            ],
+            "window": {
+                "autofocus": false,
+                "dockTool": "hierarchicalsearchToggleTool",
+                "closable": true,
+                "minimizeOnClose": true,
+                "resizable": true,
+                "marginBox": {
+                    "w": 400,
+                    "h": 140,
+                    "t": 40,
+                    "l": 40
+                },
+                "minSize": {
+                    "w": 400,
+                    "h": 140,
+                    "t": 40,
+                    "l": 40
+                },
+                "windowClass": "noPadding hierarchicalsearch-window"
+            }
+        },
+        {
+            "widgetRole": "hierarchicalsearchWidget",
+            "template": "seasons",
+            "sublayout": [
+                "mobile_landscape",
+                "mobile_portrait"
+            ],
+            "window": {
+                "autofocus": false,
+                "dockTool": "hierarchicalsearchToggleTool",
+                "minimizeOnClose": true,
+                "resizable": false,
+                "marginBox": {
+                    "w": "100%",
+                    "h": "100%",
+                    "b": 40,
+                    "l": 0
+                },
+                "windowClass": "mobileWindow noPadding hierarchicalsearch-window"
+            }
+        }
+    ],
+    "components": [
+        {
+            "name": "HierarchicalsearchWidgetFactory",
+            "provides": "dijit.Widget",
+            "instanceFactory": true,
+            "properties": {
+                "widgetRole": "hierarchicalsearchWidget",
+                "layerID": "",
+                "fields": [
+                ]
+            },
+            "references": [
+                {
+                    "name": "_tool",
+                    "providing": "ct.tools.Tool",
+                    "filter": "(id=hierarchicalsearchToggleTool)"
+                },
+                {
+                    "name": "_mapWidgetModel",
+                    "providing": "map-widget.MapWidgetModel"
+                },
+                {
+                    "name": "_eventService",
+                    "providing": "ct.framework.api.EventService"
+                }
+            ]
+        },
+        {
+            "name": "HierarchicalsearchToggleTool",
+            "impl": "ct/tools/Tool",
+            "provides": [
+                "ct.tools.Tool"
+            ],
+            "propertiesConstructor": true,
+            "properties": {
+                "id": "hierarchicalsearchToggleTool",
+                "title": "${tool.title}",
+                "tooltip": "${tool.tooltip}",
+                "toolRole": "toolset",
+                "iconClass": "icon-magnifier",
+                "togglable": true
+            }
+        }
+    ]
 }
