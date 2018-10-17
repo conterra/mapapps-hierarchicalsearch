@@ -4,13 +4,12 @@
     "title": "${bundleName}",
     "description": "${bundleDescription}",
     "vendor": "con terra GmbH",
-    "productName": "devnet-mapapps-hierarchicalsearch",
+    "productName": "devnet-mapapps-hierarchical-search",
     "dependencies": {
         "apprt-vue": "^4.2.2",
         "apprt-binding": "^4.2.2",
         "apprt-vuetify": "^4.2.2"
     },
-    "Config-Bundle-Location": "/config",
     "CSS-Themes-Extension": [
         {
             "name": "*",
@@ -63,7 +62,7 @@
                 "resizable": false,
                 "marginBox": {
                     "w": "100%",
-                    "h": "100%",
+                    "h": "50%",
                     "b": 40,
                     "l": 0
                 },

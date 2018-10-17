@@ -111,7 +111,6 @@ class HierarchicalsearchWidgetFactory {
                 this.searchLayer = layer;
             }
         });
-        this._tool.set("active", true);
         this.setUpFirstDropDownMenu(this.searchLayer, this.firstField);
     }
 
@@ -138,12 +137,12 @@ class HierarchicalsearchWidgetFactory {
     setUpCascadingDropDownMenus(searchLayer, basedOn, fieldID, value, select, nextField) {
         let selectedValues = [];
         let query = searchLayer.createQuery();
-        query.where = basedOn + "=" + value;
+        query.where = basedOn + "= '" + value+ "'";
         query.outFields = [fieldID];
         query.returnDistinctValues = true;
         query.returnGeometry = false;
         if (!this.hierarchicalsearchWidget.subdistrictSelected) {
-            query.where = query.where + " AND " + this.firstField + "=" + this.hierarchicalsearchWidget.subdistrictData;
+            query.where = query.where + " AND " + this.firstField + "= '" + this.hierarchicalsearchWidget.subdistrictData +"'";
         }
         searchLayer.queryFeatures(query)
             .then(response => {
@@ -159,9 +158,9 @@ class HierarchicalsearchWidgetFactory {
         let selectedGeometry;
         let query = searchLayer.createQuery();
         if(threeSelects){
-            query.where = this.firstField + "=" + this.hierarchicalsearchWidget.subdistrictData + " AND " + basedOn1 + "=" + value1 + " AND " + basedOn2 + "=" + value2;
+            query.where = this.firstField + "= '" + this.hierarchicalsearchWidget.subdistrictData + "' AND " + basedOn1 + "= '" + value1 + "' AND " + basedOn2 + "= '" + value2+"'";
         } else {
-            query.where = this.firstField + "=" + this.hierarchicalsearchWidget.subdistrictData + " AND " + basedOn1 + "=" + value1;
+            query.where = this.firstField + "= '" + this.hierarchicalsearchWidget.subdistrictData + "' AND " + basedOn1 + "= '" + value1+ "'";
 
         }
         query.outFields = ['*'];
@@ -188,8 +187,14 @@ class HierarchicalsearchWidgetFactory {
     };
 
     _zoomToGeometry(selectedGeometry) {
+        if(selectedGeometry.geometry.type ==='polygon'){
         this.mapModel.view.extent = selectedGeometry.geometry.extent;
         this.mapModel.view.zoom =  this.mapModel.view.zoom -2;
+        }
+        else {
+            this.mapModel.view.center = [selectedGeometry.geometry.longitude, selectedGeometry.geometry.latitude];
+            this.mapModel.view.zoom =  10;
+        }
         this.mapModel.view.popup.open({
             features: [selectedGeometry],
             updateLocationEnabled: true
