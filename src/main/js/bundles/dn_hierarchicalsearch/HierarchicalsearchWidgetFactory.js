@@ -47,13 +47,13 @@ class HierarchicalsearchWidgetFactory {
         });
         serviceResolver.setBundleCtx(bundleCtx);
         const vm = this.hierarchicalsearchWidget = new Vue(HierarchicalsearchWidget);
-        vm.subdistrictLabel=properties.fields[0].label;
-        vm.fieldLabel=properties.fields[1].label;
+        vm.subdistrictLabel = properties.fields[0].label;
+        vm.fieldLabel = properties.fields[1].label;
 
-        if(properties.fields.length >2){
+        if (properties.fields.length > 2) {
             thirdField = this.thirdField = properties.fields[2].id;
             vm.threeSelects = true;
-            vm.parcelLabel=properties.fields[2].label;
+            vm.parcelLabel = properties.fields[2].label;
         }
 
         vm.$on('close', () => {
@@ -61,17 +61,20 @@ class HierarchicalsearchWidgetFactory {
 
         });
         vm.$on('subdistrictSelected', () => {
-            if (!vm.fieldSelected) {
-                if (!vm.parcelSelected) {
-                    vm.fieldSelected = true;
-                    vm.parcelData = null;
-                    vm.parcel = [];
 
-                }
+            if (vm.parcelData != undefined) {
+                vm.parcelData = undefined;
+                vm.parcel = [];
+                vm.fieldSelected = true;
+            }
+            // noinspection JSAnnotator
+            if (vm.fieldData != undefined  && vm.subdistrictSelected == false) {
+                vm.subdistrictSelected = true;
                 vm.fieldData = undefined;
                 vm.field = [];
-                vm.subdistrictSelected = true;
+
             } else {
+                vm.fieldData = undefined;
                 this.setUpCascadingDropDownMenus(this.searchLayer, firstField, secField, this.hierarchicalsearchWidget.subdistrictData, 'field', 'subdistrictSelected')
             }
 
@@ -87,7 +90,7 @@ class HierarchicalsearchWidgetFactory {
                 if (vm.threeSelects) {
                     vm.parcelData = undefined;
                     this.setUpCascadingDropDownMenus(this.searchLayer, secField, thirdField, this.hierarchicalsearchWidget.fieldData, 'parcel', 'fieldSelected')
-                } else {
+                } else if (vm.subdistrictSelected == false){
                     this._getParcel(this.searchLayer, secField, undefined, this.hierarchicalsearchWidget.fieldData, undefined, vm.threeSelects)
                 }
             }
@@ -104,7 +107,7 @@ class HierarchicalsearchWidgetFactory {
 
     initialize() {
         let vm = this.hierarchicalsearchWidget;
-        vm.loading=false;
+        vm.loading = false;
         let layerID = this.properties.layerID;
         this.mapModel.map.layers.items.forEach(layer => {
             if (layer.id === layerID) {
@@ -137,12 +140,12 @@ class HierarchicalsearchWidgetFactory {
     setUpCascadingDropDownMenus(searchLayer, basedOn, fieldID, value, select, nextField) {
         let selectedValues = [];
         let query = searchLayer.createQuery();
-        query.where = basedOn + "= '" + value+ "'";
+        query.where = basedOn + "= '" + value + "'";
         query.outFields = [fieldID];
         query.returnDistinctValues = true;
         query.returnGeometry = false;
         if (!this.hierarchicalsearchWidget.subdistrictSelected) {
-            query.where = query.where + " AND " + this.firstField + "= '" + this.hierarchicalsearchWidget.subdistrictData +"'";
+            query.where = query.where + " AND " + this.firstField + "= '" + this.hierarchicalsearchWidget.subdistrictData + "'";
         }
         searchLayer.queryFeatures(query)
             .then(response => {
@@ -157,10 +160,10 @@ class HierarchicalsearchWidgetFactory {
     _getParcel(searchLayer, basedOn1, basedOn2, value1, value2, threeSelects) {
         let selectedGeometry;
         let query = searchLayer.createQuery();
-        if(threeSelects){
-            query.where = this.firstField + "= '" + this.hierarchicalsearchWidget.subdistrictData + "' AND " + basedOn1 + "= '" + value1 + "' AND " + basedOn2 + "= '" + value2+"'";
+        if (threeSelects) {
+            query.where = this.firstField + "= '" + this.hierarchicalsearchWidget.subdistrictData + "' AND " + basedOn1 + "= '" + value1 + "' AND " + basedOn2 + "= '" + value2 + "'";
         } else {
-            query.where = this.firstField + "= '" + this.hierarchicalsearchWidget.subdistrictData + "' AND " + basedOn1 + "= '" + value1+ "'";
+            query.where = this.firstField + "= '" + this.hierarchicalsearchWidget.subdistrictData + "' AND " + basedOn1 + "= '" + value1 + "'";
 
         }
         query.outFields = ['*'];
@@ -177,23 +180,21 @@ class HierarchicalsearchWidgetFactory {
             }, this);
 
 
-
-        if(this.isMobile){
+        if (this.isMobile) {
             this._tool.set("active", false);
         }
-
 
 
     };
 
     _zoomToGeometry(selectedGeometry) {
-        if(selectedGeometry.geometry.type ==='polygon'){
-        this.mapModel.view.extent = selectedGeometry.geometry.extent;
-        this.mapModel.view.zoom =  this.mapModel.view.zoom -2;
+        if (selectedGeometry.geometry.type === 'polygon') {
+            this.mapModel.view.extent = selectedGeometry.geometry.extent;
+            this.mapModel.view.zoom = this.mapModel.view.zoom - 2;
         }
         else {
             this.mapModel.view.center = [selectedGeometry.geometry.longitude, selectedGeometry.geometry.latitude];
-            this.mapModel.view.zoom =  10;
+            this.mapModel.view.zoom = 10;
         }
         this.mapModel.view.popup.open({
             features: [selectedGeometry],
