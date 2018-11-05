@@ -57,7 +57,7 @@
         mixins: [Bindable],
         data: function () {
             return {
-                loading: true,
+                loading: false,
                 subdistrict: [],
                 subdistrictLabel: "",
                 subdistrictData: undefined,

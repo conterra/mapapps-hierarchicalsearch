@@ -13,16 +13,81 @@
             "toolset@^4.3.0",
             "map-init@^4.3.0",
             "toolrules",
-            "dn_hierarchicalsearch",
+            "agssearch",
             "console",
-            "popups-default"
+            "dn_hierarchicalsearch"
         ]
     },
     "properties": {
-        "usewebgl": true,
         "title": "Hierarchical Search Sample"
     },
     "bundles": {
+        "dn_hierarchicalsearch": {
+            "HierarchicalSearchWidgetFactory": {
+                "storeId": "flurstuecke",
+                "fields": [
+                    {
+                        "fieldName": "gemarkung_",
+                        "label": "Gemarkung"
+                    },
+                    {
+                        "fieldName": "flur_numme",
+                        "label": "Flur"
+                    },
+                    {
+                        "fieldName": "flurstue_1",
+                        "label": "Flurstück"
+                    }
+                ]
+            }
+        },
+        "agssearch": {
+            "AGSStore": [
+                {
+                    "id": "flurstuecke",
+                    "title": "Flurst\u00FCck suchen",
+                    "description": "Beschreibung Flursuche",
+                    "idProperty": "OBJECTID",
+                    "url": "https://services2.arcgis.com/jUpNdisbWqRpMo35/ArcGIS/rest/services/Berlin_Flurst%C3%BCcke/FeatureServer/0",
+                    "useIn": [
+                        "selection"
+                    ],
+                    "filterOptions": {
+                        "suggestContains": true
+                    },
+                    "fetchIdProperty": true
+                }
+            ],
+            "enabled": true
+        },
+        "resultcenter": {
+            "ActionController": {
+                "zoomToFeatures": true,
+                "zoomToSelected": false,
+                "centerSelected": true,
+                "zoomAfterDeletion": false,
+                "zoomToClicked": false,
+                "centerClicked": false
+            },
+            "FeatureMapVisualizer": {
+                "useDataViewPaging": true
+            },
+            "DataView": {
+                "DGRID": {
+                    "checkboxSelection": true,
+                    "columns": [
+                        {
+                            "matches": {
+                                "name": {
+                                    "$exists": true
+                                }
+                            },
+                            "width": 150
+                        }
+                    ]
+                }
+            }
+        },
         "map-init": {
             "Config": {
                 "basemaps": [
@@ -31,29 +96,10 @@
                         "basemap": "streets",
                         "title": "Strassen",
                         "selected": true
-                    },
-                    {
-                        "id": "satellite",
-                        "basemap": "satellite",
-                        "title": "Satellit"
-                    },
-                    {
-                        "id": "hybrid",
-                        "basemap": "hybrid",
-                        "title": "Hybrid"
                     }
                 ],
                 "map": {
-                    "layers": [
-                        {
-                            "title": "Flurstücke - Berlin",
-                            "type": "AGS_FEATURE",
-                            "url": "https://services2.arcgis.com/jUpNdisbWqRpMo35/ArcGIS/rest/services/Berlin_Flurst%C3%BCcke/FeatureServer/0",
-                            "queryable": true,
-                            "id": "berlinFlurstueck",
-                            "active": true
-                        }
-                    ]
+                    "layers": []
                 },
                 "view": {
                     "viewmode": "2D",
@@ -108,25 +154,6 @@
                         "container": "ignore",
                         "windowType": "container",
                         "cssClass": "muted"
-                    }
-                ]
-            }
-        },
-        "dn_hierarchicalsearch": {
-            "HierarchicalSearchWidgetFactory": {
-                "layerID": "berlinFlurstueck",
-                "fields": [
-                    {
-                        "id": "gemarkung_",
-                        "label": "Gemarkung"
-                    },
-                    {
-                        "id": "flur_numme",
-                        "label": "Flur"
-                    },
-                    {
-                        "id": "flurstue_1",
-                        "label": "Flurstück"
                     }
                 ]
             }

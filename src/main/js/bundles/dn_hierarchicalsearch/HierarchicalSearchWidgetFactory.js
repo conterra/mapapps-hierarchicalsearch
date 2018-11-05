@@ -16,7 +16,9 @@
 import HierarchicalsearchWidget from "./HierarchicalSearchWidget.vue";
 import Vue from "apprt-vue/Vue";
 import VueDijit from "apprt-vue/VueDijit";
-import ServiceResolver from "apprt/ServiceResolver";
+import QueryTask from "esri/tasks/QueryTask";
+import Query from "esri/tasks/support/Query";
+import Filter from "ct/store/Filter";
 
 export default class HierarchicalSearchWidgetFactory {
 
@@ -25,36 +27,27 @@ export default class HierarchicalSearchWidgetFactory {
     }
 
     _initComponent(componentContext) {
-        let properties = this.properties = this._properties;
-        let mapModel = this.mapModel = this._mapWidgetModel;
-        let dataModel = this.dataModel = this._dataModel;
-        let searchLayer = this.searchLayer = undefined;
-        let firstField = this.firstField = properties.fields[0].id;
-        let secField = this.secField = properties.fields[1].id;
-        let thirdField;
-        let serviceResolver = this.serviceResolver = new ServiceResolver();
-        let bundleCtx = componentContext.getBundleContext();
-        let envs = this.envs = this._componentContext.getBundleContext().getCurrentExecutionEnvironment();
-        let isMobile = this.isMobile = this.envs.some((env) => {
+        let properties = this._properties;
+        let envs = componentContext.getBundleContext().getCurrentExecutionEnvironment();
+        this.isMobile = envs.some((env) => {
             return env.name === "Mobile"
         });
-        serviceResolver.setBundleCtx(bundleCtx);
-        const vm = this.hierarchicalsearchWidget = new Vue(HierarchicalsearchWidget);
+        let firstField = this.firstField = properties.fields[0].fieldName;
+        let secField = this.secField = properties.fields[1].fieldName;
+        let thirdField;
+        const vm = this.vm = new Vue(HierarchicalsearchWidget);
         vm.subdistrictLabel = properties.fields[0].label;
         vm.fieldLabel = properties.fields[1].label;
 
         if (properties.fields.length > 2) {
-            thirdField = this.thirdField = properties.fields[2].id;
+            thirdField = this.thirdField = properties.fields[2].fieldName;
             vm.threeSelects = true;
             vm.parcelLabel = properties.fields[2].label;
         }
 
-        vm.$on('close', () => {
-            this._tool.set("active", false);
+        this.setUpFirstDropDownMenu(this.firstField);
 
-        });
         vm.$on('subdistrictSelected', () => {
-
             if (vm.parcelData !== undefined) {
                 vm.parcelData = undefined;
                 vm.parcel = [];
@@ -68,11 +61,10 @@ export default class HierarchicalSearchWidgetFactory {
 
             } else {
                 vm.fieldData = undefined;
-                this.setUpCascadingDropDownMenus(this.searchLayer, firstField, secField, this.hierarchicalsearchWidget.subdistrictData, 'field', 'subdistrictSelected')
+                this.setUpCascadingDropDownMenus(firstField, secField, this.vm.subdistrictData, 'field', 'subdistrictSelected')
             }
-
-
         });
+
         vm.$on('fieldSelected', () => {
             if (!vm.parcelSelected) {
                 vm.parcelData = undefined;
@@ -82,126 +74,128 @@ export default class HierarchicalSearchWidgetFactory {
             if (vm.fieldData !== undefined) {
                 if (vm.threeSelects) {
                     vm.parcelData = undefined;
-                    this.setUpCascadingDropDownMenus(this.searchLayer, secField, thirdField, this.hierarchicalsearchWidget.fieldData, 'parcel', 'fieldSelected')
+                    this.setUpCascadingDropDownMenus(secField, thirdField, this.vm.fieldData, 'parcel', 'fieldSelected')
                 } else if (vm.subdistrictSelected === false) {
-                    this._getParcel(this.searchLayer, secField, undefined, this.hierarchicalsearchWidget.fieldData, undefined, vm.threeSelects)
+                    this._search(secField, undefined, this.vm.fieldData, undefined, vm.threeSelects)
                 }
             }
         });
+
         vm.$on('parcelSelected', () => {
             if (vm.parcelData !== undefined) {
-                this._getParcel(this.searchLayer, secField, thirdField, this.hierarchicalsearchWidget.fieldData, this.hierarchicalsearchWidget.parcelData, vm.threeSelects);
+                this._search();
             }
         });
-
-        this.waitForLayers()
-
-    }
-
-    initialize() {
-        let vm = this.hierarchicalsearchWidget;
-        vm.loading = false;
-        let layerID = this.properties.layerID;
-        this.mapModel.map.layers.items.forEach(layer => {
-            if (layer.id === layerID) {
-                this.searchLayer = layer;
-            }
-        });
-        this.setUpFirstDropDownMenu(this.searchLayer, this.firstField);
     }
 
     createInstance() {
-        return VueDijit(this.hierarchicalsearchWidget);
+        return VueDijit(this.vm);
     }
 
-
-    setUpFirstDropDownMenu(searchLayer, firstFieldID) {
-        let subdistrict = [];
-        let query = searchLayer.createQuery();
+    setUpFirstDropDownMenu(firstFieldID) {
+        let results = [];
+        let queryTask = new QueryTask(this._store.target);
+        let query = new Query();
+        query.where = "1=1";
         query.outFields = [firstFieldID];
+        query.orderByFields = [firstFieldID];
         query.returnDistinctValues = true;
         query.returnGeometry = false;
-        searchLayer.queryFeatures(query)
+        queryTask.execute(query)
             .then(response => {
                 response.features.forEach(feature => {
-                    subdistrict.push(feature.attributes[firstFieldID]);
+                    results.push(feature.attributes[firstFieldID]);
                 }, (firstFieldID));
-                this.hierarchicalsearchWidget.subdistrict = subdistrict;
+                this.vm.subdistrict = results;
             }, this);
-    };
+    }
 
-    setUpCascadingDropDownMenus(searchLayer, basedOn, fieldID, value, select, nextField) {
-        let selectedValues = [];
-        let query = searchLayer.createQuery();
+    setUpCascadingDropDownMenus(basedOn, fieldID, value, select, nextField) {
+        let results = [];
+        let queryTask = new QueryTask(this._store.target);
+        let query = new Query();
         query.where = basedOn + "= '" + value + "'";
         query.outFields = [fieldID];
+        query.orderByFields = [fieldID];
         query.returnDistinctValues = true;
         query.returnGeometry = false;
-        if (!this.hierarchicalsearchWidget.subdistrictSelected) {
-            query.where = query.where + " AND " + this.firstField + "= '" + this.hierarchicalsearchWidget.subdistrictData + "'";
+        if (!this.vm.subdistrictSelected) {
+            query.where = query.where + " AND " + this.firstField + "= '" + this.vm.subdistrictData + "'";
         }
-        searchLayer.queryFeatures(query)
+        queryTask.execute(query)
             .then(response => {
                 response.features.forEach(feature => {
-                    selectedValues.push(feature.attributes[fieldID]);
+                    results.push(feature.attributes[fieldID]);
                 }, (fieldID));
-                this.hierarchicalsearchWidget[select] = selectedValues;
-                this.hierarchicalsearchWidget[nextField] = false;
+                this.vm[select] = results;
+                this.vm[nextField] = false;
             }, this);
-    };
+    }
 
-    _getParcel(searchLayer, basedOn1, basedOn2, value1, value2, threeSelects) {
-        let selectedGeometry;
-        let query = searchLayer.createQuery();
-        if (threeSelects) {
-            query.where = this.firstField + "= '" + this.hierarchicalsearchWidget.subdistrictData + "' AND " + basedOn1 + "= '" + value1 + "' AND " + basedOn2 + "= '" + value2 + "'";
-        } else {
-            query.where = this.firstField + "= '" + this.hierarchicalsearchWidget.subdistrictData + "' AND " + basedOn1 + "= '" + value1 + "'";
-
+    _search() {
+        let store = this._store;
+        let query = this._getComplexQuery();
+        if (query) {
+            this.vm.loading = true;
+            this._queryResults(store, query);
         }
-        query.outFields = ['*'];
-        query.returnDistinctValues = true;
-        query.returnGeometry = true;
-        searchLayer.queryFeatures(query)
-            .then(response => {
-                selectedGeometry = response.features[0];
-                this._zoomToGeometry(selectedGeometry);
-                this.hierarchicalsearchWidget.parcelSelected = false;
-                this._eventService.postEvent("dn_hierarchicalsearch/RESULT", {
-                    "geometry": selectedGeometry
-                });
-            }, this);
         if (this.isMobile) {
             this._tool.set("active", false);
         }
-    };
+    }
 
-    _zoomToGeometry(selectedGeometry) {
-        if (selectedGeometry.geometry.type === 'polygon') {
-            this.mapModel.view.extent = selectedGeometry.geometry.extent;
-            this.mapModel.view.zoom = this.mapModel.view.zoom - 2;
-        }
-        else {
-            this.mapModel.view.center = [selectedGeometry.geometry.longitude, selectedGeometry.geometry.latitude];
-            this.mapModel.view.zoom = 10;
-        }
-        this.mapModel.view.popup.open({
-            features: [selectedGeometry],
-            updateLocationEnabled: true
+    _queryResults(store, query) {
+        let that = this;
+        let filter = new Filter(store, query, {});
+        return filter.query({}, {fields: {geometry: 1}}).then((results) => {
+            this.vm.loading = false;
+            this.vm.parcelSelected = false;
+            if (results.length) {
+                this._dataModel.setDatasource(filter);
+                let geometry = results[0].geometry;
+                if (geometry) {
+                    this._eventService.postEvent("dn_hierarchicalsearch/RESULT", {
+                        "geometry": geometry
+                    });
+                }
+            } else {
+                that._logService.warn({
+                    id: 0,
+                    message: that.widget.i18n.noResultsMessage
+                });
+            }
+        }, (error) => {
+            this.vm.parcelSelected = false;
+            this.vm.loading = false;
         });
     }
 
-    waitForLayers() {
-        let map = this._mapWidgetModel.get("map");
-        let layers = map.get("layers");
-        layers.forEach((layer) => {
-            if (layer.loaded === false) {
-                layer.when((layer) => {
-                    this.initialize();
-                }, (error) => {
-                    this.initialize();
-                });
-            }
-        });
+    _getComplexQuery() {
+        let query = {};
+        if (!query["$or"]) {
+            query["$or"] = [];
+        }
+        let searchObject = this._getSearchObject();
+        this.searchObjects = [];
+        this.searchObjects.push(searchObject);
+        query["$or"].push(searchObject);
+        return query;
+    }
+
+    _getSearchObject() {
+        let selectedParcelName = this.vm.subdistrictData;
+        let selectedParcelNumber = this.vm.fieldData;
+        let selectedParcel2Number = this.vm.parcelData;
+        let parcelNameAttribute = this.firstField;
+        let parcelNumberAttribute = this.secField;
+        let parcel2NumberAttribute = this.thirdField;
+
+        let searchObj = {};
+        searchObj[parcelNameAttribute] = selectedParcelName;
+        searchObj[parcelNumberAttribute] = selectedParcelNumber;
+        if (parcel2NumberAttribute && selectedParcel2Number) {
+            searchObj[parcel2NumberAttribute] = selectedParcel2Number;
+        }
+        return searchObj;
     }
 }

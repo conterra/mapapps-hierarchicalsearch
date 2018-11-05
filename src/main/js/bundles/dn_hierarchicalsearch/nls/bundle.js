@@ -19,10 +19,7 @@ module.exports = {
         bundleDescription: "The Hierarchical Search allows to search features via attributes of the layer",
         tool: {
             title: "Hierarchical Search",
-            tooltip: "Hierarchical Search",
-            subdistrict: "Subdistrict",
-            field: "field",
-            parcel: "parcel"
+            tooltip: "Hierarchical Search"
         }
     }),
     "de": true

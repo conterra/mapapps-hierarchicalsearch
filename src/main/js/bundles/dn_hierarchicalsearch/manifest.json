@@ -8,7 +8,9 @@
     "dependencies": {
         "apprt-vue": "^4.2.2",
         "apprt-binding": "^4.2.2",
-        "apprt-vuetify": "^4.2.2"
+        "apprt-vuetify": "^4.2.2",
+        "resultcenter": "^4.2.2",
+        "agssearch": "^4.2.2"
     },
     "layout-widgets": [
         {
@@ -69,7 +71,7 @@
             "instanceFactory": true,
             "properties": {
                 "widgetRole": "hierarchicalSearchWidget",
-                "layerID": "",
+                "storeId": "storeId",
                 "fields": []
             },
             "references": [
@@ -77,6 +79,15 @@
                     "name": "_tool",
                     "providing": "ct.tools.Tool",
                     "filter": "(id=hierarchicalSearchToggleTool)"
+                },
+                {
+                    "name": "_store",
+                    "providing": "ct.api.Store",
+                    "filter": "(id={storeId})"
+                },
+                {
+                    "name": "_dataModel",
+                    "providing": "resultcenter.DataModel"
                 },
                 {
                     "name": "_mapWidgetModel",

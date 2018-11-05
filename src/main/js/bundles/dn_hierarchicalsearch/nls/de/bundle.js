@@ -18,10 +18,6 @@ module.exports = {
     bundleDescription: "Die Hierarchische Suche erm\u00f6glicht es Features basieren auf Attributen eines Layers zu suchen.",
     tool: {
         title: "Hierarchische Suche",
-        tooltip: "Hierarchische Suche",
-        subdistrict: "Gemarkung",
-        field: "Flur",
-        parcel: "Flurst\u00fcck"
-
+        tooltip: "Hierarchische Suche"
     }
 };
