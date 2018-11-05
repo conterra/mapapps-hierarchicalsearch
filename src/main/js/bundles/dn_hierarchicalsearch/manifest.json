@@ -12,7 +12,7 @@
     },
     "layout-widgets": [
         {
-            "widgetRole": "hierarchicalsearchWidget",
+            "widgetRole": "hierarchicalSearchWidget",
             "template": "seasons",
             "sublayout": [
                 "desktop",
@@ -21,7 +21,7 @@
             ],
             "window": {
                 "autofocus": false,
-                "dockTool": "hierarchicalsearchToggleTool",
+                "dockTool": "hierarchicalSearchToggleTool",
                 "closable": true,
                 "minimizeOnClose": true,
                 "resizable": true,
@@ -37,11 +37,11 @@
                     "t": 40,
                     "l": 40
                 },
-                "windowClass": "noPadding hierarchicalsearch-window"
+                "windowClass": "noPadding"
             }
         },
         {
-            "widgetRole": "hierarchicalsearchWidget",
+            "widgetRole": "hierarchicalSearchWidget",
             "template": "seasons",
             "sublayout": [
                 "mobile_landscape",
@@ -49,7 +49,7 @@
             ],
             "window": {
                 "autofocus": false,
-                "dockTool": "hierarchicalsearchToggleTool",
+                "dockTool": "hierarchicalSearchToggleTool",
                 "minimizeOnClose": true,
                 "resizable": false,
                 "marginBox": {
@@ -58,26 +58,25 @@
                     "b": 40,
                     "l": 0
                 },
-                "windowClass": "mobileWindow noPadding hierarchicalsearch-window"
+                "windowClass": "mobileWindow noPadding"
             }
         }
     ],
     "components": [
         {
-            "name": "HierarchicalsearchWidgetFactory",
+            "name": "HierarchicalSearchWidgetFactory",
             "provides": "dijit.Widget",
             "instanceFactory": true,
             "properties": {
-                "widgetRole": "hierarchicalsearchWidget",
+                "widgetRole": "hierarchicalSearchWidget",
                 "layerID": "",
-                "fields": [
-                ]
+                "fields": []
             },
             "references": [
                 {
                     "name": "_tool",
                     "providing": "ct.tools.Tool",
-                    "filter": "(id=hierarchicalsearchToggleTool)"
+                    "filter": "(id=hierarchicalSearchToggleTool)"
                 },
                 {
                     "name": "_mapWidgetModel",
@@ -90,14 +89,14 @@
             ]
         },
         {
-            "name": "HierarchicalsearchToggleTool",
+            "name": "HierarchicalSearchToggleTool",
             "impl": "ct/tools/Tool",
             "provides": [
                 "ct.tools.Tool"
             ],
             "propertiesConstructor": true,
             "properties": {
-                "id": "hierarchicalsearchToggleTool",
+                "id": "hierarchicalSearchToggleTool",
                 "title": "${tool.title}",
                 "tooltip": "${tool.tooltip}",
                 "toolRole": "toolset",

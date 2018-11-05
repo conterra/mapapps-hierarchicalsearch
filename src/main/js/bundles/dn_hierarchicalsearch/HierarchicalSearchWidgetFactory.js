@@ -13,22 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HierarchicalsearchWidget from "./HierarchicalsearchWidget.vue";
+import HierarchicalsearchWidget from "./HierarchicalSearchWidget.vue";
 import Vue from "apprt-vue/Vue";
 import VueDijit from "apprt-vue/VueDijit";
-import Query from "esri/tasks/support/Query";
-import ct_when from "ct/_when";
-import Filter from "ct/store/Filter";
 import ServiceResolver from "apprt/ServiceResolver";
 
-//import Binding from "apprt-binding/Binding";
-
-class HierarchicalsearchWidgetFactory {
+export default class HierarchicalSearchWidgetFactory {
 
     activate(componentContext) {
         this._initComponent(componentContext);
-
-
     }
 
     _initComponent(componentContext) {
@@ -62,13 +55,13 @@ class HierarchicalsearchWidgetFactory {
         });
         vm.$on('subdistrictSelected', () => {
 
-            if (vm.parcelData != undefined) {
+            if (vm.parcelData !== undefined) {
                 vm.parcelData = undefined;
                 vm.parcel = [];
                 vm.fieldSelected = true;
             }
             // noinspection JSAnnotator
-            if (vm.fieldData != undefined  && vm.subdistrictSelected == false) {
+            if (vm.fieldData !== undefined && vm.subdistrictSelected === false) {
                 vm.subdistrictSelected = true;
                 vm.fieldData = undefined;
                 vm.field = [];
@@ -86,17 +79,17 @@ class HierarchicalsearchWidgetFactory {
                 vm.parcel = [];
                 vm.fieldSelected = true;
             }
-            if (vm.fieldData != undefined) {
+            if (vm.fieldData !== undefined) {
                 if (vm.threeSelects) {
                     vm.parcelData = undefined;
                     this.setUpCascadingDropDownMenus(this.searchLayer, secField, thirdField, this.hierarchicalsearchWidget.fieldData, 'parcel', 'fieldSelected')
-                } else if (vm.subdistrictSelected == false){
+                } else if (vm.subdistrictSelected === false) {
                     this._getParcel(this.searchLayer, secField, undefined, this.hierarchicalsearchWidget.fieldData, undefined, vm.threeSelects)
                 }
             }
         });
         vm.$on('parcelSelected', () => {
-            if (vm.parcelData != undefined) {
+            if (vm.parcelData !== undefined) {
                 this._getParcel(this.searchLayer, secField, thirdField, this.hierarchicalsearchWidget.fieldData, this.hierarchicalsearchWidget.parcelData, vm.threeSelects);
             }
         });
@@ -174,17 +167,13 @@ class HierarchicalsearchWidgetFactory {
                 selectedGeometry = response.features[0];
                 this._zoomToGeometry(selectedGeometry);
                 this.hierarchicalsearchWidget.parcelSelected = false;
-                this._eventService.postEvent("HierarchicalsearchResult", {
-                    'geometry': selectedGeometry
+                this._eventService.postEvent("dn_hierarchicalsearch/RESULT", {
+                    "geometry": selectedGeometry
                 });
             }, this);
-
-
         if (this.isMobile) {
             this._tool.set("active", false);
         }
-
-
     };
 
     _zoomToGeometry(selectedGeometry) {
@@ -216,5 +205,3 @@ class HierarchicalsearchWidgetFactory {
         });
     }
 }
-
-module.exports = HierarchicalsearchWidgetFactory;

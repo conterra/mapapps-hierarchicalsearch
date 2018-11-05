@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 import ".";
-import "./HierarchicalsearchWidgetFactory";
+import "./HierarchicalSearchWidgetFactory";

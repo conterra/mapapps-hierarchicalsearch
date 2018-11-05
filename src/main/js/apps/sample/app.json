@@ -74,7 +74,7 @@
                         "name": "seasons",
                         "widgets": [
                             {
-                                "widgetRole": "hierarchicalsearchWidget",
+                                "widgetRole": "hierarchicalSearchWidget",
                                 "sublayout": [
                                     "desktop",
                                     "tablet_landscape",
@@ -113,7 +113,7 @@
             }
         },
         "dn_hierarchicalsearch": {
-            "HierarchicalsearchWidgetFactory": {
+            "HierarchicalSearchWidgetFactory": {
                 "layerID": "berlinFlurstueck",
                 "fields": [
                     {
@@ -134,7 +134,7 @@
         "toolrules": {
             "ToolActiveStateManager": {
                 "activateOnStartToolIds": [
-                    "hierarchicalsearchToggleTool"
+                    "hierarchicalSearchToggleTool"
                 ]
             }
         },

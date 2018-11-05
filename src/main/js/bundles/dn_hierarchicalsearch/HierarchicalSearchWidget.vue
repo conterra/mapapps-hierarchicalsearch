@@ -51,29 +51,27 @@
     </div>
 </template>
 <script>
-import Bindable from "apprt-vue/mixins/Bindable";
+    import Bindable from "apprt-vue/mixins/Bindable";
 
-export default {
-    mixins: [Bindable],
-    data: function () {
-        return {
-            loading: true,
-            subdistrict: [],
-            subdistrictLabel: "",
-            subdistrictData: undefined,
-            subdistrictSelected: true,
-            field: [],
-            fieldLabel: "",
-            fieldData: undefined,
-            fieldSelected: true,
-            parcel: [],
-            parcelLabel: "",
-            parcelData: undefined,
-            parcelSelected: true,
-            threeSelects: undefined,
-        };
-    },
-    methods: {}
-
-};
+    export default {
+        mixins: [Bindable],
+        data: function () {
+            return {
+                loading: true,
+                subdistrict: [],
+                subdistrictLabel: "",
+                subdistrictData: undefined,
+                subdistrictSelected: true,
+                field: [],
+                fieldLabel: "",
+                fieldData: undefined,
+                fieldSelected: true,
+                parcel: [],
+                parcelLabel: "",
+                parcelData: undefined,
+                parcelSelected: true,
+                threeSelects: undefined,
+            };
+        }
+    };
 </script>
