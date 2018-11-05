@@ -19,5 +19,6 @@ module.exports = {
     tool: {
         title: "Hierarchische Suche",
         tooltip: "Hierarchische Suche"
-    }
+    },
+    noResultsError: "Keine Ergebnisse f\u00fcr Ihre Abfrage gefunden!"
 };

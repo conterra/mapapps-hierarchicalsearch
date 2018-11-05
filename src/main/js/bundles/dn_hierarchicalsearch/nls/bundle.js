@@ -20,7 +20,8 @@ module.exports = {
         tool: {
             title: "Hierarchical Search",
             tooltip: "Hierarchical Search"
-        }
+        },
+        noResultsError: "No results found for your query!"
     }),
     "de": true
 };

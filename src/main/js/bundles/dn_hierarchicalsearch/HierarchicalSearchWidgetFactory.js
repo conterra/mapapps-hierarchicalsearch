@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import HierarchicalsearchWidget from "./HierarchicalSearchWidget.vue";
+import HierarchicalSearchWidget from "./HierarchicalSearchWidget.vue";
 import Vue from "apprt-vue/Vue";
 import VueDijit from "apprt-vue/VueDijit";
 import QueryTask from "esri/tasks/QueryTask";
@@ -35,7 +35,7 @@ export default class HierarchicalSearchWidgetFactory {
         let firstField = this.firstField = properties.fields[0].fieldName;
         let secField = this.secField = properties.fields[1].fieldName;
         let thirdField;
-        const vm = this.vm = new Vue(HierarchicalsearchWidget);
+        const vm = this.vm = new Vue(HierarchicalSearchWidget);
         vm.subdistrictLabel = properties.fields[0].label;
         vm.fieldLabel = properties.fields[1].label;
 
@@ -145,7 +145,6 @@ export default class HierarchicalSearchWidgetFactory {
     }
 
     _queryResults(store, query) {
-        let that = this;
         let filter = new Filter(store, query, {});
         return filter.query({}, {fields: {geometry: 1}}).then((results) => {
             this.vm.loading = false;
@@ -159,12 +158,16 @@ export default class HierarchicalSearchWidgetFactory {
                     });
                 }
             } else {
-                that._logService.warn({
+                this._logService.warn({
                     id: 0,
-                    message: that.widget.i18n.noResultsMessage
+                    message: this.i18n.noResultsError
                 });
             }
         }, (error) => {
+            this._logService.error({
+                id: error.code,
+                message: e
+            });
             this.vm.parcelSelected = false;
             this.vm.loading = false;
         });
