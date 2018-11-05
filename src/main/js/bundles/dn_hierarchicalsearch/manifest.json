@@ -10,14 +10,6 @@
         "apprt-binding": "^4.2.2",
         "apprt-vuetify": "^4.2.2"
     },
-    "CSS-Themes-Extension": [
-        {
-            "name": "*",
-            "files": [
-                "./css/styles.css"
-            ]
-        }
-    ],
     "layout-widgets": [
         {
             "widgetRole": "hierarchicalsearchWidget",
