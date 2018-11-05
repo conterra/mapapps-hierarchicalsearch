@@ -16,9 +16,8 @@
 module.exports = {
     root: ({
         bundleName: "Hierarchical Search",
-        bundleDescription: "The Hierarchical Search Widget is for searching features via a drop-down based on attributes of the layer",
+        bundleDescription: "The Hierarchical Search allows to search features via attributes of the layer",
         tool: {
-
             title: "Hierarchical Search",
             tooltip: "Hierarchical Search",
             subdistrict: "Subdistrict",

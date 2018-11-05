@@ -15,13 +15,13 @@
  */
 module.exports = {
     bundleName: "Hierarchische Suche",
-    bundleDescription: "Das Hierarchische Suche Widget ist ein neues Widget um basierend auf den Attributen einer Layer Features zu suchen.",
+    bundleDescription: "Die Hierarchische Suche erm\u00f6glicht es Features basieren auf Attributen eines Layers zu suchen.",
     tool: {
         title: "Hierarchische Suche",
         tooltip: "Hierarchische Suche",
-        subdistrict: "Gmearkung",
+        subdistrict: "Gemarkung",
         field: "Flur",
-        parcel: "Flurstück"
+        parcel: "Flurst\u00fcck"
 
     }
 };
