@@ -27,15 +27,15 @@
                 "storeId": "flurstuecke",
                 "fields": [
                     {
-                        "fieldName": "gemarkung_",
+                        "name": "gemarkung_",
                         "label": "Gemarkung"
                     },
                     {
-                        "fieldName": "flur_numme",
+                        "name": "flur_numme",
                         "label": "Flur"
                     },
                     {
-                        "fieldName": "flurstue_1",
+                        "name": "flurstue_1",
                         "label": "Flurstück"
                     }
                 ]
