@@ -29,15 +29,11 @@
                 "resizable": true,
                 "marginBox": {
                     "w": 400,
-                    "h": 140,
-                    "t": 40,
-                    "l": 40
+                    "h": 140
                 },
                 "minSize": {
                     "w": 400,
-                    "h": 140,
-                    "t": 40,
-                    "l": 40
+                    "h": 140
                 },
                 "windowClass": "noPadding"
             }
