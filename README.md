@@ -46,7 +46,7 @@ https://demos.conterra.de/mapapps/resources/apps/downloads_hierarchicalsearch/in
  | field.name                     | String  |                               |                    | Name of the field                                                |
  | field.label                    | String  |                               |                    | Label for the drop down element                                  |
 
-##Development Guide
+## Development Guide
 ### Define the mapapps remote base
 Before you can run the project you have to define the mapapps.remote.base property in the pom.xml-file:
 `<mapapps.remote.base>http://%YOURSERVER%/ct-mapapps-webapp-%VERSION%</mapapps.remote.base>`
