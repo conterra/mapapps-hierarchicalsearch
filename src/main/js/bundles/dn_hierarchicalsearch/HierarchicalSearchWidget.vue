@@ -4,7 +4,7 @@
                            class="pa-0 ma-0"></v-progress-linear>
         <v-container fluid grid-list-md fill-height>
             <v-layout>
-                <v-flex v-for="(field, index) in fields">
+                <v-flex v-for="(field, index) in fields" :key="index">
                     <v-select
                         v-model="field.value"
                         :items="field.items"
