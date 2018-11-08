@@ -15,6 +15,7 @@
             "toolrules",
             "agssearch",
             "console",
+            "popups-default",
             "dn_hierarchicalsearch"
         ]
     },
@@ -24,7 +25,7 @@
     "bundles": {
         "dn_hierarchicalsearch": {
             "HierarchicalSearchWidgetFactory": {
-                "storeId": "flurstuecke",
+                "storeId": "flurstuecke_store",
                 "fields": [
                     {
                         "name": "gemarkung_",
@@ -44,11 +45,11 @@
         "agssearch": {
             "AGSStore": [
                 {
-                    "id": "flurstuecke",
+                    "id": "flurstuecke_store",
                     "title": "Flurst\u00FCck suchen",
                     "description": "Beschreibung Flursuche",
                     "idProperty": "OBJECTID",
-                    "url": "https://services2.arcgis.com/jUpNdisbWqRpMo35/ArcGIS/rest/services/Berlin_Flurst%C3%BCcke/FeatureServer/0",
+                    "layerId": "flurstuecke",
                     "useIn": [
                         "selection"
                     ],
@@ -86,6 +87,12 @@
                         }
                     ]
                 }
+            },
+            "TriggerShowResultCenterCommand": {
+                "showToolOnData": true,
+                "autoOpen": false,
+                "hideToolOnEmpty": true,
+                "autoClose": true
             }
         },
         "map-init": {
@@ -99,7 +106,16 @@
                     }
                 ],
                 "map": {
-                    "layers": []
+                    "layers": [
+                        {
+                            "id": "flurstuecke",
+                            "type": "AGS_FEATURE",
+                            "url": "https://services2.arcgis.com/jUpNdisbWqRpMo35/ArcGIS/rest/services/Berlin_Flurst%C3%BCcke/FeatureServer/0",
+                            "outFields": [
+                                "*"
+                            ]
+                        }
+                    ]
                 },
                 "view": {
                     "viewmode": "2D",

@@ -90,6 +90,10 @@
                     "providing": "map-widget.MapWidgetModel"
                 },
                 {
+                    "name": "_openPopupService",
+                    "providing": "resultcenter.OpenPopupService"
+                },
+                {
                     "name": "_eventService",
                     "providing": "ct.framework.api.EventService"
                 },

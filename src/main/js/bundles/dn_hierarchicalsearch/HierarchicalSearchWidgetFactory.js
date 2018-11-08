@@ -18,6 +18,7 @@ import Vue from "apprt-vue/Vue";
 import VueDijit from "apprt-vue/VueDijit";
 import QueryTask from "esri/tasks/QueryTask";
 import Query from "esri/tasks/support/Query";
+import Graphic from "esri/Graphic";
 import Filter from "ct/store/Filter";
 
 export default class HierarchicalSearchWidgetFactory {
@@ -121,6 +122,12 @@ export default class HierarchicalSearchWidgetFactory {
             this.vm.loading = false;
             this.vm.parcelSelected = false;
             if (results.length) {
+                if (results.length === 1) {
+                    let id = results[0][store.idProperty];
+                    this._openPopupService.openPopup(id, {
+                        store: store
+                    });
+                }
                 this._dataModel.setDatasource(filter);
                 let geometry = results[0].geometry;
                 if (geometry) {
