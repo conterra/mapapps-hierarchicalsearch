@@ -18,7 +18,6 @@ import Vue from "apprt-vue/Vue";
 import VueDijit from "apprt-vue/VueDijit";
 import QueryTask from "esri/tasks/QueryTask";
 import Query from "esri/tasks/support/Query";
-import Graphic from "esri/Graphic";
 import Filter from "ct/store/Filter";
 
 export default class HierarchicalSearchWidgetFactory {
