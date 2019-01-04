@@ -128,10 +128,10 @@ export default class HierarchicalSearchWidgetFactory {
                     });
                 }
                 this._dataModel.setDatasource(filter);
-                let geometry = results[0].geometry;
-                if (geometry) {
+                let result = results[0];
+                if (result) {
                     this._eventService.postEvent("dn_hierarchicalsearch/RESULT", {
-                        "geometry": geometry
+                        "result": result
                     });
                 }
             } else {
