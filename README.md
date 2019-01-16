@@ -13,6 +13,10 @@ https://demos.conterra.de/mapapps/resources/apps/downloads_hierarchicalsearch/in
 1. First, you need to add the bundle "dn_hierarchicalsearch" to your app.
 2. After that, add an AGSSearch store to your app.
 3. Finally you can customize the content of the drop-down menus.
+#### Dependencies:
+The resultcenter and the agssearch bundle need to be included in your app.
+
+
 
 ### Configurable Components of dn_hierarchicalsearch:
 #### HierarchicalSearchWidgetFactory:
