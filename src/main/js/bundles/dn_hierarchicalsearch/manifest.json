@@ -65,16 +65,37 @@
             "name": "HierarchicalSearchWidgetFactory",
             "provides": "dijit.Widget",
             "instanceFactory": true,
+
             "properties": {
-                "widgetRole": "hierarchicalSearchWidget",
-                "storeId": "storeId",
-                "fields": []
+                "widgetRole":"hierarchicalSearchWidget"
             },
             "references": [
                 {
-                    "name": "_tool",
-                    "providing": "ct.tools.Tool",
-                    "filter": "(id=hierarchicalSearchToggleTool)"
+                    "name": "hierarchicalSearchVueWidget",
+                    "providing": "dn_hierarchicalsearch.HierarchicalSearchVueWidget"
+                }
+            ]
+        },
+        {
+            "name": "HierarchicalSearchController",
+            "provides": [
+                "ct.framework.api.EventHandler",
+                "dn_hierarchicalsearch.HierarchicalSearchController"
+            ],
+            "properties": {
+                "storeId": "storeId",
+                "resultHandling":[]
+
+            },
+            "references": [
+                {
+                    "name": "hierarchicalSearchVueWidget",
+                    "providing": "dn_hierarchicalsearch.HierarchicalSearchVueWidget"
+                },
+                {
+                    "name": "resultAction",
+                    "providing": "dn_hierarchicalsearch.Resultaction",
+                    "cardinality": "0..n"
                 },
                 {
                     "name": "_store",
@@ -82,25 +103,19 @@
                     "filter": "(id={storeId})"
                 },
                 {
-                    "name": "_dataModel",
-                    "providing": "resultcenter.DataModel"
-                },
-                {
-                    "name": "_mapWidgetModel",
-                    "providing": "map-widget.MapWidgetModel"
-                },
-                {
-                    "name": "_openPopupService",
-                    "providing": "resultcenter.OpenPopupService"
-                },
-                {
-                    "name": "_eventService",
-                    "providing": "ct.framework.api.EventService"
-                },
-                {
                     "name": "_logService",
                     "providing": "ct.framework.api.LogService"
                 }
+            ]
+        },
+        {
+            "name": "HierarchicalSearchVueWidgetFactory",
+            "instanceFactory": true,
+            "properties": {
+                "fields": []
+            },
+            "provides": [
+                "dn_hierarchicalsearch.HierarchicalSearchVueWidget"
             ]
         },
         {
@@ -118,6 +133,51 @@
                 "iconClass": "icon-magnifier",
                 "togglable": true
             }
+        },
+        {
+            "name": "ZoomToResultAction",
+            "provides": [
+                "dn_hierarchicalsearch.Resultaction"
+            ],
+            "properties": {
+                "id": "zoomToResult"
+            },
+            "references":[
+                {
+                    "name": "_mapWidgetModel",
+                    "providing": "map-widget.MapWidgetModel"
+                }
+            ]
+        },
+        {
+            "name": "OpenPopupAction",
+            "provides": [
+                "dn_hierarchicalsearch.Resultaction"
+            ],
+            "properties": {
+                "id": "openPopup"
+            },
+            "references":[
+                {
+                    "name": "_openPopupService",
+                    "providing": "resultcenter.OpenPopupService"
+                }
+            ]
+        },
+        {
+            "name": "SendResultToResultcenterAction",
+            "provides": [
+                "dn_hierarchicalsearch.Resultaction"
+            ],
+            "properties": {
+                "id":"sendResultToResultcenter"
+            },
+            "references": [
+                {
+                    "name": "_dataModel",
+                    "providing": "resultcenter.DataModel"
+                }
+            ]
         }
     ]
 }

@@ -24,8 +24,7 @@
     },
     "bundles": {
         "dn_hierarchicalsearch": {
-            "HierarchicalSearchWidgetFactory": {
-                "storeId": "flurstuecke_store",
+            "HierarchicalSearchVueWidgetFactory": {
                 "fields": [
                     {
                         "name": "gemarkung_",
@@ -39,6 +38,13 @@
                         "name": "flurstue_1",
                         "label": "Flurstück"
                     }
+                ]
+            },
+            "HierarchicalSearchController": {
+                "storeId": "flurstuecke_store",
+                "resultHandling":[
+                    "zoomToResult",
+                    "openPopup"
                 ]
             }
         },

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import ".";
-import "./HierarchicalSearchWidgetFactory";
-import "./HierarchicalSearchVueWidgetFactory";
-import "./SendResultToResultcenterAction";
-import "./ZoomToResultAction";
-import "./HierarchicalSearchController";
-import "./OpenPopupAction";
+
+export default class OpenPopupAction{
+    executeAction(results, store, filter) {
+        let selectedGeometry = results[0];
+        this._openPopupService.openPopup(selectedGeometry.OBJECTID, {"store" : store});
+    }
+}

@@ -13,10 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import ".";
-import "./HierarchicalSearchWidgetFactory";
-import "./HierarchicalSearchVueWidgetFactory";
-import "./SendResultToResultcenterAction";
-import "./ZoomToResultAction";
-import "./HierarchicalSearchController";
-import "./OpenPopupAction";
+export default class SendResultToResultcenterAction {
+
+    createInstance(){
+
+    }
+
+    executeAction(results, store, filter) {
+        if (results.length) {
+            this._dataModel.setDatasource(filter);
+        }
+    }
+
+}

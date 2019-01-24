@@ -17,31 +17,45 @@ https://demos.conterra.de/mapapps/resources/apps/downloads_hierarchicalsearch/in
 ### Configurable Components of dn_hierarchicalsearch:
 #### HierarchicalSearchWidgetFactory:
 ``` 
-"dn_hierarchicalsearch": {
-    "HierarchicalSearchWidgetFactory": {
-        "storeId": "flurstuecke",
-        "fields": [
-            {
-                "name": "gemarkung_",
-                "label": "Gemarkung"
+dn_hierarchicalsearch": {
+            "HierarchicalSearchVueWidgetFactory": {
+                "fields": [
+                    {
+                        "name": "gemarkung_",
+                        "label": "Gemarkung"
+                    },
+                    {
+                        "name": "flur_numme",
+                        "label": "Flur"
+                    },
+                    {
+                        "name": "flurstue_1",
+                        "label": "Flurstück"
+                    }
+                ]
             },
-            {
-                "name": "flur_numme",
-                "label": "Flur"
-            },
-            {
-                "name": "flurstue_1",
-                "label": "Flurstück"
+            "HierarchicalSearchController": {
+                "storeId": "flurstuecke_store",
+                "resultHandling":[
+                    "zoomToResult",
+                    "sendResultToResultcenter",
+                    "openPopup"
+                ]
             }
-        ]
-    }
-}
+        },
 ```
 
 ##### Properties
- | Property                       | Type    | Possible Values               | Default            | Description                                                      |
+HierarchicalSearchController
+ | Property                       | Type    | Possible Values                                    | Default            | Description                                                      |
+ |--------------------------------|---------|----------------------------------------------------|--------------------|------------------------------------------------------------------|
+ | storeId                        | String  |                                                    |                    | The ID of your AGSSearch store                                   |
+ | resultHandling                 | Array   | zoomToResult | sendResultToResultcenter | openPopup|                    | Array of result handling                                         |
+ 
+
+ HierarchicalSearchVueWidgetFactory
+| Property                       | Type    | Possible Values               | Default            | Description                                                      |
  |--------------------------------|---------|-------------------------------|--------------------|------------------------------------------------------------------|
- | storeId                        | String  |                               |                    | The ID of your AGSSearch store                                   |
  | fields                         | Array   |                               |                    | Array of search fields                                           |
  | field.name                     | String  |                               |                    | Name of the field                                                |
  | field.label                    | String  |                               |                    | Label for the drop down element                                  |
