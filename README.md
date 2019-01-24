@@ -51,6 +51,7 @@ dn_hierarchicalsearch": {
 
 ##### Properties
 HierarchicalSearchController
+
  | Property                       | Type    | Possible Values                                    | Default            | Description                                                      |
  |--------------------------------|---------|----------------------------------------------------|--------------------|------------------------------------------------------------------|
  | storeId                        | String  |                                                    |                    | The ID of your AGSSearch store                                   |
@@ -58,6 +59,7 @@ HierarchicalSearchController
  
 
  HierarchicalSearchVueWidgetFactory
+ 
 | Property                       | Type    | Possible Values               | Default            | Description                                                      |
  |--------------------------------|---------|-------------------------------|--------------------|------------------------------------------------------------------|
  | fields                         | Array   |                               |                    | Array of search fields                                           |
