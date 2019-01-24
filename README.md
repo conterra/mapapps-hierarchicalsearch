@@ -55,7 +55,7 @@ HierarchicalSearchController
  | Property                       | Type    | Possible Values                                    | Default            | Description                                                      |
  |--------------------------------|---------|----------------------------------------------------|--------------------|------------------------------------------------------------------|
  | storeId                        | String  |                                                    |                    | The ID of your AGSSearch store                                   |
- | resultHandling                 | Array   | zoomToResult | sendResultToResultcenter | openPopup|                    | Array of result handling                                         |
+ | resultHandling                 | Array   | zoomToResult ; sendResultToResultcenter ; openPopup                   | Array of result handling                                         |
  
 
  HierarchicalSearchVueWidgetFactory
