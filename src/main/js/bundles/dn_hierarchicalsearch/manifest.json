@@ -28,14 +28,13 @@
                 "minimizeOnClose": true,
                 "resizable": true,
                 "marginBox": {
-                    "w": 400,
-                    "h": 140
+                    "w": 450,
+                    "h": 160
                 },
                 "minSize": {
-                    "w": 400,
-                    "h": 140
-                },
-                "windowClass": "noPadding"
+                    "w": 450,
+                    "h": 160
+                }
             }
         },
         {
@@ -56,7 +55,7 @@
                     "b": 40,
                     "l": 0
                 },
-                "windowClass": "mobileWindow noPadding"
+                "windowClass": "mobileWindow"
             }
         }
     ],
