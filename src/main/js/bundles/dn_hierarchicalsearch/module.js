@@ -15,8 +15,7 @@
  */
 import ".";
 import "./HierarchicalSearchWidgetFactory";
-import "./HierarchicalSearchVueWidgetFactory";
-import "./SendResultToResultcenterAction";
+import "./HierarchicalSearchModel";
+import "./SendResultToResultCenterAction";
 import "./ZoomToResultAction";
-import "./HierarchicalSearchController";
 import "./OpenPopupAction";

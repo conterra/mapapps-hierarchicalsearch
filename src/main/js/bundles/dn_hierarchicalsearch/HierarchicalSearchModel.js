@@ -13,48 +13,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import {declare} from "apprt-core/Mutable";
 import QueryTask from "esri/tasks/QueryTask";
 import Query from "esri/tasks/support/Query";
 import Filter from "ct/store/Filter";
-import d_Event from "dojo/on";
 
-export default class HierarchicalSearchController {
+export default declare({
 
-
-    constructor(){
-        this.resultactions = [];
-    }
-
-    addResultAction(resultAction, properties){
-        if(this._properties.resultHandling.indexOf(properties.id)>-1){
-            this.resultactions.push(resultAction);
-        }
-    }
+    fields: [],
+    loading: false,
+    resultActions: [],
+    isMobile: false,
 
     activate(componentContext) {
         this._initComponent(componentContext);
-    }
+    },
+
+    addResultAction(resultAction, properties) {
+        if (this._properties.resultHandling.indexOf(properties.id) > -1) {
+            this.resultActions.push(resultAction);
+        }
+    },
 
     _initComponent(componentContext) {
         let properties = this._properties;
+        this.fields = properties.fields.map((field) => {
+            field.value = null;
+            field.selected = false;
+            field.loading = false;
+            field.disabled = true;
+            field.items = [];
+            return field;
+        });
         let envs = componentContext.getBundleContext().getCurrentExecutionEnvironment();
-        this.isMobile = envs.some((env) => {
-            return env.name === "Mobile"
-        });
-        let vm = this.vm = this.hierarchicalSearchVueWidget;
-        this._setUpSelect(vm.fields, 0);
-
-        vm.$on('selected', (field, index) => {
-            let nextIndex = index + 1;
-            if (vm.fields.length > nextIndex) {
-                this._setUpSelect(vm.fields, index + 1);
-            }
-            else if (vm.fields.length === nextIndex) {
-                this._search();
-            }
-        });
-    }
-
+        this.isMobile = envs.some((env) => env.name === "Mobile");
+        this._setUpSelect(this.fields, 0);
+    },
 
     _setUpSelect(fields, index) {
         if (fields.length > index) {
@@ -71,7 +65,7 @@ export default class HierarchicalSearchController {
                 let f = fields[0];
                 query.where = f.name + "='" + f.value + "'";
                 for (let i = 1; i < index; i++) {
-                    if(f.value === null){
+                    if (f.value === null) {
                         return; //fix
                     }
                     f = fields[i];
@@ -100,35 +94,32 @@ export default class HierarchicalSearchController {
                 field.loading = false;
             });
         }
-    }
+    },
 
     _search() {
         let store = this._store;
         let query = this._getComplexQuery();
         if (query) {
-            this.vm.loading = true;
+            this.loading = true;
             this._queryResults(store, query);
         }
         if (this.isMobile) {
             this._tool.set("active", false);
         }
-    }
+    },
 
     _queryResults(store, query) {
         let filter = new Filter(store, query, {});
         return filter.query({}, {fields: {geometry: 1}}).then((results) => {
-            this.vm.loading = false; //event that gives back store
-            this.vm.parcelSelected = false;
+            this.loading = false;
             if (results.length) {
-                let result = results[0];
-                //for loop with all resutlsactions (if resutaciont is added, the main method needs to be executrAction())
-                this.resultactions.forEach(action =>{
+                this.resultActions.forEach(action => {
                     action.executeAction(results, store, filter)
                 });
+                let result = results[0];
                 if (result) {
-                    this.vm.$emit("result-found", {
-                        "result": result,
-                        "filter": filter
+                    this._eventService.postEvent("dn_hierarchicalsearch/RESULT", {
+                        "result": result
                     });
                 }
             } else {
@@ -142,10 +133,9 @@ export default class HierarchicalSearchController {
                 id: error.code,
                 message: error
             });
-            this.vm.parcelSelected = false;
-            this.vm.loading = false;
+            this.loading = false;
         });
-    }
+    },
 
     _getComplexQuery() {
         let query = {};
@@ -155,13 +145,13 @@ export default class HierarchicalSearchController {
         let searchObject = this._getSearchObject();
         query["$or"].push(searchObject);
         return query;
-    }
+    },
 
     _getSearchObject() {
         let searchObj = {};
-        this.vm.fields.forEach((field) => {
+        this.fields.forEach((field) => {
             searchObj[field.name] = field.value;
         });
         return searchObj;
     }
-}
+});

@@ -3,7 +3,7 @@
         <v-progress-linear
             v-if="loading"
             :active="loading"
-            :indeterminate="true"
+            indeterminate
             class="pa-0 ma-0"/>
         <v-container
             class="pa-1"

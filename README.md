@@ -22,45 +22,43 @@ The resultcenter and the agssearch bundle need to be included in your app.
 #### HierarchicalSearchWidgetFactory:
 ``` 
 dn_hierarchicalsearch": {
-            "HierarchicalSearchVueWidgetFactory": {
-                "fields": [
-                    {
-                        "name": "gemarkung_",
-                        "label": "Gemarkung"
-                    },
-                    {
-                        "name": "flur_numme",
-                        "label": "Flur"
-                    },
-                    {
-                        "name": "flurstue_1",
-                        "label": "Flurstück"
-                    }
-                ]
+   "HierarchicalSearchModel": {
+        "storeId": "flurstuecke_store",
+        "fields": [
+            {
+                "name": "gemarkung_",
+                "label": "Gemarkung"
             },
-            "HierarchicalSearchController": {
-                "storeId": "flurstuecke_store",
-                "resultHandling":[
-                    "zoomToResult",
-                    "sendResultToResultcenter",
-                    "openPopup"
-                ]
+            {
+                "name": "flur_numme",
+                "label": "Flur"
+            },
+            {
+                "name": "flurstue_1",
+                "label": "Flurstück"
             }
-        },
+        ],
+        "resultHandling": [
+            "zoomToResult",
+            "openPopup",
+            "sendResultToResultCenter"
+        ]
+    }
+}
 ```
 
 ##### Properties
 HierarchicalSearchController
 
- | Property                       | Type    | Possible Values                                    | Default            | Description                                                      |
- |--------------------------------|---------|----------------------------------------------------|--------------------|------------------------------------------------------------------|
- | storeId                        | String  |                                                    |                    | The ID of your AGSSearch store                                   |
- | resultHandling                 | Array   | zoomToResult ; sendResultToResultcenter ; openPopup   |                | Array of result handling                                         |
+ | Property                       | Type    | Possible Values                                     | Default            | Description                                                      |
+ |--------------------------------|---------|-----------------------------------------------------|--------------------|------------------------------------------------------------------|
+ | storeId                        | String  |                                                     |                    | The ID of your AGSSearch store                                   |
+ | resultHandling                 | Array   | zoomToResult ; openPopup ; sendResultToResultCenter |                    | Array of result handling                                         |
  
 
  HierarchicalSearchVueWidgetFactory
  
-| Property                       | Type    | Possible Values               | Default            | Description                                                      |
+ | Property                       | Type    | Possible Values               | Default            | Description                                                      |
  |--------------------------------|---------|-------------------------------|--------------------|------------------------------------------------------------------|
  | fields                         | Array   |                               |                    | Array of search fields                                           |
  | field.name                     | String  |                               |                    | Name of the field                                                |

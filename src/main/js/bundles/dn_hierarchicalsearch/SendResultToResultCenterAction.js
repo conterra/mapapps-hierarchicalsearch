@@ -13,11 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export default class SendResultToResultcenterAction {
-
-    createInstance(){
-
-    }
+export default class SendResultToResultCenterAction {
 
     executeAction(results, store, filter) {
         if (results.length) {

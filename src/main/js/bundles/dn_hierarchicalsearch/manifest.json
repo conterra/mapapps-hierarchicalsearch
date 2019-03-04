@@ -62,38 +62,37 @@
     "components": [
         {
             "name": "HierarchicalSearchWidgetFactory",
-            "provides": "dijit.Widget",
+            "provides": [
+                "dijit.Widget",
+                "dn_hierarchicalsearch.HierarchicalSearchVueWidget"
+            ],
             "instanceFactory": true,
-
             "properties": {
-                "widgetRole":"hierarchicalSearchWidget"
+                "widgetRole": "hierarchicalSearchWidget"
             },
             "references": [
                 {
-                    "name": "hierarchicalSearchVueWidget",
-                    "providing": "dn_hierarchicalsearch.HierarchicalSearchVueWidget"
+                    "name": "_hierarchicalSearchModel",
+                    "providing": "dn_hierarchicalsearch.HierarchicalSearchModel"
                 }
             ]
         },
         {
-            "name": "HierarchicalSearchController",
+            "name": "HierarchicalSearchModel",
+            "propertiesConstructor": true,
             "provides": [
                 "ct.framework.api.EventHandler",
-                "dn_hierarchicalsearch.HierarchicalSearchController"
+                "dn_hierarchicalsearch.HierarchicalSearchModel"
             ],
             "properties": {
-                "storeId": "storeId",
-                "resultHandling":[]
-
+                "storeId": "",
+                "fields": [],
+                "resultHandling": []
             },
             "references": [
                 {
-                    "name": "hierarchicalSearchVueWidget",
-                    "providing": "dn_hierarchicalsearch.HierarchicalSearchVueWidget"
-                },
-                {
                     "name": "resultAction",
-                    "providing": "dn_hierarchicalsearch.Resultaction",
+                    "providing": "dn_hierarchicalsearch.ResultAction",
                     "cardinality": "0..n"
                 },
                 {
@@ -102,19 +101,18 @@
                     "filter": "(id={storeId})"
                 },
                 {
+                    "name": "_tool",
+                    "providing": "ct.tools.Tool",
+                    "filter": "(id=hierarchicalSearchToggleTool)"
+                },
+                {
+                    "name": "_eventService",
+                    "providing": "ct.framework.api.EventService"
+                },
+                {
                     "name": "_logService",
                     "providing": "ct.framework.api.LogService"
                 }
-            ]
-        },
-        {
-            "name": "HierarchicalSearchVueWidgetFactory",
-            "instanceFactory": true,
-            "properties": {
-                "fields": []
-            },
-            "provides": [
-                "dn_hierarchicalsearch.HierarchicalSearchVueWidget"
             ]
         },
         {
@@ -136,12 +134,12 @@
         {
             "name": "ZoomToResultAction",
             "provides": [
-                "dn_hierarchicalsearch.Resultaction"
+                "dn_hierarchicalsearch.ResultAction"
             ],
             "properties": {
                 "id": "zoomToResult"
             },
-            "references":[
+            "references": [
                 {
                     "name": "_mapWidgetModel",
                     "providing": "map-widget.MapWidgetModel"
@@ -151,12 +149,12 @@
         {
             "name": "OpenPopupAction",
             "provides": [
-                "dn_hierarchicalsearch.Resultaction"
+                "dn_hierarchicalsearch.ResultAction"
             ],
             "properties": {
                 "id": "openPopup"
             },
-            "references":[
+            "references": [
                 {
                     "name": "_openPopupService",
                     "providing": "resultcenter.OpenPopupService"
@@ -164,12 +162,12 @@
             ]
         },
         {
-            "name": "SendResultToResultcenterAction",
+            "name": "SendResultToResultCenterAction",
             "provides": [
-                "dn_hierarchicalsearch.Resultaction"
+                "dn_hierarchicalsearch.ResultAction"
             ],
             "properties": {
-                "id":"sendResultToResultcenter"
+                "id": "sendResultToResultCenter"
             },
             "references": [
                 {

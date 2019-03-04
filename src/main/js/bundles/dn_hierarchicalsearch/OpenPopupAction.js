@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export default class OpenPopupAction{
+export default class OpenPopupAction {
+
     executeAction(results, store, filter) {
         let selectedGeometry = results[0];
-        this._openPopupService.openPopup(selectedGeometry.OBJECTID, {"store" : store});
+        this._openPopupService.openPopup(selectedGeometry.OBJECTID, {"store": store});
     }
+
 }

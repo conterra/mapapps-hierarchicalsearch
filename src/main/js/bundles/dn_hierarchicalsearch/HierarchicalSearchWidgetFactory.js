@@ -14,10 +14,36 @@
  * limitations under the License.
  */
 import VueDijit from "apprt-vue/VueDijit";
+import Vue from "apprt-vue/Vue";
+import Binding from "apprt-binding/Binding";
+import HierarchicalSearchWidget from "./HierarchicalSearchWidget.vue";
 
 export default class HierarchicalSearchWidgetFactory {
 
+    activate() {
+        this._initComponent();
+    }
+
+    _initComponent() {
+        const vm = this.vm = new Vue(HierarchicalSearchWidget);
+        let model = this._hierarchicalSearchModel;
+
+        vm.$on('selected', (field, index) => {
+            let nextIndex = index + 1;
+            if (vm.fields.length > nextIndex) {
+                model._setUpSelect(vm.fields, index + 1);
+            } else if (vm.fields.length === nextIndex) {
+                model._search();
+            }
+        });
+
+        Binding.for(vm, model)
+            .syncAll("fields", "loading")
+            .enable()
+            .syncToLeftNow();
+    }
+
     createInstance() {
-        return VueDijit(this.hierarchicalSearchVueWidget);
+        return VueDijit(this.vm);
     }
 }

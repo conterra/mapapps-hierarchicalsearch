@@ -13,22 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export default class ZoomToResultAction{
-    activate() {
-        this.mapModel = this._mapWidgetModel;
-
-    }
+export default class ZoomToResultAction {
 
     executeAction(results, store, filter) {
+        let mapWidgetModel = this._mapWidgetModel;
         let selectedGeometry = results[0];
-        //this.mapModel.view.goTo(selectedGeometry.feature);
         if (selectedGeometry.geometry.type === 'polygon') {
-            this.mapModel.view.extent = selectedGeometry.geometry.extent;
-            this.mapModel.view.zoom = this.mapModel.view.zoom - 2;
-        }
-        else {
-            this.mapModel.view.center = [selectedGeometry.geometry.longitude, selectedGeometry.geometry.latitude];
-            this.mapModel.view.zoom = 10;
+            mapWidgetModel.view.extent = selectedGeometry.geometry.extent;
+            mapWidgetModel.view.zoom = mapWidgetModel.view.zoom - 2;
+        } else {
+            mapWidgetModel.view.center = [selectedGeometry.geometry.longitude, selectedGeometry.geometry.latitude];
+            mapWidgetModel.view.zoom = 10;
         }
     }
+
 }
