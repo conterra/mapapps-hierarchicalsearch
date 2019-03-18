@@ -48,21 +48,15 @@ dn_hierarchicalsearch": {
 ```
 
 ##### Properties
-HierarchicalSearchController
+HierarchicalSearchModel
 
  | Property                       | Type    | Possible Values                                     | Default            | Description                                                      |
  |--------------------------------|---------|-----------------------------------------------------|--------------------|------------------------------------------------------------------|
  | storeId                        | String  |                                                     |                    | The ID of your AGSSearch store                                   |
  | resultHandling                 | Array   | zoomToResult ; openPopup ; sendResultToResultCenter |                    | Array of result handling                                         |
- 
-
- HierarchicalSearchVueWidgetFactory
- 
- | Property                       | Type    | Possible Values               | Default            | Description                                                      |
- |--------------------------------|---------|-------------------------------|--------------------|------------------------------------------------------------------|
- | fields                         | Array   |                               |                    | Array of search fields                                           |
- | field.name                     | String  |                               |                    | Name of the field                                                |
- | field.label                    | String  |                               |                    | Label for the drop down element                                  |
+ | fields                         | Array   |                                                     |                    | Array of search fields                                           |
+ | field.name                     | String  |                                                     |                    | Name of the field                                                |
+ | field.label                    | String  |                                                     |                    | Label for the drop down element                                  |
 
 ## Development Guide
 ### Define the mapapps remote base
