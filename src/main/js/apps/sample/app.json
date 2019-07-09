@@ -1,9 +1,8 @@
 {
+    "properties": {
+        "title": "Hierarchical Search Sample"
+    },
     "load": {
-        "bundleLocations": [
-            "localbundles",
-            "bundles"
-        ],
         "allowedBundles": [
             "system",
             "splashscreen",
@@ -16,38 +15,14 @@
             "agssearch",
             "console",
             "popups-default",
-            "dn_hierarchicalsearch"
+            "dn_hierarchicalsearch",
+            "map-preload-2D",
+            "banner"
         ]
     },
-    "properties": {
-        "title": "Hierarchical Search Sample"
-    },
     "bundles": {
-        "dn_hierarchicalsearch": {
-            "HierarchicalSearchModel": {
-                "storeId": "flurstuecke_store",
-                "fields": [
-                    {
-                        "name": "gemarkung_",
-                        "label": "Gemarkung"
-                    },
-                    {
-                        "name": "flur_numme",
-                        "label": "Flur"
-                    },
-                    {
-                        "name": "flurstue_1",
-                        "label": "Flurstück"
-                    }
-                ],
-                "resultHandling": [
-                    "zoomToResult",
-                    "openPopup",
-                    "sendResultToResultCenter"
-                ]
-            }
-        },
         "agssearch": {
+            "enabled": true,
             "AGSStore": [
                 {
                     "id": "flurstuecke_store",
@@ -63,8 +38,16 @@
                     },
                     "fetchIdProperty": true
                 }
-            ],
-            "enabled": true
+            ]
+        },
+        "banner": {
+            "BannerWidget": {
+                "label": "Developer Network",
+                "imagePosition": "above",
+                "image": "resource('${app}:/images/logo_conterra.png')",
+                "imageWidth": 200,
+                "link": "https://www.conterra.de"
+            }
         },
         "resultcenter": {
             "ActionController": {
