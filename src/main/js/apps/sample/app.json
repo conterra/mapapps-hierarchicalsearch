@@ -26,7 +26,7 @@
             "AGSStore": [
                 {
                     "id": "flurstuecke_store",
-                    "title": "Flurst\u00FCck suchen",
+                    "title": "Flurstück suchen",
                     "description": "Beschreibung Flursuche",
                     "idProperty": "OBJECTID",
                     "layerId": "flurstuecke",
@@ -50,6 +50,9 @@
             }
         },
         "resultcenter": {
+            "FeatureMapVisualizer": {
+                "useDataViewPaging": true
+            },
             "ActionController": {
                 "zoomToFeatures": true,
                 "zoomToSelected": false,
@@ -58,8 +61,11 @@
                 "zoomToClicked": false,
                 "centerClicked": false
             },
-            "FeatureMapVisualizer": {
-                "useDataViewPaging": true
+            "TriggerShowResultCenterCommand": {
+                "showToolOnData": true,
+                "autoOpen": false,
+                "hideToolOnEmpty": true,
+                "autoClose": true
             },
             "DataView": {
                 "DGRID": {
@@ -75,12 +81,33 @@
                         }
                     ]
                 }
-            },
-            "TriggerShowResultCenterCommand": {
-                "showToolOnData": true,
-                "autoOpen": false,
-                "hideToolOnEmpty": true,
-                "autoClose": true
+            }
+        },
+        "templates": {
+            "TemplateModel": {
+                "_templates": [
+                    {
+                        "name": "seasons",
+                        "widgets": [
+                            {
+                                "widgetRole": "hierarchicalSearchWidget",
+                                "sublayout": [
+                                    "desktop",
+                                    "tablet_landscape",
+                                    "tablet_portrait"
+                                ],
+                                "window": {
+                                    "marginBox": {
+                                        "w": 400,
+                                        "h": 140,
+                                        "t": 115,
+                                        "l": 20
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "map-init": {
@@ -117,41 +144,12 @@
                 }
             }
         },
-        "templates": {
-            "TemplateModel": {
-                "_templates": [
-                    {
-                        "name": "seasons",
-                        "widgets": [
-                            {
-                                "widgetRole": "hierarchicalSearchWidget",
-                                "sublayout": [
-                                    "desktop",
-                                    "tablet_landscape",
-                                    "tablet_portrait"
-                                ],
-                                "window": {
-                                    "marginBox": {
-                                        "w": 400,
-                                        "h": 140,
-                                        "t": 115,
-                                        "l": 20
-                                    }
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        },
         "toolset": {
             "ToolsetManager": {
                 "toolsets": [
                     {
                         "id": "defaultToolSet",
-                        "tools": [
-                            "*"
-                        ],
+                        "tools": [],
                         "registerWidget": {
                             "widgetRole": "map_topleft"
                         },
@@ -172,6 +170,30 @@
         "popups": {
             "Config": {
                 "dockingDisabled": true
+            }
+        },
+        "dn_hierarchicalsearch": {
+            "HierarchicalSearchModel": {
+                "storeId": "flurstuecke_store",
+                "fields": [
+                    {
+                        "name": "gemarkung_",
+                        "label": "Gemarkung"
+                    },
+                    {
+                        "name": "flur_numme",
+                        "label": "Flur"
+                    },
+                    {
+                        "name": "flurstue_1",
+                        "label": "Flurstück"
+                    }
+                ],
+                "resultHandling": [
+                    "zoomToResult",
+                    "openPopup",
+                    "sendResultToResultCenter"
+                ]
             }
         }
     }
