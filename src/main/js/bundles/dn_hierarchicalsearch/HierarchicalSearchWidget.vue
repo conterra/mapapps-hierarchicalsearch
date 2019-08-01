@@ -28,6 +28,7 @@
             block
             ripple
             color="primary"
+            :disabled="!fields[0].value"
             :loading="loading"
             @click="$emit('search')">
             <v-icon left>
