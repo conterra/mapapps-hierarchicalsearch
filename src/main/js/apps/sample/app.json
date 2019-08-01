@@ -3,6 +3,10 @@
         "title": "Hierarchical Search Sample"
     },
     "load": {
+        "bundleLocations": [
+            "localbundles",
+            "bundles"
+        ],
         "allowedBundles": [
             "system",
             "splashscreen",
