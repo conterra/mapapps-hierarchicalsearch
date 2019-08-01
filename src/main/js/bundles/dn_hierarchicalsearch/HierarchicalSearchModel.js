@@ -36,7 +36,7 @@ export default declare({
     },
 
     _initComponent(componentContext) {
-        let properties = this._properties;
+        const properties = this._properties;
         this.fields = properties.fields.map((field) => {
             field.value = null;
             field.loading = false;
@@ -44,7 +44,7 @@ export default declare({
             field.items = [];
             return field;
         });
-        let envs = componentContext.getBundleContext().getCurrentExecutionEnvironment();
+        const envs = componentContext.getBundleContext().getCurrentExecutionEnvironment();
         this.isMobile = envs.some((env) => env.name === "Mobile");
         this._setUpSelect(0);
     },
@@ -62,7 +62,7 @@ export default declare({
     },
 
     _resetSelects(index) {
-        let fields = this.fields;
+        const fields = this.fields;
         // reset fields after the current changed
         fields.forEach((f, i) => {
             if (i > index) {
@@ -74,15 +74,15 @@ export default declare({
     },
 
     _setUpSelect(index) {
-        let fields = this.fields;
+        const fields = this.fields;
         if (fields.length > index) {
-            let field = fields[index];
+            const field = fields[index];
             field.disabled = false;
             field.loading = true;
-            let name = field.name;
-            let results = [];
-            let queryTask = new QueryTask(this._store.target);
-            let query = new Query();
+            const name = field.name;
+            const results = [];
+            const queryTask = new QueryTask(this._store.target);
+            const query = new Query();
             if (index === 0) {
                 query.where = "1=1";
             } else {
@@ -96,16 +96,6 @@ export default declare({
                     query.where = query.where + " AND " + f.name + "='" + f.value + "'";
                 }
             }
-            // reset fields after the current selected
-            fields.forEach((f, i) => {
-                if (i >= index && index !== 0) {
-                    f.items = [];
-                    f.value = null;
-                }
-                if (i > index) {
-                    f.disabled = true;
-                }
-            });
             query.outFields = [name];
             query.orderByFields = [name];
             query.returnDistinctValues = true;
@@ -121,8 +111,8 @@ export default declare({
     },
 
     _search() {
-        let store = this._store;
-        let query = this._getComplexQuery();
+        const store = this._store;
+        const query = this._getComplexQuery();
         if (query) {
             this.loading = true;
             this._queryResults(store, query);
@@ -133,14 +123,14 @@ export default declare({
     },
 
     _queryResults(store, query) {
-        let filter = new Filter(store, query, {});
+        const filter = new Filter(store, query, {});
         return filter.query({}, {fields: {geometry: 1}}).then((results) => {
             this.loading = false;
             if (results.length) {
                 this.resultActions.forEach(action => {
                     action.executeAction(results, store, filter)
                 });
-                let result = results[0];
+                const result = results[0];
                 if (result) {
                     this._eventService.postEvent("dn_hierarchicalsearch/RESULT", {
                         "result": result
@@ -162,17 +152,17 @@ export default declare({
     },
 
     _getComplexQuery() {
-        let query = {};
+        const query = {};
         if (!query["$or"]) {
             query["$or"] = [];
         }
-        let searchObject = this._getSearchObject();
+        const searchObject = this._getSearchObject();
         query["$or"].push(searchObject);
         return query;
     },
 
     _getSearchObject() {
-        let searchObj = {};
+        const searchObj = {};
         this.fields.forEach((field) => {
             if (field && field.value) {
                 searchObj[field.name] = field.value;

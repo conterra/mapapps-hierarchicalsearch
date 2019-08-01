@@ -16,7 +16,7 @@
 export default class OpenPopupAction {
 
     executeAction(results, store, filter) {
-        let selectedGeometry = results[0];
+        const selectedGeometry = results[0];
         this._openPopupService.openPopup(selectedGeometry.OBJECTID, {"store": store});
     }
 

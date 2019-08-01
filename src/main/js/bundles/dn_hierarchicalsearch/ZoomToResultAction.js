@@ -16,8 +16,8 @@
 export default class ZoomToResultAction {
 
     executeAction(results, store, filter) {
-        let mapWidgetModel = this._mapWidgetModel;
-        let selectedGeometry = results[0];
+        const mapWidgetModel = this._mapWidgetModel;
+        const selectedGeometry = results[0];
         if (selectedGeometry.geometry.type === 'polygon') {
             mapWidgetModel.view.extent = selectedGeometry.geometry.extent;
             mapWidgetModel.view.zoom = mapWidgetModel.view.zoom - 2;
