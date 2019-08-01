@@ -79,35 +79,37 @@ export default declare({
             const field = fields[index];
             field.disabled = false;
             field.loading = true;
-            const name = field.name;
-            const results = [];
-            const queryTask = new QueryTask(this._store.target);
-            const query = new Query();
-            if (index === 0) {
-                query.where = "1=1";
-            } else {
-                let f = fields[0];
-                query.where = f.name + "='" + f.value + "'";
-                for (let i = 1; i < index; i++) {
-                    if (f.value === null) {
-                        return; //fix
-                    }
+            this._queryDistinctValues(field, index);
+        }
+    },
+
+    _queryDistinctValues(field, index) {
+        const fields = this.fields;
+        const queryTask = new QueryTask(this._store.target);
+        const query = new Query();
+        if (index === 0) {
+            query.where = "1=1";
+        } else {
+            let f = fields[0];
+            query.where = f.name + "='" + f.value + "'";
+            for (let i = 1; i < index; i++) {
+                if (f.value) {
                     f = fields[i];
                     query.where = query.where + " AND " + f.name + "='" + f.value + "'";
                 }
             }
-            query.outFields = [name];
-            query.orderByFields = [name];
-            query.returnDistinctValues = true;
-            query.returnGeometry = false;
-            queryTask.execute(query).then(response => {
-                response.features.forEach((feature) => {
-                    results.push(feature.attributes[name]);
-                });
-                field.items = results;
-                field.loading = false;
-            });
         }
+        const fieldName = field.name;
+        query.outFields = [fieldName];
+        query.orderByFields = [fieldName];
+        query.returnDistinctValues = true;
+        query.returnGeometry = false;
+        queryTask.execute(query).then(response => {
+            response.features.forEach((feature) => {
+                field.items.push(feature.attributes[fieldName]);
+            });
+            field.loading = false;
+        });
     },
 
     search() {
