@@ -1,10 +1,5 @@
 <template>
     <div class="hierarchicalsearch">
-        <v-progress-linear
-            v-if="loading"
-            :active="loading"
-            indeterminate
-            class="pa-0 ma-0"/>
         <v-container
             class="pa-1"
             fluid
@@ -33,6 +28,7 @@
             block
             ripple
             color="primary"
+            :loading="loading"
             @click="$emit('search')">
             <v-icon left>
                 search
