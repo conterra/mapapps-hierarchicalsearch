@@ -42,7 +42,8 @@
     import Bindable from "apprt-vue/mixins/Bindable";
 
     export default {
-        mixins: [Bindable], props: {
+        mixins: [Bindable],
+        props: {
             i18n: {
                 type: Object,
                 default: function () {

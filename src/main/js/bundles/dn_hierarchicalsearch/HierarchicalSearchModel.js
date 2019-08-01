@@ -39,7 +39,6 @@ export default declare({
         let properties = this._properties;
         this.fields = properties.fields.map((field) => {
             field.value = null;
-            field.selected = false;
             field.loading = false;
             field.disabled = true;
             field.items = [];
@@ -53,46 +52,58 @@ export default declare({
     _setUpSelect(fields, index) {
         if (fields.length > index) {
             let field = fields[index];
-            field.disabled = false;
-            field.loading = true;
-            let name = field.name;
-            let results = [];
-            let queryTask = new QueryTask(this._store.target);
-            let query = new Query();
-            if (index === 0) {
-                query.where = "1=1";
-            } else {
-                let f = fields[0];
-                query.where = f.name + "='" + f.value + "'";
-                for (let i = 1; i < index; i++) {
-                    if (f.value === null) {
-                        return; //fix
+            let previousField = fields[index - 1];
+            if (previousField && !previousField.value) {
+                // reset fields after the current selected
+                fields.forEach((f, i) => {
+                    if (i > index - 1) {
+                        f.items = [];
+                        f.value = null;
+                        f.disabled = true;
                     }
-                    f = fields[i];
-                    query.where = query.where + " AND " + f.name + "='" + f.value + "'";
-                }
-            }
-            // reset fields after the current selected
-            fields.forEach((f, i) => {
-                if (i >= index && index !== 0) {
-                    f.items = [];
-                    f.value = null;
-                }
-                if (i >= index + 1) {
-                    f.disabled = true;
-                }
-            });
-            query.outFields = [name];
-            query.orderByFields = [name];
-            query.returnDistinctValues = true;
-            query.returnGeometry = false;
-            queryTask.execute(query).then(response => {
-                response.features.forEach((feature) => {
-                    results.push(feature.attributes[name]);
                 });
-                field.items = results;
-                field.loading = false;
-            });
+            } else {
+                field.disabled = false;
+                field.loading = true;
+                let name = field.name;
+                let results = [];
+                let queryTask = new QueryTask(this._store.target);
+                let query = new Query();
+                if (index === 0) {
+                    query.where = "1=1";
+                } else {
+                    let f = fields[0];
+                    query.where = f.name + "='" + f.value + "'";
+                    for (let i = 1; i < index; i++) {
+                        if (f.value === null) {
+                            return; //fix
+                        }
+                        f = fields[i];
+                        query.where = query.where + " AND " + f.name + "='" + f.value + "'";
+                    }
+                }
+                // reset fields after the current selected
+                fields.forEach((f, i) => {
+                    if (i >= index && index !== 0) {
+                        f.items = [];
+                        f.value = null;
+                    }
+                    if (i > index) {
+                        f.disabled = true;
+                    }
+                });
+                query.outFields = [name];
+                query.orderByFields = [name];
+                query.returnDistinctValues = true;
+                query.returnGeometry = false;
+                queryTask.execute(query).then(response => {
+                    response.features.forEach((feature) => {
+                        results.push(feature.attributes[name]);
+                    });
+                    field.items = results;
+                    field.loading = false;
+                });
+            }
         }
     },
 
