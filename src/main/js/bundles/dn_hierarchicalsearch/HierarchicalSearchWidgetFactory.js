@@ -26,10 +26,15 @@ export default class HierarchicalSearchWidgetFactory {
 
     _initComponent() {
         const vm = this.vm = new Vue(HierarchicalSearchWidget);
-        let model = this._hierarchicalSearchModel;
+        const model = this._hierarchicalSearchModel;
 
+        vm.i18n = this._i18n.get().ui;
+
+        vm.$on("search", () => {
+            model._search();
+        });
         vm.$on('selected', (field, index) => {
-            let nextIndex = index + 1;
+            const nextIndex = index + 1;
             if (vm.fields.length > nextIndex) {
                 model._setUpSelect(vm.fields, index + 1);
             } else if (vm.fields.length === nextIndex) {

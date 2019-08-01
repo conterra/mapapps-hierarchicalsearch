@@ -20,8 +20,8 @@
                         :label="field.label"
                         :disabled="field.disabled"
                         :loading="field.loading"
+                        color="primary"
                         clearable
-                        full-width
                         open-on-clear
                         hide-details
                         @input="$emit('selected', field, index)"
@@ -29,18 +29,37 @@
                 </v-flex>
             </v-layout>
         </v-container>
+        <v-btn
+            block
+            ripple
+            color="primary"
+            @click="$emit('search')">
+            <v-icon left>
+                search
+            </v-icon>
+            {{ i18n.search }}
+        </v-btn>
     </div>
 </template>
 <script>
     import Bindable from "apprt-vue/mixins/Bindable";
 
     export default {
-        mixins: [Bindable],
-        data: function () {
-            return {
-                loading: false,
-                fields: []
-            };
+        mixins: [Bindable], props: {
+            i18n: {
+                type: Object,
+                default: function () {
+                    return {}
+                }
+            },
+            loading: {
+                type: Boolean,
+                default: false
+            },
+            fields: {
+                type: Array,
+                default: () => []
+            }
         }
     };
 </script>

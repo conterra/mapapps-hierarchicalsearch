@@ -27,11 +27,11 @@
                 "resizable": true,
                 "marginBox": {
                     "w": 450,
-                    "h": 160
+                    "h": 170
                 },
                 "minSize": {
                     "w": 450,
-                    "h": 160
+                    "h": 170
                 }
             }
         },
@@ -47,15 +47,11 @@
                 "dockTool": "hierarchicalSearchToggleTool",
                 "closable": true,
                 "minimizeOnClose": true,
-                "resizable": true,
+                "resizable": false,
                 "draggable": false,
                 "marginBox": {
                     "w": 450,
-                    "h": 160
-                },
-                "minSize": {
-                    "w": 450,
-                    "h": 160
+                    "h": 170
                 }
             }
         },

@@ -20,5 +20,8 @@ module.exports = {
         title: "Hierarchische Suche",
         tooltip: "Hierarchische Suche"
     },
-    noResultsError: "Keine Ergebnisse f\u00fcr Ihre Abfrage gefunden!"
+    noResultsError: "Keine Ergebnisse f\u00fcr Ihre Abfrage gefunden!",
+    ui: {
+        search: "Suchen"
+    }
 };

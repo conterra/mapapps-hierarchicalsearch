@@ -125,7 +125,7 @@ export default declare({
             } else {
                 this._logService.warn({
                     id: 0,
-                    message: this.i18n.noResultsError
+                    message: this._i18n.get().noResultsError
                 });
             }
         }, (error) => {

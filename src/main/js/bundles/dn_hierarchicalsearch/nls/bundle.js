@@ -21,7 +21,10 @@ module.exports = {
             title: "Hierarchical Search",
             tooltip: "Hierarchical Search"
         },
-        noResultsError: "No results found for your query!"
+        noResultsError: "No results found for your query!",
+        ui: {
+            search: "Search"
+        }
     }),
     "de": true
 };
