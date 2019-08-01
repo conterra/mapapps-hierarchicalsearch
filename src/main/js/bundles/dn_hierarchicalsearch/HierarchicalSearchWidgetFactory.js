@@ -31,7 +31,7 @@ export default class HierarchicalSearchWidgetFactory {
         vm.i18n = this._i18n.get().ui;
 
         vm.$on("search", () => {
-            model._search();
+            model.search();
         });
         vm.$on('selected', (field, index) => {
             model.selectChanged(field, index);

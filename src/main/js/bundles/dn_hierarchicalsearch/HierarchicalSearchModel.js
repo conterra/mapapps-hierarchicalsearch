@@ -57,7 +57,7 @@ export default declare({
         } else if (fields.length > nextIndex) {
             this._setUpSelect(index + 1);
         } else if (fields.length === nextIndex) {
-            this._search();
+            this.search();
         }
     },
 
@@ -110,19 +110,17 @@ export default declare({
         }
     },
 
-    _search() {
-        const store = this._store;
-        const query = this._getComplexQuery();
-        if (query) {
-            this.loading = true;
-            this._queryResults(store, query);
-        }
+    search() {
+        this._queryResults();
         if (this.isMobile) {
             this._tool.set("active", false);
         }
     },
 
-    _queryResults(store, query) {
+    _queryResults() {
+        this.loading = true;
+        const store = this._store;
+        const query = this._getComplexQuery();
         const filter = new Filter(store, query, {});
         return filter.query({}, {fields: {geometry: 1}}).then((results) => {
             this.loading = false;
