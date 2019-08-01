@@ -34,12 +34,7 @@ export default class HierarchicalSearchWidgetFactory {
             model._search();
         });
         vm.$on('selected', (field, index) => {
-            const nextIndex = index + 1;
-            if (vm.fields.length > nextIndex) {
-                model._setUpSelect(vm.fields, index + 1);
-            } else if (vm.fields.length === nextIndex) {
-                model._search();
-            }
+            model.selectChanged(field, index);
         });
 
         Binding.for(vm, model)

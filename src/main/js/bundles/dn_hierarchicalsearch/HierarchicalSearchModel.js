@@ -46,64 +46,77 @@ export default declare({
         });
         let envs = componentContext.getBundleContext().getCurrentExecutionEnvironment();
         this.isMobile = envs.some((env) => env.name === "Mobile");
-        this._setUpSelect(this.fields, 0);
+        this._setUpSelect(0);
     },
 
-    _setUpSelect(fields, index) {
+    selectChanged(field, index) {
+        const fields = this.fields;
+        const nextIndex = index + 1;
+        if (!field.value) {
+            this._resetSelects(index);
+        } else if (fields.length > nextIndex) {
+            this._setUpSelect(index + 1);
+        } else if (fields.length === nextIndex) {
+            this._search();
+        }
+    },
+
+    _resetSelects(index) {
+        let fields = this.fields;
+        // reset fields after the current changed
+        fields.forEach((f, i) => {
+            if (i > index) {
+                f.items = [];
+                f.value = null;
+                f.disabled = true;
+            }
+        });
+    },
+
+    _setUpSelect(index) {
+        let fields = this.fields;
         if (fields.length > index) {
             let field = fields[index];
-            let previousField = fields[index - 1];
-            if (previousField && !previousField.value) {
-                // reset fields after the current selected
-                fields.forEach((f, i) => {
-                    if (i > index - 1) {
-                        f.items = [];
-                        f.value = null;
-                        f.disabled = true;
-                    }
-                });
+            field.disabled = false;
+            field.loading = true;
+            let name = field.name;
+            let results = [];
+            let queryTask = new QueryTask(this._store.target);
+            let query = new Query();
+            if (index === 0) {
+                query.where = "1=1";
             } else {
-                field.disabled = false;
-                field.loading = true;
-                let name = field.name;
-                let results = [];
-                let queryTask = new QueryTask(this._store.target);
-                let query = new Query();
-                if (index === 0) {
-                    query.where = "1=1";
-                } else {
-                    let f = fields[0];
-                    query.where = f.name + "='" + f.value + "'";
-                    for (let i = 1; i < index; i++) {
-                        if (f.value === null) {
-                            return; //fix
-                        }
-                        f = fields[i];
-                        query.where = query.where + " AND " + f.name + "='" + f.value + "'";
+                let f = fields[0];
+                query.where = f.name + "='" + f.value + "'";
+                for (let i = 1; i < index; i++) {
+                    if (f.value === null) {
+                        return; //fix
                     }
+                    f = fields[i];
+                    query.where = query.where + " AND " + f.name + "='" + f.value + "'";
                 }
-                // reset fields after the current selected
-                fields.forEach((f, i) => {
-                    if (i >= index && index !== 0) {
-                        f.items = [];
-                        f.value = null;
-                    }
-                    if (i > index) {
-                        f.disabled = true;
-                    }
-                });
-                query.outFields = [name];
-                query.orderByFields = [name];
-                query.returnDistinctValues = true;
-                query.returnGeometry = false;
-                queryTask.execute(query).then(response => {
-                    response.features.forEach((feature) => {
-                        results.push(feature.attributes[name]);
-                    });
-                    field.items = results;
-                    field.loading = false;
-                });
             }
+            // reset fields after the current selected
+            fields.forEach((f, i) => {
+                if (i >= index && index !== 0) {
+                    f.items = [];
+                    f.value = null;
+                }
+                if (i > index) {
+                    f.disabled = true;
+                }
+            });
+            query.outFields = [name];
+            query.orderByFields = [name];
+            query.returnDistinctValues = true;
+            query.returnGeometry = false;
+            queryTask.execute(query).then(response => {
+                response.features.forEach((feature) => {
+                    results.push(feature.attributes[name]);
+                });
+                field.items = results;
+                field.loading = false;
+            });
         }
     },
 
