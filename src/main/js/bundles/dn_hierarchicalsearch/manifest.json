@@ -17,7 +17,28 @@
             "widgetRole": "hierarchicalSearchWidget",
             "template": "seasons",
             "sublayout": [
-                "desktop",
+                "desktop"
+            ],
+            "window": {
+                "autofocus": false,
+                "dockTool": "hierarchicalSearchToggleTool",
+                "closable": true,
+                "minimizeOnClose": true,
+                "resizable": true,
+                "marginBox": {
+                    "w": 450,
+                    "h": 160
+                },
+                "minSize": {
+                    "w": 450,
+                    "h": 160
+                }
+            }
+        },
+        {
+            "widgetRole": "hierarchicalSearchWidget",
+            "template": "seasons",
+            "sublayout": [
                 "tablet_landscape",
                 "tablet_portrait"
             ],
@@ -27,6 +48,7 @@
                 "closable": true,
                 "minimizeOnClose": true,
                 "resizable": true,
+                "draggable": false,
                 "marginBox": {
                     "w": 450,
                     "h": 160
@@ -49,11 +71,11 @@
                 "dockTool": "hierarchicalSearchToggleTool",
                 "minimizeOnClose": true,
                 "resizable": false,
+                "draggable": false,
                 "marginBox": {
                     "w": "100%",
                     "h": "50%",
-                    "b": 40,
-                    "l": 0
+                    "t": 0
                 },
                 "windowClass": "mobileWindow"
             }
