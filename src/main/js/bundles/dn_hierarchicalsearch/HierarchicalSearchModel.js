@@ -150,7 +150,9 @@ export default declare({
     _getSearchObject() {
         let searchObj = {};
         this.fields.forEach((field) => {
-            searchObj[field.name] = field.value;
+            if (field && field.value) {
+                searchObj[field.name] = field.value;
+            }
         });
         return searchObj;
     }
