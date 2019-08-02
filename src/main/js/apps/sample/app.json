@@ -19,14 +19,37 @@
             "agssearch",
             "console",
             "popups-default",
-            "dn_hierarchicalsearch",
             "map-preload-2D",
-            "banner"
+            "banner",
+            "dn_hierarchicalsearch"
         ]
     },
     "bundles": {
+        "dn_hierarchicalsearch": {
+            "HierarchicalSearchModel": {
+                "storeId": "flurstuecke_store",
+                "fields": [
+                    {
+                        "name": "gemarkung_",
+                        "label": "Gemarkung"
+                    },
+                    {
+                        "name": "flur_numme",
+                        "label": "Flur"
+                    },
+                    {
+                        "name": "flurstue_1",
+                        "label": "Flurstück"
+                    }
+                ],
+                "resultHandling": [
+                    "zoomToResult",
+                    "openPopup",
+                    "sendResultToResultCenter"
+                ]
+            }
+        },
         "agssearch": {
-            "enabled": true,
             "AGSStore": [
                 {
                     "id": "flurstuecke_store",
@@ -174,30 +197,6 @@
         "popups": {
             "Config": {
                 "dockingDisabled": true
-            }
-        },
-        "dn_hierarchicalsearch": {
-            "HierarchicalSearchModel": {
-                "storeId": "flurstuecke_store",
-                "fields": [
-                    {
-                        "name": "gemarkung_",
-                        "label": "Gemarkung"
-                    },
-                    {
-                        "name": "flur_numme",
-                        "label": "Flur"
-                    },
-                    {
-                        "name": "flurstue_1",
-                        "label": "Flurstück"
-                    }
-                ],
-                "resultHandling": [
-                    "zoomToResult",
-                    "openPopup",
-                    "sendResultToResultCenter"
-                ]
             }
         }
     }
