@@ -17,6 +17,7 @@ import {declare} from "apprt-core/Mutable";
 import QueryTask from "esri/tasks/QueryTask";
 import Query from "esri/tasks/support/Query";
 import Filter from "ct/store/Filter";
+import ComplexQueryToSQL from "ct/store/ComplexQueryToSQL";
 
 export default declare({
 
@@ -47,6 +48,13 @@ export default declare({
         const envs = componentContext.getBundleContext().getCurrentExecutionEnvironment();
         this.isMobile = envs.some((env) => env.name === "Mobile");
         this._setUpSelect(0);
+    },
+
+    search() {
+        this._queryResults();
+        if (this.isMobile) {
+            this._tool.set("active", false);
+        }
     },
 
     selectChanged(field, index) {
@@ -84,20 +92,13 @@ export default declare({
     },
 
     _queryDistinctValues(field, index) {
-        const fields = this.fields;
         const queryTask = new QueryTask(this._store.target);
         const query = new Query();
         if (index === 0) {
             query.where = "1=1";
         } else {
-            let f = fields[0];
-            query.where = f.name + "='" + f.value + "'";
-            for (let i = 1; i < index; i++) {
-                if (f.value) {
-                    f = fields[i];
-                    query.where = query.where + " AND " + f.name + "='" + f.value + "'";
-                }
-            }
+            const complexQuery = this._getComplexQuery();
+            query.where = ComplexQueryToSQL.toSQLWhere(complexQuery, {});
         }
         const fieldName = field.name;
         query.outFields = [fieldName];
@@ -110,13 +111,6 @@ export default declare({
             });
             field.loading = false;
         });
-    },
-
-    search() {
-        this._queryResults();
-        if (this.isMobile) {
-            this._tool.set("active", false);
-        }
     },
 
     _queryResults() {
