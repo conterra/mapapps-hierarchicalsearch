@@ -13,11 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import ct_when from "ct/_when";
+
 export default class OpenPopupAction {
 
     executeAction(results, store, filter) {
-        const selectedGeometry = results[0];
-        this._openPopupService.openPopup(selectedGeometry.OBJECTID, {"store": store});
+        ct_when(store.getMetadata(), (metadata) => {
+            const objectIdField = metadata.objectIdField ||"OBJECTID";
+            const selectedGeometry = results[0];
+            this._openPopupService.openPopup(selectedGeometry[objectIdField], {"store": store});
+        });
     }
 
 }
