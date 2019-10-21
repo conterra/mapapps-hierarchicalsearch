@@ -118,11 +118,16 @@ export default declare({
         const store = this._store;
         const query = this._getComplexQuery();
         const filter = new Filter(store, query, {});
+        const zoomLevel = this._properties.zoomLevel;
         return filter.query({}, {fields: {geometry: 1}}).then((results) => {
             this.loading = false;
             if (results.length) {
                 this.resultActions.forEach(action => {
-                    action.executeAction(results, store, filter)
+                    if (action._properties.id === "zoomToResult") {
+                        action.executeAction(results, store, filter, zoomLevel)
+                    } else {
+                        action.executeAction(results, store, filter)
+                    }
                 });
                 const result = results[0];
                 if (result) {

@@ -105,7 +105,8 @@
             "properties": {
                 "storeId": "",
                 "fields": [],
-                "resultHandling": []
+                "resultHandling": [],
+                "zoomLevel": 5
             },
             "references": [
                 {

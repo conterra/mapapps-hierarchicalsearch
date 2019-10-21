@@ -15,7 +15,7 @@
  */
 export default class ZoomToResultAction {
 
-    executeAction(results, store, filter) {
+    executeAction(results, store, filter, zoomLevel) {
         const mapWidgetModel = this._mapWidgetModel;
         const selectedGeometry = results[0];
         if (selectedGeometry.geometry.type === 'polygon') {
@@ -23,7 +23,7 @@ export default class ZoomToResultAction {
             mapWidgetModel.view.zoom = mapWidgetModel.view.zoom - 2;
         } else {
             mapWidgetModel.view.center = [selectedGeometry.geometry.longitude, selectedGeometry.geometry.latitude];
-            mapWidgetModel.view.zoom = 10;
+            mapWidgetModel.view.zoom = zoomLevel;
         }
     }
 
