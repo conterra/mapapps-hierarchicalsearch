@@ -27,7 +27,9 @@ export default declare({
     isMobile: false,
 
     activate(componentContext) {
-        this._initComponent(componentContext);
+        const envs = componentContext.getBundleContext().getCurrentExecutionEnvironment();
+        this.isMobile = envs.some((env) => env.name === "Mobile");
+        this._initComponent();
     },
 
     addResultAction(resultAction, properties) {
@@ -36,7 +38,7 @@ export default declare({
         }
     },
 
-    _initComponent(componentContext) {
+    _initComponent() {
         const properties = this._properties;
         this.fields = properties.fields.map((field) => {
             field.value = null;
@@ -45,8 +47,6 @@ export default declare({
             field.items = [];
             return field;
         });
-        const envs = componentContext.getBundleContext().getCurrentExecutionEnvironment();
-        this.isMobile = envs.some((env) => env.name === "Mobile");
         this._setUpSelect(0);
     },
 
