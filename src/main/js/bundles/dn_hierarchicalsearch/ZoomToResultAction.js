@@ -15,15 +15,15 @@
  */
 export default class ZoomToResultAction {
 
-    executeAction(results, store, filter, zoomLevel) {
+    executeAction(results, store, filter, zoomScale) {
         const mapWidgetModel = this._mapWidgetModel;
         const selectedGeometry = results[0];
         if (selectedGeometry.geometry.type === 'polygon') {
-            mapWidgetModel.view.extent = selectedGeometry.geometry.extent;
-            mapWidgetModel.view.zoom = mapWidgetModel.view.zoom - 2;
+            const extent = selectedGeometry.geometry.extent;
+            mapWidgetModel.view.extent = extent.expand(1.5);
         } else {
             mapWidgetModel.view.center = [selectedGeometry.geometry.longitude, selectedGeometry.geometry.latitude];
-            mapWidgetModel.view.zoom = zoomLevel;
+            mapWidgetModel.view.scale = zoomScale;
         }
     }
 

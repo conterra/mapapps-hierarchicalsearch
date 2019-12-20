@@ -106,7 +106,7 @@
                 "storeId": "",
                 "fields": [],
                 "resultHandling": [],
-                "zoomLevel": 5
+                "zoomScale": 5000
             },
             "references": [
                 {

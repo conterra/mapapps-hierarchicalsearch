@@ -46,7 +46,8 @@
                     "zoomToResult",
                     "openPopup",
                     "sendResultToResultCenter"
-                ]
+                ],
+                "zoomScale": 5000
             }
         },
         "agssearch": {
