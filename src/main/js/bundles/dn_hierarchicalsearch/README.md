@@ -19,36 +19,38 @@ No further configuration is required, default values will be used.
 
 ### HierarchicalSearchWidgetFactory:
 ```json
-dn_hierarchicalsearch": {
+"dn_hierarchicalsearch": {
    "HierarchicalSearchModel": {
-        "storeId": "flurstuecke_store",
-        "fields": [
-            {
-                "name": "gemarkung_",
-                "label": "Gemarkung"
-            },
-            {
-                "name": "flur_numme",
-                "label": "Flur"
-            },
-            {
-                "name": "flurstue_1",
-                "label": "Flurstück"
-            }
-        ],
-        "resultHandling": [
-            "zoomToResult",
-            "openPopup",
-            "sendResultToResultCenter"
-        ]
-    }
+       "storeId": "flurstuecke_store",
+       "fields": [
+           {
+               "name": "gemarkun_1",
+               "label": "Gemarkung"
+           },
+           {
+               "name": "flur_numme",
+               "label": "Flur"
+           },
+           {
+               "name": "flurstue_1",
+               "label": "Flurstück"
+           }
+       ],
+       "resultHandling": [
+           "zoomToResult",
+           "openPopup",
+           "sendResultToResultCenter"
+       ],
+       "zoomScale": 5000
+   }
 }
 ```
 
-| Property                       | Type    | Possible Values                                     | Default            | Description                                                      |
-|--------------------------------|---------|-----------------------------------------------------|--------------------|------------------------------------------------------------------|
-| storeId                        | String  |                                                     |                    | The ID of your AGSSearch store                                   |
-| resultHandling                 | Array   | zoomToResult ; openPopup ; sendResultToResultCenter |                    | Array of result handling                                         |
-| fields                         | Array   |                                                     |                    | Array of search fields                                           |
-| field.name                     | String  |                                                     |                    | Name of the field                                                |
-| field.label                    | String  |                                                     |                    | Label for the drop down element                                  |
+| Property       | Type    | Possible Values                                                                 | Default | Description                            |
+|----------------|---------|---------------------------------------------------------------------------------|---------|----------------------------------------|
+| storeId        | String  |                                                                                 |         | The ID of your AGSSearch store         |
+| fields         | Array   |                                                                                 |         | Array of search fields                 |
+| field.name     | String  |                                                                                 |         | Name of the field                      |
+| field.label    | String  |                                                                                 |         | Label for the drop down element        |
+| resultHandling | Array   | ```zoomToResult``` &#124; ```openPopup``` &#124; ```sendResultToResultCenter``` |         | Array of result handling               |
+| zoomScale      | Number  |                                                                                 | 5000    | Zoom scale in case of point geometries |
