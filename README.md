@@ -3,7 +3,7 @@ The Hierarchical Search Bundle is a new Widget for searching features via a drop
 The menus will be filled automatically based on the attribute ID and the previous user selections.
 
 ## Sample App
-https://demos.conterra.de/mapapps/resources/apps/downloads_hierarchicalsearch/index.html?lang=de
+https://demos.conterra.de/mapapps/resources/apps/downloads_hierarchicalsearch/index.html
 
 ![Screenshot Sample App Hierarchical Search](https://github.com/conterra/mapapps-hierarchical-search/blob/master/screenshot.JPG)
 
