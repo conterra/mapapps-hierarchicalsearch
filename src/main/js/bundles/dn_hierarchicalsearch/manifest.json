@@ -15,7 +15,6 @@
     "layout-widgets": [
         {
             "widgetRole": "hierarchicalSearchWidget",
-            "template": "seasons",
             "sublayout": [
                 "desktop"
             ],
@@ -37,7 +36,6 @@
         },
         {
             "widgetRole": "hierarchicalSearchWidget",
-            "template": "seasons",
             "sublayout": [
                 "tablet_landscape",
                 "tablet_portrait"
@@ -57,7 +55,6 @@
         },
         {
             "widgetRole": "hierarchicalSearchWidget",
-            "template": "seasons",
             "sublayout": [
                 "mobile_landscape",
                 "mobile_portrait"
