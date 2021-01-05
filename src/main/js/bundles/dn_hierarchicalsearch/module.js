@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import ".";
+import "ct/tools/Tool";
 import "./HierarchicalSearchWidgetFactory";
 import "./HierarchicalSearchModel";
 import "./SendResultToResultCenterAction";
