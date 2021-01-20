@@ -177,7 +177,7 @@
                 "toolsets": [
                     {
                         "id": "defaultToolSet",
-                        "tools": [],
+                        "tools": ["*"],
                         "registerWidget": {
                             "widgetRole": "map_topleft"
                         },
