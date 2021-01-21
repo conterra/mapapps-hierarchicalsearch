@@ -177,7 +177,9 @@
                 "toolsets": [
                     {
                         "id": "defaultToolSet",
-                        "tools": [],
+                        "tools": [
+                            "hierarchicalSearchToggleTool"
+                        ],
                         "registerWidget": {
                             "widgetRole": "map_topleft"
                         },
