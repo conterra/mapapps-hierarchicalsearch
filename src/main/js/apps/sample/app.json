@@ -30,15 +30,15 @@
                 "storeId": "flurstuecke_store",
                 "fields": [
                     {
-                        "name": "gemarkun_1",
+                        "name": "namgmk",
                         "label": "Gemarkung"
                     },
                     {
-                        "name": "flur_numme",
+                        "name": "fln",
                         "label": "Flur"
                     },
                     {
-                        "name": "flurstue_1",
+                        "name": "zae",
                         "label": "Flurstück"
                     }
                 ],
@@ -57,7 +57,7 @@
                     "title": "Flurstück suchen",
                     "description": "Beschreibung Flursuche",
                     "idProperty": "OBJECTID",
-                    "layerId": "flurstuecke",
+                    "layerId": "flurst_berlin",
                     "useIn": [
                         "selection"
                     ],
@@ -151,9 +151,9 @@
                 "map": {
                     "layers": [
                         {
-                            "id": "flurstuecke",
+                            "id": "flurst_berlin",
                             "type": "AGS_FEATURE",
-                            "url": "https://services2.arcgis.com/jUpNdisbWqRpMo35/ArcGIS/rest/services/Berlin_Flurst%C3%BCcke/FeatureServer/0",
+                            "url": "https://services2.arcgis.com/jUpNdisbWqRpMo35/ArcGIS/rest/services/Flurst_Berlin/FeatureServer/0",
                             "outFields": [
                                 "*"
                             ]
