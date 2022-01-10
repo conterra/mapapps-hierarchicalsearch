@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 import {declare} from "apprt-core/Mutable";
-import QueryTask from "esri/tasks/QueryTask";
-import Query from "esri/tasks/support/Query";
+//import QueryTask from "esri/tasks/QueryTask";
+// Use Import for query since version 4.2
+import * as query from "esri/rest/query";
+//import Query from "esri/tasks/support/Query";
+import Query from "esri/rest/support/Query"
 import Filter from "ct/store/Filter";
 import ComplexQueryToSQL from "ct/store/ComplexQueryToSQL";
 
@@ -90,8 +93,8 @@ export default declare({
             this._queryDistinctValues(field, index);
         }
     },
-
-    _queryDistinctValues(field, index) {
+// Code Version before 4.12
+    /*_queryDistinctValues(field, index) {
         const queryTask = new QueryTask(this._store.target);
         const query = new Query();
         if (index === 0) {
@@ -111,8 +114,35 @@ export default declare({
             });
             field.loading = false;
         });
-    },
+    },*/
 
+    // for Version 4.12
+    _queryDistinctValues(field, index) {
+        const queryUrl = this._store.target;
+        if(!queryUrl) {
+            console.error("Store has no target!");
+            return;
+        }
+        const fieldName = field.name;
+        const queryObject = new Query({
+            outFields: [fieldName],
+            orderByFields: [fieldName],
+            returnDistinctValues: true,
+            returnGeometry: false
+        });
+        if (index === 0) {
+            queryObject.where = "1=1";
+        } else {
+            const complexQuery = this._getComplexQuery();
+            queryObject.where = ComplexQueryToSQL.toSQLWhere(complexQuery, {});
+        }
+        query.executeQueryJSON(this._store.target, queryObject).then(function (response) {
+            response.features.forEach((feature) => {
+                field.items.push(feature.attributes[fieldName]);
+            });
+            field.loading = false;
+        });
+    },
     _queryResults() {
         this.loading = true;
         const store = this._store;
@@ -170,3 +200,4 @@ export default declare({
         return searchObj;
     }
 });
+
