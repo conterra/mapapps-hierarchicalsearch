@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 import {declare} from "apprt-core/Mutable";
-//import QueryTask from "esri/tasks/QueryTask";
-// Use Import for query since version 4.2
 import * as query from "esri/rest/query";
-//import Query from "esri/tasks/support/Query";
 import Query from "esri/rest/support/Query"
 import Filter from "ct/store/Filter";
 import ComplexQueryToSQL from "ct/store/ComplexQueryToSQL";
