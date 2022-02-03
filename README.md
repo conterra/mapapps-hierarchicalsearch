@@ -11,7 +11,7 @@ https://demos.conterra.de/mapapps/resources/apps/downloads_hierarchicalsearch/in
 ![Screenshot Sample App Hierarchical Search](https://github.com/conterra/mapapps-hierarchical-search/blob/master/screenshot.JPG)
 
 ## Installation Guide
-**Requirement: map.apps 4.3.0**
+**Requirement: map.apps 4.12.0**
 
 [dn_hierarchicalsearch Documentation](https://github.com/conterra/mapapps-hierarchicalsearch/tree/master/src/main/js/bundles/dn_hierarchicalsearch)
 
