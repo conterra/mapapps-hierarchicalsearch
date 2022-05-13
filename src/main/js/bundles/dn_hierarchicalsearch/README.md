@@ -37,7 +37,7 @@ No further configuration is required, default values will be used.
            }
        ],
        "resultHandling": [
-           "zoomToResult",
+           "zoomto",
            "openPopup",
            "sendResultToResultCenter"
        ],
@@ -52,5 +52,5 @@ No further configuration is required, default values will be used.
 | fields         | Array   |                                                                                 |         | Array of search fields                 |
 | field.name     | String  |                                                                                 |         | Name of the field                      |
 | field.label    | String  |                                                                                 |         | Label for the drop down element        |
-| resultHandling | Array   | ```zoomToResult``` &#124; ```openPopup``` &#124; ```sendResultToResultCenter``` |         | Array of result handling               |
+| resultHandling | Array   | ```zoomto``` &#124; ```openPopup``` &#124; ```sendResultToResultCenter``` |         | Array of result handling               |
 | zoomScale      | Number  |                                                                                 | 5000    | Zoom scale in case of point geometries |

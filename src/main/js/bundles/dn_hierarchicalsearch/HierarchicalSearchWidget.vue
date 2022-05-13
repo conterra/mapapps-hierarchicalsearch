@@ -1,6 +1,6 @@
 <!--
 
-    Copyright (C) 2021 con terra GmbH (info@conterra.de)
+    Copyright (C) 2022 con terra GmbH (info@conterra.de)
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,17 +15,20 @@
     limitations under the License.
 
 -->
+
 <template>
     <div class="hierarchicalsearch">
         <v-container
             class="pa-1"
             fluid
             grid-list-md
-            fill-height>
+            fill-height
+        >
             <v-layout>
                 <v-flex
                     v-for="(field, index) in fields"
-                    :key="index">
+                    :key="index"
+                >
                     <v-combobox
                         v-model="field.value"
                         :items="field.items"
@@ -47,7 +50,8 @@
             color="primary"
             :disabled="!fields[0].value"
             :loading="loading"
-            @click="$emit('search')">
+            @click="$emit('search')"
+        >
             <v-icon left>
                 search
             </v-icon>
@@ -64,7 +68,7 @@
             i18n: {
                 type: Object,
                 default: function () {
-                    return {}
+                    return {};
                 }
             },
             loading: {

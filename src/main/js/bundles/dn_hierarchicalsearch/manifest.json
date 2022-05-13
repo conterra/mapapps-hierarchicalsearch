@@ -15,9 +15,7 @@
     "layout-widgets": [
         {
             "widgetRole": "hierarchicalSearchWidget",
-            "sublayout": [
-                "desktop"
-            ],
+            "sublayout": ["desktop"],
             "window": {
                 "autofocus": false,
                 "dockTool": "hierarchicalSearchToggleTool",
@@ -36,10 +34,7 @@
         },
         {
             "widgetRole": "hierarchicalSearchWidget",
-            "sublayout": [
-                "tablet_landscape",
-                "tablet_portrait"
-            ],
+            "sublayout": ["tablet_landscape", "tablet_portrait"],
             "window": {
                 "autofocus": false,
                 "dockTool": "hierarchicalSearchToggleTool",
@@ -55,10 +50,7 @@
         },
         {
             "widgetRole": "hierarchicalSearchWidget",
-            "sublayout": [
-                "mobile_landscape",
-                "mobile_portrait"
-            ],
+            "sublayout": ["mobile_landscape", "mobile_portrait"],
             "window": {
                 "autofocus": false,
                 "dockTool": "hierarchicalSearchToggleTool",
@@ -134,9 +126,7 @@
         {
             "name": "HierarchicalSearchToggleTool",
             "impl": "ct/tools/Tool",
-            "provides": [
-                "ct.tools.Tool"
-            ],
+            "provides": ["ct.tools.Tool"],
             "propertiesConstructor": true,
             "properties": {
                 "id": "hierarchicalSearchToggleTool",
@@ -164,9 +154,7 @@
         },
         {
             "name": "OpenPopupAction",
-            "provides": [
-                "dn_hierarchicalsearch.ResultAction"
-            ],
+            "provides": ["dn_hierarchicalsearch.ResultAction"],
             "properties": {
                 "id": "openPopup"
             },
@@ -179,9 +167,7 @@
         },
         {
             "name": "SendResultToResultCenterAction",
-            "provides": [
-                "dn_hierarchicalsearch.ResultAction"
-            ],
+            "provides": ["dn_hierarchicalsearch.ResultAction"],
             "properties": {
                 "id": "sendResultToResultCenter"
             },

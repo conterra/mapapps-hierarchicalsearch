@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 con terra GmbH (info@conterra.de)
+ * Copyright (C) 2022 con terra GmbH (info@conterra.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ mapapps.registerTasks({
     themes: [/*"sample-theme"*/],
     /* state that the custom theme will be dependant from map.apps everlasting theme that provides the base styles */
     hasBaseThemes: true,
-    /* state that we want to support vuetify components and therefore need the the vuetify core styles*/
-    hasVuetify: true,
+    /* state that we want to support vuetify components and therefore need the vuetify core styles*/
+    hasVuetify: true
     /*themeChangeTargets: {
         "vuetify": [
             "sample_theme"

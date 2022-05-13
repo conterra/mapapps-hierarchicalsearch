@@ -13,6 +13,7 @@
             "templatelayout",
             "template-seasons",
             "theme-everlasting",
+            "theme-autumn",
             "toolset",
             "map-init",
             "toolrules",
@@ -195,6 +196,14 @@
                 "activateOnStartToolIds": [
                     "hierarchicalSearchToggleTool"
                 ]
+            }
+        },
+        "themes": {
+            "ThemeModel": {
+                "_selectedTheme": "autumn"
+            },
+            "ThemeSelector": {
+                "componentEnabled": true
             }
         },
         "popups": {

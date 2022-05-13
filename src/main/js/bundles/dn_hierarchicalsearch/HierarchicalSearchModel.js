@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 con terra GmbH (info@conterra.de)
+ * Copyright (C) 2022 con terra GmbH (info@conterra.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import {declare} from "apprt-core/Mutable";
 import * as query from "esri/rest/query";
-import Query from "esri/rest/support/Query"
+import Query from "esri/rest/support/Query";
 import Filter from "ct/store/Filter";
 import ComplexQueryToSQL from "ct/store/ComplexQueryToSQL";
 
@@ -90,30 +91,7 @@ export default declare({
             this._queryDistinctValues(field, index);
         }
     },
-// Code Version before 4.12
-    /*_queryDistinctValues(field, index) {
-        const queryTask = new QueryTask(this._store.target);
-        const query = new Query();
-        if (index === 0) {
-            query.where = "1=1";
-        } else {
-            const complexQuery = this._getComplexQuery();
-            query.where = ComplexQueryToSQL.toSQLWhere(complexQuery, {});
-        }
-        const fieldName = field.name;
-        query.outFields = [fieldName];
-        query.orderByFields = [fieldName];
-        query.returnDistinctValues = true;
-        query.returnGeometry = false;
-        queryTask.execute(query).then(response => {
-            response.features.forEach((feature) => {
-                field.items.push(feature.attributes[fieldName]);
-            });
-            field.loading = false;
-        });
-    },*/
 
-    // for Version 4.12
     _queryDistinctValues(field, index) {
         const queryUrl = this._store.target;
         if(!queryUrl) {
@@ -140,6 +118,7 @@ export default declare({
             field.loading = false;
         });
     },
+
     _queryResults() {
         this.loading = true;
         const store = this._store;
@@ -197,4 +176,3 @@ export default declare({
         return searchObj;
     }
 });
-
