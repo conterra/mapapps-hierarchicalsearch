@@ -31,15 +31,15 @@
                 "storeId": "flurstuecke_store",
                 "fields": [
                     {
-                        "name": "namgmk",
+                        "name": "NAMGMK",
                         "label": "Gemarkung"
                     },
                     {
-                        "name": "fln",
+                        "name": "FLN",
                         "label": "Flur"
                     },
                     {
-                        "name": "zae",
+                        "name": "ZAE",
                         "label": "Flurstück"
                     }
                 ],
