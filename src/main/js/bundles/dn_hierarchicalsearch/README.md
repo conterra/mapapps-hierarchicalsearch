@@ -1,6 +1,7 @@
 # dn_hierarchicalsearch
 
-The Query Builder Bundle allows you to create your own Query Tools that perform custom complex queries on a store. For example, choosing all cities with more than 1 million inhabitants. The results of your queries are shown in the resultcenter. As an admin, it is possible to create complex queries using an interactive graphical user interface, or manually in a text format. If you enable the editing of a tool, the users will be able to change selected parts of the query. They can create their own queries if you add a special tool to your app.
+The Hierarchical Search Bundle is a new Widget for searching features via a drop-down menu based on attributed values. 
+The menus will be filled automatically based on the attribute ID and the previous user selections.
 
 ## Usage
 
