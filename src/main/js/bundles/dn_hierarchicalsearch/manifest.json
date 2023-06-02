@@ -10,7 +10,8 @@
         "apprt-binding": "^4.2.2",
         "apprt-vuetify": "^4.2.2",
         "resultcenter": "^4.2.2",
-        "agssearch": "^4.2.2"
+        "agssearch": "^4.2.2",
+        "map-actions": "^4.2.2"
     },
     "layout-widgets": [
         {
@@ -95,7 +96,10 @@
                 "storeId": "",
                 "fields": [],
                 "resultHandling": [],
-                "zoomScale": 5000
+                "mapActions": ["highlight", "zoomto"],
+                "mapActionsConfig": {
+                    "zoomto-scale": 5000
+                }
             },
             "references": [
                 {
@@ -120,6 +124,10 @@
                 {
                     "name": "_logService",
                     "providing": "ct.framework.api.LogService"
+                },
+                {
+                    "name": "_actionService",
+                    "providing": "map-actions.ActionService"
                 }
             ]
         },
@@ -136,34 +144,6 @@
                 "iconClass": "icon-magnifier",
                 "togglable": true
             }
-        },
-        {
-            "name": "ZoomToResultAction",
-            "provides": [
-                "dn_hierarchicalsearch.ResultAction"
-            ],
-            "properties": {
-                "id": "zoomToResult"
-            },
-            "references": [
-                {
-                    "name": "_mapWidgetModel",
-                    "providing": "map-widget.MapWidgetModel"
-                }
-            ]
-        },
-        {
-            "name": "OpenPopupAction",
-            "provides": ["dn_hierarchicalsearch.ResultAction"],
-            "properties": {
-                "id": "openPopup"
-            },
-            "references": [
-                {
-                    "name": "_openPopupService",
-                    "providing": "resultcenter.OpenPopupService"
-                }
-            ]
         },
         {
             "name": "SendResultToResultCenterAction",
