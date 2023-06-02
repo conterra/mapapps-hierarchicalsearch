@@ -120,22 +120,23 @@ export default declare({
     },
 
     _queryResults() {
+        const props = this._properties;
+
         this.loading = true;
         const store = this._store;
         const query = this._getComplexQuery();
         const filter = new Filter(store, query, {});
-        const zoomScale = this._properties.zoomScale;
         return filter.query({}, {fields: {geometry: 1}}).then((results) => {
             this.loading = false;
             if (results.length) {
-                this.resultActions.forEach(action => {
-                    if (action._properties.id === "zoomToResult") {
-                        action.executeAction(results, store, filter, zoomScale);
-                    } else {
-                        action.executeAction(results, store, filter);
-                    }
-                });
                 const result = results[0];
+
+                const mapActions = props.mapActions
+                const mapActionsConfig = props.mapActionsConfig;
+                mapActionsConfig.items = [{ geometry: result.geometry }];
+                mapActionsConfig.source = store;
+                this._actionService.trigger(mapActions, mapActionsConfig);
+
                 if (result) {
                     this._eventService.postEvent("dn_hierarchicalsearch/RESULT", {
                         "result": result
