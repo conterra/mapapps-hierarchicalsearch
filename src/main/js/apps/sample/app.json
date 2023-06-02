@@ -44,11 +44,8 @@
                     }
                 ],
                 "resultHandling": [
-                    "zoomToResult",
-                    "openPopup",
                     "sendResultToResultCenter"
-                ],
-                "zoomScale": 5000
+                ]
             }
         },
         "agssearch": {
@@ -59,6 +56,7 @@
                     "description": "Beschreibung Flursuche",
                     "idProperty": "OBJECTID",
                     "layerId": "flurst_berlin",
+                    "popupEnabled": true,
                     "useIn": [
                         "selection"
                     ],
