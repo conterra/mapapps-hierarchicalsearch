@@ -18,6 +18,5 @@ import ".";
 import "ct/tools/Tool";
 import "./HierarchicalSearchModel";
 import "./HierarchicalSearchWidgetFactory";
-import "./OpenPopupAction";
+import "./SendResultToResultUIAction";
 import "./SendResultToResultCenterAction";
-import "./ZoomToResultAction";
