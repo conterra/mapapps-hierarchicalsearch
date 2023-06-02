@@ -9,7 +9,6 @@
         "apprt-vue": "^4.2.2",
         "apprt-binding": "^4.2.2",
         "apprt-vuetify": "^4.2.2",
-        "resultcenter": "^4.2.2",
         "agssearch": "^4.2.2",
         "map-actions": "^4.2.2"
     },
@@ -155,6 +154,19 @@
                 {
                     "name": "_dataModel",
                     "providing": "resultcenter.DataModel"
+                }
+            ]
+        },
+        {
+            "name": "SendResultToResultUIAction",
+            "provides": ["dn_hierarchicalsearch.ResultAction"],
+            "properties": {
+                "id": "sendResultToResultUI"
+            },
+            "references": [
+                {
+                    "name": "_resultViewerService",
+                    "providing": "result-api.ResultViewerService"
                 }
             ]
         }
