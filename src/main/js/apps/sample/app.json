@@ -22,7 +22,9 @@
             "popups-default",
             "map-preload-2D",
             "banner",
-            "dn_hierarchicalsearch"
+            "dn_hierarchicalsearch",
+            "result-ui"
+            // "resultcenter"
         ]
     },
     "bundles": {
@@ -44,7 +46,7 @@
                     }
                 ],
                 "resultHandling": [
-                    "sendResultToResultCenter"
+                    "sendResultToResultUI"
                 ]
             }
         },
@@ -56,7 +58,6 @@
                     "description": "Beschreibung Flursuche",
                     "idProperty": "OBJECTID",
                     "layerId": "flurst_berlin",
-                    "popupEnabled": true,
                     "useIn": [
                         "selection"
                     ],
