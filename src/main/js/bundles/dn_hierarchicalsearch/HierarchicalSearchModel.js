@@ -135,7 +135,13 @@ export default declare({
                 const mapActionsConfig = props.mapActionsConfig;
                 mapActionsConfig.items = [{ geometry: result.geometry }];
                 mapActionsConfig.source = store;
+
                 this._actionService.trigger(mapActions, mapActionsConfig);
+
+                // Execute non-map-action actions
+                this.resultActions.forEach(action => {
+                    action.executeAction(results, store, filter);
+                });
 
                 if (result) {
                     this._eventService.postEvent("dn_hierarchicalsearch/RESULT", {
