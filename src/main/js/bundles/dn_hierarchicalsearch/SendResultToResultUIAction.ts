@@ -29,39 +29,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import ComplexQuery from "@conterra/ct-mapapps-typings/store-api/ComplexQuery";
+import type { ResultViewerService } from "result-api/api";
 
 export default class SendResultToResultUIAction {
 
-    async executeAction(results, store, filter) {
+    private resultViewerService: ResultViewerService;
+    private _i18n: any;
 
-        if (results.length) {
-        // only the items with the ids returned by the idsProvider
-        // are fetched from the store and shown in the UI
-        const idsProvider: DatasetItemIdsProvider = async ({limit}) => {
-            // the limit option is the maximal amount of items which will be fetched
-            // the id provider may ignore the information or use it to reduce the fetched results
-            const result = await store.query({}, {
-                count: limit
-            });
-            return {
-                ids: result.map((item) => item.id)
-            };
-        };
+    async executeAction(store: any, query: ComplexQuery) {
+        const dataTableFactory = this.resultViewerService.dataTableFactory;
+        const title = this._i18n.get().ui.resultUiTitle;
 
-        // dataTableFactory is used to create a DataTableCollection from the store
-        const dataTableFactory = this._resultViewerService.dataTableFactory;
-        const dataTable = await dataTableFactory.createDataTableFromStore({
-            dataTableTitle: "MyTopic",
+        const dataTable = await dataTableFactory.createDataTableFromStoreAndQuery({
+            dataTableTitle: title,
             dataSource: store,
-            idsProvider,
-            queryExpression: "1=1"
+            queryExpression: query,
+            queryOptions: {}
         });
 
         const dataTableCollection = dataTableFactory.createDataTableCollection([dataTable]);
-        this._resultViewerService.open(dataTableCollection);
-        } else {
-            return;
+        this.resultViewerService.open(dataTableCollection);
         }
     }
-
-}
