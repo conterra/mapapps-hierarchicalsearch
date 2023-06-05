@@ -133,14 +133,14 @@ export default declare({
 
                 const mapActions = props.mapActions
                 const mapActionsConfig = props.mapActionsConfig;
-                mapActionsConfig.items = [{ geometry: result.geometry }];
+                mapActionsConfig.items = results;
                 mapActionsConfig.source = store;
 
                 this._actionService.trigger(mapActions, mapActionsConfig);
 
                 // Execute non-map-action actions
                 this.resultActions.forEach(action => {
-                    action.executeAction(results, store, filter);
+                    action.executeAction(store, query);
                 });
 
                 if (result) {
