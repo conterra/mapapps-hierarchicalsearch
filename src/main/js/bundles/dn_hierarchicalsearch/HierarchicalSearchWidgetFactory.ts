@@ -21,20 +21,25 @@ import HierarchicalSearchWidget from "./HierarchicalSearchWidget.vue";
 
 export default class HierarchicalSearchWidgetFactory {
 
-    activate() {
+    private vm: Vue;
+    private _i18n: any;
+    private hierarchicalSearchModel: typeof HierarchicalSearchWidget;
+
+    activate(): void {
         this._initComponent();
     }
 
-    _initComponent() {
+    _initComponent(): void {
         const vm = this.vm = new Vue(HierarchicalSearchWidget);
-        const model = this._hierarchicalSearchModel;
+        const model = this.hierarchicalSearchModel;
 
         vm.i18n = this._i18n.get().ui;
 
         vm.$on("search", () => {
             model.search();
         });
-        vm.$on('selected', (field, index) => {
+        debugger
+        vm.$on('selected', (field: object, index: number) => {
             model.selectChanged(field, index);
         });
 

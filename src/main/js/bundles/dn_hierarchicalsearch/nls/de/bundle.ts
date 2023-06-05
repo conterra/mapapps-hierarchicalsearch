@@ -23,6 +23,7 @@ module.exports = {
     },
     noResultsError: "Keine Ergebnisse f\u00fcr Ihre Abfrage gefunden!",
     ui: {
-        search: "Suchen"
+        search: "Suchen",
+        resultUiTitle: "Ergebnis der hierarchischen Suche"
     }
 };

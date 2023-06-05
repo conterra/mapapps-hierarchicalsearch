@@ -79,7 +79,7 @@
             },
             "references": [
                 {
-                    "name": "_hierarchicalSearchModel",
+                    "name": "hierarchicalSearchModel",
                     "providing": "dn_hierarchicalsearch.HierarchicalSearchModel"
                 }
             ]
@@ -95,7 +95,7 @@
                 "storeId": "",
                 "fields": [],
                 "resultHandling": [],
-                "mapActions": ["highlight", "zoomto"],
+                "mapActions": ["highlight", "zoomto", "openpopup"],
                 "mapActionsConfig": {
                     "zoomto-scale": 5000
                 }
@@ -165,7 +165,7 @@
             },
             "references": [
                 {
-                    "name": "_resultViewerService",
+                    "name": "resultViewerService",
                     "providing": "result-api.ResultViewerService"
                 }
             ]

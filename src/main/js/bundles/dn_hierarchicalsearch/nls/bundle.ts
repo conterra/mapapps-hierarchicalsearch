@@ -24,7 +24,8 @@ module.exports = {
         },
         noResultsError: "No results found for your query!",
         ui: {
-            search: "Search"
+            search: "Search",
+            resultUiTitle: "Hierarchical Search Result"
         }
     }),
     "de": true
