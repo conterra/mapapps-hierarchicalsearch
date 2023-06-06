@@ -24,7 +24,6 @@ import { Field } from "./Interfaces";
 
 export default class HierarchicalSearchController {
 
-    private actionService: any;
     private hierarchicalSearchModel: typeof HierarchicalSearchModel;
 
     getFields(initialFields: Array<object>){

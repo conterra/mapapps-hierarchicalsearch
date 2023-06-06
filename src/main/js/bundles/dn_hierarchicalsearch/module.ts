@@ -20,5 +20,5 @@ import "./Interfaces";
 import "./HierarchicalSearchModel";
 import "./HierarchicalSearchController";
 import "./HierarchicalSearchWidgetFactory";
-import "./SendResultToResultUIAction";
-import "./SendResultToResultCenterAction";
+import "./actions/SendResultToResultUIAction";
+import "./actions/SendResultToResultCenterAction";
