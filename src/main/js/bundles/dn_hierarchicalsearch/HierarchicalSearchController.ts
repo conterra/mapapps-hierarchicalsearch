@@ -20,13 +20,7 @@ import Filter from "ct/store/Filter";
 import ComplexQueryToSQL from "ct/store/ComplexQueryToSQL";
 import HierarchicalSearchModel from "./HierarchicalSearchModel";
 
-interface Field {
-    name: String;
-    value: String;
-    loading: Boolean;
-    disabled: Boolean;
-    items: Array<object>;
-}
+import { Field } from "./Interfaces";
 
 export default class HierarchicalSearchController {
 
