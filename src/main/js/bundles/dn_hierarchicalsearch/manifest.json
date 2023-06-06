@@ -3,6 +3,7 @@
     "version": "1.6.1-SNAPSHOT",
     "title": "${bundleName}",
     "description": "${bundleDescription}",
+    "main": "",
     "vendor": "con terra GmbH",
     "productName": "devnet-mapapps-hierarchical-search",
     "dependencies": {
@@ -68,6 +69,38 @@
     ],
     "components": [
         {
+            "name": "Config",
+            "impl": "./HierarchicalSearchModel",
+            "propertiesConstructor": true,
+            "provides": ["dn_hierarchicalsearch.HierarchicalSearchModel"],
+            "properties": {
+                "storeId": "",
+                "fields": [],
+                "mapActions": [],
+                "mapActionsConfig": {}
+            },
+            "references": [
+                {
+                    "name": "store",
+                    "providing": "ct.api.Store",
+                    "filter": "(id={storeId})"
+                },
+                {
+                    "name": "tool",
+                    "providing": "ct.tools.Tool",
+                    "filter": "(id=hierarchicalSearchToggleTool)"
+                },
+                {
+                    "name": "logService",
+                    "providing": "ct.framework.api.LogService"
+                },
+                {
+                    "name": "actionService",
+                    "providing": "map-actions.ActionService"
+                }
+            ]
+        },
+        {
             "name": "HierarchicalSearchWidgetFactory",
             "provides": [
                 "dijit.Widget",
@@ -81,52 +114,24 @@
                 {
                     "name": "hierarchicalSearchModel",
                     "providing": "dn_hierarchicalsearch.HierarchicalSearchModel"
+                },
+                {
+                    "name": "hierarchicalSearchController",
+                    "providing": "dn_hierarchicalsearch.HierarchicalSearchController"
                 }
             ]
         },
         {
-            "name": "HierarchicalSearchModel",
+            "name": "HierarchicalSearchController",
             "propertiesConstructor": true,
             "provides": [
-                "ct.framework.api.EventHandler",
-                "dn_hierarchicalsearch.HierarchicalSearchModel"
+                "dn_hierarchicalsearch.HierarchicalSearchController"
             ],
-            "properties": {
-                "storeId": "",
-                "fields": [],
-                "resultHandling": [],
-                "mapActions": ["highlight", "zoomto", "openpopup"],
-                "mapActionsConfig": {
-                    "zoomto-scale": 5000
-                }
-            },
+            "properties": {},
             "references": [
                 {
-                    "name": "resultAction",
-                    "providing": "dn_hierarchicalsearch.ResultAction",
-                    "cardinality": "0..n"
-                },
-                {
-                    "name": "_store",
-                    "providing": "ct.api.Store",
-                    "filter": "(id={storeId})"
-                },
-                {
-                    "name": "_tool",
-                    "providing": "ct.tools.Tool",
-                    "filter": "(id=hierarchicalSearchToggleTool)"
-                },
-                {
-                    "name": "_eventService",
-                    "providing": "ct.framework.api.EventService"
-                },
-                {
-                    "name": "_logService",
-                    "providing": "ct.framework.api.LogService"
-                },
-                {
-                    "name": "_actionService",
-                    "providing": "map-actions.ActionService"
+                    "name": "hierarchicalSearchModel",
+                    "providing": "dn_hierarchicalsearch.HierarchicalSearchModel"
                 }
             ]
         },
@@ -145,28 +150,24 @@
             }
         },
         {
-            "name": "SendResultToResultCenterAction",
-            "provides": ["dn_hierarchicalsearch.ResultAction"],
-            "properties": {
-                "id": "sendResultToResultCenter"
-            },
+            "name": "SendResultToResultUIAction",
+            "provides": ["map-actions.Action"],
             "references": [
                 {
-                    "name": "_dataModel",
-                    "providing": "resultcenter.DataModel"
+                    "name": "resultViewerService",
+                    "providing": "result-api.ResultViewerService",
+                    "cardinality": "0..1"
                 }
             ]
         },
         {
-            "name": "SendResultToResultUIAction",
-            "provides": ["dn_hierarchicalsearch.ResultAction"],
-            "properties": {
-                "id": "sendResultToResultUI"
-            },
+            "name": "SendResultToResultCenterAction",
+            "provides": ["map-actions.Action"],
             "references": [
                 {
-                    "name": "resultViewerService",
-                    "providing": "result-api.ResultViewerService"
+                    "name": "dataModel",
+                    "providing": "resultcenter.DataModel",
+                    "cardinality": "0..1"
                 }
             ]
         }
