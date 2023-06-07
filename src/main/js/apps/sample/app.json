@@ -22,6 +22,7 @@
             "popups-default",
             "map-preload-2D",
             "banner",
+            "notifier",
             "result-ui",
             "dn_hierarchicalsearch"
         ]
@@ -44,7 +45,7 @@
                         "label": "Flurstück"
                     }
                 ],
-                "mapActions": ["highlight", "zoomto", "openpopup", "sendResultToResultUI"],
+                "mapActions": ["highlight", "zoomto"],
                 "mapActionsConfig": {
                     "zoomto-scale": 5000
                 }
