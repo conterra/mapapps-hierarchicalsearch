@@ -15,9 +15,9 @@
 ///
 
 export interface Field {
-    name: String;
-    value: String;
-    loading: Boolean;
-    disabled: Boolean;
+    name: string;
+    value: string;
+    loading: boolean;
+    disabled: boolean;
     items: Array<object>;
 }

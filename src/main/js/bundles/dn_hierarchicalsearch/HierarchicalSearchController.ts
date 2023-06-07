@@ -26,7 +26,7 @@ export default class HierarchicalSearchController {
 
     private hierarchicalSearchModel: typeof HierarchicalSearchModel;
 
-    getFields(initialFields: Array<object>){
+    getFields(initialFields: Array<object>): Array<Field> {
         const fields: Array<Field> = initialFields.map((field: Field) => {
             field.value = null;
             field.loading = false;
@@ -100,7 +100,7 @@ export default class HierarchicalSearchController {
             model.loading = false;
             if (results.length) {
                 // Access configured map-actions and their configs
-                const mapActions = model.mapActions
+                const mapActions = model.mapActions;
                 const mapActionsConfig = model.mapActionsConfig;
                 // Add further parameters to configurations taken from app.json
                 mapActionsConfig.items = results;

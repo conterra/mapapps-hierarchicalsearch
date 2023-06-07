@@ -19,7 +19,7 @@ import type { ResultViewerService } from "result-api/api";
 export default class SendResultToResultUIAction {
 
     public id: string;
-    public immediate: Boolean;
+    public immediate: boolean;
 
     private logService: any;
     private resultViewerService: ResultViewerService;
@@ -33,7 +33,7 @@ export default class SendResultToResultUIAction {
     }
 
     // trigger method which is called with the search result items
-    async trigger(options: any) {
+    async trigger(options: any): Promise<void> {
         if (this.resultViewerService) {
             const store = options.source;
             const query = options["query"];
