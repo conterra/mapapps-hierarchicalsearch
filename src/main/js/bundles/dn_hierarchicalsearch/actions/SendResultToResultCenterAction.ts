@@ -19,6 +19,7 @@ export default class SendResultToResultCenterAction {
     public id: string;
     public immediate: Boolean;
 
+    private logService: any;
     private dataModel: any;
     private _i18n: any;
 
@@ -42,7 +43,10 @@ export default class SendResultToResultCenterAction {
             }
         } else {
             const warning = this._i18n.get().ui.resultcenterWarning;
-            console.warn(warning)
+            this.logService.warn({
+                id: 0,
+                message: warning
+            });
         }
     }
 }

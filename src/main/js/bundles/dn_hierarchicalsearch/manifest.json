@@ -151,23 +151,33 @@
         },
         {
             "name": "SendResultToResultUIAction",
+            "impl": "./actions/SendResultToResultUIAction",
             "provides": ["map-actions.Action"],
             "references": [
                 {
                     "name": "resultViewerService",
                     "providing": "result-api.ResultViewerService",
                     "cardinality": "0..1"
+                },
+                {
+                    "name": "logService",
+                    "providing": "ct.framework.api.LogService"
                 }
             ]
         },
         {
             "name": "SendResultToResultCenterAction",
+            "impl": "./actions/SendResultToResultCenterAction",
             "provides": ["map-actions.Action"],
             "references": [
                 {
                     "name": "dataModel",
                     "providing": "resultcenter.DataModel",
                     "cardinality": "0..1"
+                },
+                {
+                    "name": "logService",
+                    "providing": "ct.framework.api.LogService"
                 }
             ]
         }

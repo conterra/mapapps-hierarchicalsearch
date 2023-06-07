@@ -21,6 +21,7 @@ export default class SendResultToResultUIAction {
     public id: string;
     public immediate: Boolean;
 
+    private logService: any;
     private resultViewerService: ResultViewerService;
     private _i18n: any;
 
@@ -52,7 +53,10 @@ export default class SendResultToResultUIAction {
         }
         else {
             const warning = this._i18n.get().ui.resultUiWarning;
-            console.warn(warning)
+            this.logService.warn({
+                id: 0,
+                message: warning
+            });
         }
     }
 }
