@@ -22,12 +22,14 @@
             "popups-default",
             "map-preload-2D",
             "banner",
+            "notifier",
+            "result-ui",
             "dn_hierarchicalsearch"
         ]
     },
     "bundles": {
         "dn_hierarchicalsearch": {
-            "HierarchicalSearchModel": {
+            "Config": {
                 "storeId": "flurstuecke_store",
                 "fields": [
                     {
@@ -43,12 +45,10 @@
                         "label": "Flurstück"
                     }
                 ],
-                "resultHandling": [
-                    "zoomToResult",
-                    "openPopup",
-                    "sendResultToResultCenter"
-                ],
-                "zoomScale": 5000
+                "mapActions": ["highlight", "zoomto"],
+                "mapActionsConfig": {
+                    "zoomto-scale": 5000
+                }
             }
         },
         "agssearch": {

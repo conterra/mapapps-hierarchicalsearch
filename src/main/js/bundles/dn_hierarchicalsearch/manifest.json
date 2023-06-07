@@ -3,14 +3,15 @@
     "version": "1.6.1-SNAPSHOT",
     "title": "${bundleName}",
     "description": "${bundleDescription}",
+    "main": "",
     "vendor": "con terra GmbH",
     "productName": "devnet-mapapps-hierarchical-search",
     "dependencies": {
         "apprt-vue": "^4.2.2",
         "apprt-binding": "^4.2.2",
         "apprt-vuetify": "^4.2.2",
-        "resultcenter": "^4.2.2",
-        "agssearch": "^4.2.2"
+        "agssearch": "^4.2.2",
+        "map-actions": "^4.2.2"
     },
     "layout-widgets": [
         {
@@ -68,6 +69,38 @@
     ],
     "components": [
         {
+            "name": "Config",
+            "impl": "./HierarchicalSearchModel",
+            "propertiesConstructor": true,
+            "provides": ["dn_hierarchicalsearch.HierarchicalSearchModel"],
+            "properties": {
+                "storeId": "",
+                "fields": [],
+                "mapActions": [],
+                "mapActionsConfig": {}
+            },
+            "references": [
+                {
+                    "name": "store",
+                    "providing": "ct.api.Store",
+                    "filter": "(id={storeId})"
+                },
+                {
+                    "name": "tool",
+                    "providing": "ct.tools.Tool",
+                    "filter": "(id=hierarchicalSearchToggleTool)"
+                },
+                {
+                    "name": "logService",
+                    "providing": "ct.framework.api.LogService"
+                },
+                {
+                    "name": "actionService",
+                    "providing": "map-actions.ActionService"
+                }
+            ]
+        },
+        {
             "name": "HierarchicalSearchWidgetFactory",
             "provides": [
                 "dijit.Widget",
@@ -79,47 +112,26 @@
             },
             "references": [
                 {
-                    "name": "_hierarchicalSearchModel",
+                    "name": "hierarchicalSearchModel",
                     "providing": "dn_hierarchicalsearch.HierarchicalSearchModel"
+                },
+                {
+                    "name": "hierarchicalSearchController",
+                    "providing": "dn_hierarchicalsearch.HierarchicalSearchController"
                 }
             ]
         },
         {
-            "name": "HierarchicalSearchModel",
+            "name": "HierarchicalSearchController",
             "propertiesConstructor": true,
             "provides": [
-                "ct.framework.api.EventHandler",
-                "dn_hierarchicalsearch.HierarchicalSearchModel"
+                "dn_hierarchicalsearch.HierarchicalSearchController"
             ],
-            "properties": {
-                "storeId": "",
-                "fields": [],
-                "resultHandling": [],
-                "zoomScale": 5000
-            },
+            "properties": {},
             "references": [
                 {
-                    "name": "resultAction",
-                    "providing": "dn_hierarchicalsearch.ResultAction",
-                    "cardinality": "0..n"
-                },
-                {
-                    "name": "_store",
-                    "providing": "ct.api.Store",
-                    "filter": "(id={storeId})"
-                },
-                {
-                    "name": "_tool",
-                    "providing": "ct.tools.Tool",
-                    "filter": "(id=hierarchicalSearchToggleTool)"
-                },
-                {
-                    "name": "_eventService",
-                    "providing": "ct.framework.api.EventService"
-                },
-                {
-                    "name": "_logService",
-                    "providing": "ct.framework.api.LogService"
+                    "name": "hierarchicalSearchModel",
+                    "providing": "dn_hierarchicalsearch.HierarchicalSearchModel"
                 }
             ]
         },
@@ -138,43 +150,34 @@
             }
         },
         {
-            "name": "ZoomToResultAction",
-            "provides": [
-                "dn_hierarchicalsearch.ResultAction"
-            ],
-            "properties": {
-                "id": "zoomToResult"
-            },
+            "name": "SendResultToResultUIAction",
+            "impl": "./actions/SendResultToResultUIAction",
+            "provides": ["map-actions.Action"],
             "references": [
                 {
-                    "name": "_mapWidgetModel",
-                    "providing": "map-widget.MapWidgetModel"
-                }
-            ]
-        },
-        {
-            "name": "OpenPopupAction",
-            "provides": ["dn_hierarchicalsearch.ResultAction"],
-            "properties": {
-                "id": "openPopup"
-            },
-            "references": [
+                    "name": "resultViewerService",
+                    "providing": "result-api.ResultViewerService",
+                    "cardinality": "0..1"
+                },
                 {
-                    "name": "_openPopupService",
-                    "providing": "resultcenter.OpenPopupService"
+                    "name": "logService",
+                    "providing": "ct.framework.api.LogService"
                 }
             ]
         },
         {
             "name": "SendResultToResultCenterAction",
-            "provides": ["dn_hierarchicalsearch.ResultAction"],
-            "properties": {
-                "id": "sendResultToResultCenter"
-            },
+            "impl": "./actions/SendResultToResultCenterAction",
+            "provides": ["map-actions.Action"],
             "references": [
                 {
-                    "name": "_dataModel",
-                    "providing": "resultcenter.DataModel"
+                    "name": "dataModel",
+                    "providing": "resultcenter.DataModel",
+                    "cardinality": "0..1"
+                },
+                {
+                    "name": "logService",
+                    "providing": "ct.framework.api.LogService"
                 }
             ]
         }
