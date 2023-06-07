@@ -17,7 +17,7 @@
 export default class SendResultToResultCenterAction {
 
     public id: string;
-    public immediate: Boolean;
+    public immediate: boolean;
 
     private logService: any;
     private dataModel: any;
@@ -31,7 +31,7 @@ export default class SendResultToResultCenterAction {
     }
 
     // trigger method which is called with the search result items
-    async trigger(options: any) {
+    async trigger(options: any): Promise<void> {
         if (this.dataModel) {
             const items = options.items;
             const filter = options.filter;

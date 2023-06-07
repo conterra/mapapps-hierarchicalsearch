@@ -27,13 +27,13 @@ export default class HierarchicalSearchWidgetFactory {
     private vm: Vue;
     private _i18n: any;
     private hierarchicalSearchModel: typeof HierarchicalSearchModel;
-    private hierarchicalSearchController: HierarchicalSearchController
+    private hierarchicalSearchController: HierarchicalSearchController;
 
-    activate(componentContext): void {
+    activate(componentContext: any): void {
         this._initComponent(componentContext);
     }
 
-    _initComponent(componentContext): void {
+    _initComponent(componentContext: any): void {
         const model = this.hierarchicalSearchModel;
         const controller = this.hierarchicalSearchController;
 
@@ -59,7 +59,7 @@ export default class HierarchicalSearchWidgetFactory {
             .syncToLeftNow();
     }
 
-    createInstance() {
+    createInstance(): typeof VueDijit {
         return VueDijit(this.vm);
     }
 }
