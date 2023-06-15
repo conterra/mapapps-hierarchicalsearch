@@ -20,6 +20,7 @@ import Binding from "apprt-binding/Binding";
 import HierarchicalSearchWidget from "./HierarchicalSearchWidget.vue";
 import HierarchicalSearchModel from "./HierarchicalSearchModel";
 
+import { Field } from "./Interfaces";
 import type HierarchicalSearchController from "./HierarchicalSearchController";
 
 export default class HierarchicalSearchWidgetFactory {
@@ -29,11 +30,11 @@ export default class HierarchicalSearchWidgetFactory {
     private hierarchicalSearchModel: typeof HierarchicalSearchModel;
     private hierarchicalSearchController: HierarchicalSearchController;
 
-    activate(componentContext: any): void {
-        this._initComponent(componentContext);
+    public activate(componentContext: any): void {
+        this.initComponent(componentContext);
     }
 
-    _initComponent(componentContext: any): void {
+    private initComponent(componentContext: any): void {
         const model = this.hierarchicalSearchModel;
         const controller = this.hierarchicalSearchController;
 
@@ -41,7 +42,7 @@ export default class HierarchicalSearchWidgetFactory {
         model.isMobile = envs.some((env) => env.name === "Mobile");
 
         model.fields = controller.getFields(model.fields);
-        controller._setUpSelect(0);
+        controller.setUpSelect(0);
 
         const vm = this.vm = new Vue(HierarchicalSearchWidget);
         vm.i18n = this._i18n.get().ui;
@@ -49,7 +50,10 @@ export default class HierarchicalSearchWidgetFactory {
         vm.$on("search", () => {
             controller.search();
         });
-        vm.$on('selected', (field: object, index: number) => {
+        vm.$on("reset", () => {
+            controller.resetSearch();
+        });
+        vm.$on('selected', (field: Field, index: number) => {
             controller.selectChanged(field, index);
         });
 
@@ -59,7 +63,7 @@ export default class HierarchicalSearchWidgetFactory {
             .syncToLeftNow();
     }
 
-    createInstance(): typeof VueDijit {
+    public createInstance(): typeof VueDijit {
         return VueDijit(this.vm);
     }
 }

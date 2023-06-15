@@ -26,7 +26,7 @@ export default class HierarchicalSearchController {
 
     private hierarchicalSearchModel: typeof HierarchicalSearchModel;
 
-    getFields(initialFields: Array<object>): Array<Field> {
+    public getFields(initialFields: Array<object>): Array<Field> {
         const fields: Array<Field> = initialFields.map((field: Field) => {
             field.value = null;
             field.loading = false;
@@ -38,7 +38,7 @@ export default class HierarchicalSearchController {
         return fields;
     }
 
-    _setUpSelect(index: number): void {
+    public setUpSelect(index: number): void {
         const model = this.hierarchicalSearchModel;
         const fields = model.fields;
 
@@ -46,11 +46,11 @@ export default class HierarchicalSearchController {
             const field: Field = fields[index];
             field.disabled = false;
             field.loading = true;
-            this._queryDistinctValues(field, index);
+            this.queryDistinctValues(field, index);
         }
     }
 
-    _queryDistinctValues(field: Field, index: number): void {
+    private queryDistinctValues(field: Field, index: number): void {
         const model = this.hierarchicalSearchModel;
 
         const queryUrl = model.store.target;
@@ -69,7 +69,7 @@ export default class HierarchicalSearchController {
         if (index === 0) {
             queryObject.where = "1=1";
         } else {
-            const complexQuery = this._getComplexQuery();
+            const complexQuery = this.getComplexQuery();
             queryObject.where = ComplexQueryToSQL.toSQLWhere(complexQuery, {});
         }
         query.executeQueryJSON(model.store.target, queryObject).then(function (response) {
@@ -80,21 +80,21 @@ export default class HierarchicalSearchController {
         });
     }
 
-    search(): void {
+    public search(): void {
         const model = this.hierarchicalSearchModel;
 
-        this._queryResults();
+        this.queryResults();
         if (model.isMobile) {
             model.tool.set("active", false);
         }
     }
 
-    _queryResults(): Object {
+    private queryResults(): Object {
         const model = this.hierarchicalSearchModel;
 
         model.loading = true;
         const store = model.store;
-        const query = this._getComplexQuery();
+        const query = this.getComplexQuery();
         const filter = new Filter(store, query, {});
         return filter.query({}, {fields: {geometry: 1}}).then((results: Array<object>) => {
             model.loading = false;
@@ -125,18 +125,18 @@ export default class HierarchicalSearchController {
         });
     }
 
-    _getComplexQuery(): __esri.query {
+    private getComplexQuery(): __esri.query {
         const query = {};
         if (!query["$or"]) {
             query["$or"] = [];
         }
-        const searchObject = this._getSearchObject();
+        const searchObject = this.getSearchObject();
         query["$or"].push(searchObject);
 
         return query;
     }
 
-    _getSearchObject(): Object {
+    private getSearchObject(): Object {
         const model = this.hierarchicalSearchModel;
 
         const searchObj = {};
@@ -150,21 +150,21 @@ export default class HierarchicalSearchController {
     }
 
 
-    selectChanged(field: Field, index: number): void {
+    public selectChanged(field: Field, index: number): void {
         const model = this.hierarchicalSearchModel;
 
         const fields = model.fields;
         const nextIndex = index + 1;
         if (!field.value) {
-            this._resetSelects(index);
+            this.resetSelects(index);
         } else if (fields.length > nextIndex) {
-            this._setUpSelect(index + 1);
+            this.setUpSelect(index + 1);
         } else if (fields.length === nextIndex) {
             this.search();
         }
     }
 
-    _resetSelects(index: number): void {
+    private resetSelects(index: number): void {
         const model = this.hierarchicalSearchModel;
 
         const fields = model.fields;
@@ -176,5 +176,15 @@ export default class HierarchicalSearchController {
                 field.disabled = true;
             }
         });
+    }
+
+    public resetSearch(): void {
+        const model = this.hierarchicalSearchModel;
+
+        model.fields[0].value = undefined; // reset first field
+        this.resetSelects(0); // reset subsequent fields
+
+        const actionService = model.actionService;
+        actionService.trigger(["highlight"], {items: []}); // reset highlight
     }
 }

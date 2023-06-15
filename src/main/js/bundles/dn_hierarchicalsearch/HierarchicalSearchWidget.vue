@@ -33,7 +33,9 @@
                         v-model="field.value"
                         :items="field.items"
                         :label="field.label"
-                        :disabled="field.disabled"
+                        :aria-label="field.label"
+                        :disabled="fieldIsDisabled(field)"
+                        :aria-disabled="fieldIsDisabled(field)"
                         :loading="field.loading"
                         color="primary"
                         clearable
@@ -44,19 +46,44 @@
                 </v-flex>
             </v-layout>
         </v-container>
-        <v-btn
-            block
-            ripple
-            color="primary"
-            :disabled="!fields[0].value"
-            :loading="loading"
-            @click="$emit('search')"
+        <v-layout
+            row
+            justify-end
         >
-            <v-icon left>
-                search
-            </v-icon>
-            {{ i18n.search }}
-        </v-btn>
+            <v-flex shrink>
+                <v-btn
+                    shrink
+                    ripple
+                    color="primary"
+                    :aria-label="i18n.search"
+                    :disabled="buttonIsDisabled"
+                    :aria-disabled="buttonIsDisabled"
+                    :loading="loading"
+                    @click="$emit('search')"
+                >
+                    <v-icon left>
+                        search
+                    </v-icon>
+                    {{ i18n.search }}
+                </v-btn>
+            </v-flex>
+            <v-flex shrink>
+                <v-btn
+                    shrink
+                    ripple
+                    color="secondary"
+                    :aria-label="i18n.reset"
+                    :disabled="buttonIsDisabled"
+                    :aria-disabled="buttonIsDisabled"
+                    @click="$emit('reset')"
+                >
+                    <v-icon left>
+                        icon-undo
+                    </v-icon>
+                    {{ i18n.reset }}
+                </v-btn>
+            </v-flex>
+        </v-layout>
     </div>
 </template>
 <script>
@@ -78,6 +105,16 @@
             fields: {
                 type: Array,
                 default: () => []
+            }
+        },
+        computed: {
+            buttonIsDisabled() {
+                return !this.fields[0].value;
+            }
+        },
+        methods: {
+            fieldIsDisabled(field) {
+                return field.disabled;
             }
         }
     };
