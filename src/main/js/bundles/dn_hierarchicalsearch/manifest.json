@@ -19,7 +19,7 @@
             "sublayout": ["desktop"],
             "window": {
                 "autofocus": false,
-                "dockTool": "hierarchicalSearchToggleTool",
+               /* "dockTool": "hierarchicalSearchToggleTool",*/
                 "closable": true,
                 "minimizeOnClose": true,
                 "resizable": true,
@@ -38,7 +38,7 @@
             "sublayout": ["tablet_landscape", "tablet_portrait"],
             "window": {
                 "autofocus": false,
-                "dockTool": "hierarchicalSearchToggleTool",
+                /*"dockTool": "hierarchicalSearchToggleTool",*/
                 "closable": true,
                 "minimizeOnClose": true,
                 "resizable": false,
@@ -54,7 +54,7 @@
             "sublayout": ["mobile_landscape", "mobile_portrait"],
             "window": {
                 "autofocus": false,
-                "dockTool": "hierarchicalSearchToggleTool",
+                /*"dockTool": "hierarchicalSearchToggleTool",*/
                 "minimizeOnClose": true,
                 "resizable": false,
                 "draggable": false,
@@ -129,7 +129,7 @@
                 "iconClass": "icon-magnifier",
 
                 "togglable": false,
-
+                /*change to dn_hiererachicalsearchtool?*/
                 "clickHandler": "showHierarchicalSearchTool",
 
                 "storeId": "",
