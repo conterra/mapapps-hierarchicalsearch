@@ -23,8 +23,11 @@ import Filter from "ct/store/Filter";
 import ComplexQueryToSQL from "ct/store/ComplexQueryToSQL";
 import HierarchicalSearchModel from "./HierarchicalSearchModel";
 
+
 import { Field } from "./Interfaces";
 import HierarchicalSearchWidget from "./HierarchicalSearchWidget.vue";
+
+
 
 export default class HierarchicalSearchController {
 
@@ -190,5 +193,44 @@ export default class HierarchicalSearchController {
 
         const actionService = model.actionService;
         actionService.trigger(["highlight"], {items: []}); // reset highlight
+    }
+    /**
+     * Add showHierarchcalSearchTool
+     */
+    public showHierarchicalSearchTool(): void {
+        const model = this.hierarchicalSearchModel;
+        const envs = componentContext.getBundleContext().getCurrentExecutionEnvironment();
+        model.isMobile = envs.some((env) => env.name === "Mobile");
+        model.fields = this.getFields(model.fields);
+        this.setUpSelect(0);
+        const vm = this.vm = new Vue(HierarchicalSearchWidget);
+        vm.i18n = this._i18n.get().ui;
+        vm.$on("search", () => {
+
+            this.search();
+
+        });
+
+        vm.$on("reset", () => {
+
+            this.resetSearch();
+
+        });
+
+        vm.$on('selected', (field: Field, index: number) => {
+
+            this.selectChanged(field, index);
+
+        });
+
+        Binding.for(vm, model)
+
+            .syncAll("fields", "loading")
+
+            .enable()
+
+            .syncToLeftNow();
+        return VueDijit(this.vm);
+
     }
 }
