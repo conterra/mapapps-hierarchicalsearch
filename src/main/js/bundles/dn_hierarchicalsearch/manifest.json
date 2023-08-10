@@ -101,6 +101,71 @@
             ]
         },
         {
+
+            "name": "HierarchicalSearchToggleTools",
+
+            "impl": "ct/tools/Tool",
+
+            "provides": [
+
+                "ct.tools.Tool"
+
+            ],
+
+            "propertiesConstructor": true,
+
+            "componentFactory": true,
+
+            "properties": {
+
+                "id": "hierarchicalSearchToggleTool",
+
+                "title": "${tool.title}",
+
+                "tooltip": "${tool.tooltip}",
+
+                "toolRole": "toolset",
+
+                "iconClass": "icon-magnifier",
+
+                "togglable": false,
+
+                "clickHandler": "showHierarchicalSearchTool",
+
+                "storeId": "",
+
+                "fields": [],
+
+                "mapActions": [
+
+                    "highlight",
+
+                    "zoomto"
+
+                ],
+
+                "mapActionsConfig": {
+
+                    "zoomto-scale": 5000
+
+                }
+
+            },
+
+            "references": [
+
+                {
+
+                    "name": "handlerScope",
+
+                    "providing": "dn_hierarchicalsearch.HierarchicalSearchController"
+
+                }
+
+            ]
+
+        },
+        {
             "name": "HierarchicalSearchWidgetFactory",
             "provides": [
                 "dijit.Widget",
