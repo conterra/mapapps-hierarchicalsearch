@@ -14,6 +14,9 @@
 /// limitations under the License.
 ///
 
+import VueDijit from "apprt-vue/VueDijit";
+import Vue from "apprt-vue/Vue";
+import Binding from "apprt-binding/Binding";
 import * as query from "esri/rest/query";
 import Query from "esri/rest/support/Query";
 import Filter from "ct/store/Filter";
@@ -21,6 +24,7 @@ import ComplexQueryToSQL from "ct/store/ComplexQueryToSQL";
 import HierarchicalSearchModel from "./HierarchicalSearchModel";
 
 import { Field } from "./Interfaces";
+import HierarchicalSearchWidget from "./HierarchicalSearchWidget.vue";
 
 export default class HierarchicalSearchController {
 
