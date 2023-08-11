@@ -31,11 +31,15 @@ import HierarchicalSearchWidget from "./HierarchicalSearchWidget.vue";
 export default class HierarchicalSearchController {
 
     private _i18n!: InjectedReference<any>;
+    private logService!: InjectedReference<any>;
+    private actionService!: InjectedReference<any>;
     private bundleContext!: InjectedReference<any>;
     private serviceResolver!: InjectedReference<any>;
     private widgetServiceRegistration!: InjectedReference<any>;
     private hierarchicalSearchModel: typeof HierarchicalSearchModel;
     private store: any;
+    private mapActions: any;
+    private mapActionsConfig: any;
 
     activate(componentContext: InjectedReference<any>): void {
         const bundleContext = this.bundleContext = componentContext.getBundleContext();
@@ -46,11 +50,11 @@ export default class HierarchicalSearchController {
     public showHierarchicalSearchTool(event: any): void {
         const tool = event.tool;
         const storeId = tool.storeId;
+        this.store = this.getStore(storeId);
         const fields = tool.fields;
-        const mapActions = tool.mapActions;
-        const mapActionsConfig = tool.mapActionsConfig;
+        this.mapActions = tool.mapActions;
+        this.mapActionsConfig = tool.mapActionsConfig;
 
-        const store = this.store = this.getStore(storeId);
         const model = this.hierarchicalSearchModel;
         const envs = this.bundleContext.getCurrentExecutionEnvironment();
         model.isMobile = envs.some((env) => env.name === "Mobile");
@@ -130,8 +134,6 @@ export default class HierarchicalSearchController {
     }
 
     private queryDistinctValues(field: Field, index: number): void {
-        const model = this.hierarchicalSearchModel;
-
         const queryUrl = this.store.target;
         if (!queryUrl) {
             console.error("Store has no target!");
@@ -179,8 +181,8 @@ export default class HierarchicalSearchController {
             model.loading = false;
             if (results.length) {
                 // Access configured map-actions and their configs
-                const mapActions = model.mapActions;
-                const mapActionsConfig = model.mapActionsConfig;
+                const mapActions = this.mapActions;
+                const mapActionsConfig = this.mapActionsConfig;
                 // Add further parameters to configurations taken from app.json
                 mapActionsConfig.items = results;
                 mapActionsConfig.source = store;
@@ -188,15 +190,15 @@ export default class HierarchicalSearchController {
                 mapActionsConfig.filter = filter;
 
                 // Trigger map-actions with complete set of configurations
-                model.actionService.trigger(mapActions, mapActionsConfig);
+                this.actionService.trigger(mapActions, mapActionsConfig);
             } else {
-                model.logService.warn({
+                this.logService.warn({
                     id: 0,
                     message: model._i18n.get().noResultsError
                 });
             }
         }, (error) => {
-            model.logService.error({
+            this.logService.error({
                 id: error.code,
                 message: error
             });
@@ -268,7 +270,7 @@ export default class HierarchicalSearchController {
     }
 
     private getStore(id) {
-        return this.serviceResolver.getService("ct.api.Store", "(id=" + id + ")");
+        return this.serviceResolver.getService("ct.api.Store", `(id=${id})`);
     }
 
 }
