@@ -102,7 +102,6 @@
                 "toolRole": "toolset",
                 "iconClass": "icon-magnifier",
                 "togglable": false,
-                /*change to dn_hiererachicalsearchtool?*/
                 "clickHandler": "showHierarchicalSearchTool",
                 "storeId": "",
                 "fields": [],
@@ -130,15 +129,15 @@
             "properties": {},
             "references": [
                 {
-                    "name": "hierarchicalSearchModel",
+                    "name": "_hierarchicalSearchModel",
                     "providing": "dn_hierarchicalsearch.HierarchicalSearchModel"
                 },
                 {
-                    "name": "logService",
+                    "name": "_logService",
                     "providing": "ct.framework.api.LogService"
                 },
                 {
-                    "name": "actionService",
+                    "name": "_actionService",
                     "providing": "map-actions.ActionService"
                 }
             ]
