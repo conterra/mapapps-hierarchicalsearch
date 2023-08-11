@@ -172,9 +172,9 @@ export default class HierarchicalSearchController {
         const model = this.hierarchicalSearchModel;
 
         model.loading = true;
-        const store = model.store;
+        const store = this.store;
         const query = this.getComplexQuery();
-        const filter = new Filter(store, query, {});
+        const filter = Filter(store, query, {});
         return filter.query({}, { fields: { geometry: 1 } }).then((results: Array<object>) => {
             model.loading = false;
             if (results.length) {
