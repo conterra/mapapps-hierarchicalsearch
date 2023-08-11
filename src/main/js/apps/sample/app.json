@@ -68,19 +68,23 @@
                     "id": "adresssuche",
                     "title": "Adressen suchen",
                     "tooltip": "Adressen suchen",
-                    "storeId": "flurstuecke_store",
+                    "storeId": "add_hamburg",
                     "fields": [
                         {
-                            "name": "NAMGMK",
-                            "label": "Gemarkung"
+                            "name": "portsname",
+                            "label": "Stadt"
                         },
                         {
-                            "name": "FLN",
-                            "label": "Flur"
+                            "name": "strname",
+                            "label": "Straße"
                         },
                         {
-                            "name": "ZAE",
-                            "label": "Flurstück"
+                            "name": "hausnr",
+                            "label": "Hausnummer"
+                        },
+                        {
+                            "name": "zusatz",
+                            "label": "Zusatz"
                         }
                     ],
                     "mapActions": [
@@ -108,7 +112,21 @@
                         "suggestContains": true
                     },
                     "fetchIdProperty": true
+                },
+                {
+                    "id": "add_hamburg",
+                    "title": "Addresse suchen",
+                    "description": "Beschreibung Addresssuche",
+                    "layerId": "add_hamburg",
+                    "useIn": [
+                        "selection"
+                    ],
+                    "filterOptions": {
+                        "suggestContains": true
+                    },
+                    "fetchIdProperty": true
                 }
+                
             ]
         },
         "banner": {
@@ -197,6 +215,14 @@
                             "id": "flurst_berlin",
                             "type": "AGS_FEATURE",
                             "url": "https://services2.arcgis.com/jUpNdisbWqRpMo35/ArcGIS/rest/services/Flurst_Berlin/FeatureServer/0",
+                            "outFields": [
+                                "*"
+                            ]
+                        },
+                        {
+                            "id": "add_hamburg",
+                            "type": "AGS_FEATURE",
+                            "url": "https://services2.arcgis.com/jUpNdisbWqRpMo35/ArcGIS/rest/services/Adressen_Hamburg/FeatureServer/0",
                             "outFields": [
                                 "*"
                             ]
