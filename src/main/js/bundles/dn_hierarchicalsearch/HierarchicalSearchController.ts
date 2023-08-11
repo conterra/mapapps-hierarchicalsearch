@@ -31,12 +31,12 @@ import HierarchicalSearchWidget from "./HierarchicalSearchWidget.vue";
 export default class HierarchicalSearchController {
 
     private _i18n!: InjectedReference<any>;
-    private logService!: InjectedReference<any>;
-    private actionService!: InjectedReference<any>;
+    private _logService!: InjectedReference<any>;
+    private _actionService!: InjectedReference<any>;
     private bundleContext!: InjectedReference<any>;
     private serviceResolver!: InjectedReference<any>;
     private widgetServiceRegistration!: InjectedReference<any>;
-    private hierarchicalSearchModel: typeof HierarchicalSearchModel;
+    private _hierarchicalSearchModel: typeof HierarchicalSearchModel;
     private store: any;
     private mapActions: any;
     private mapActionsConfig: any;
@@ -48,6 +48,7 @@ export default class HierarchicalSearchController {
     }
 
     public showHierarchicalSearchTool(event: any): void {
+        this.hideWidget();
         const tool = event.tool;
         const storeId = tool.storeId;
         this.store = this.getStore(storeId);
@@ -55,7 +56,7 @@ export default class HierarchicalSearchController {
         this.mapActions = tool.mapActions;
         this.mapActionsConfig = tool.mapActionsConfig;
 
-        const model = this.hierarchicalSearchModel;
+        const model = this._hierarchicalSearchModel;
         const envs = this.bundleContext.getCurrentExecutionEnvironment();
         model.isMobile = envs.some((env) => env.name === "Mobile");
         model.fields = this.getFields(fields);
@@ -122,7 +123,7 @@ export default class HierarchicalSearchController {
     }
 
     private setUpSelect(index: number): void {
-        const model = this.hierarchicalSearchModel;
+        const model = this._hierarchicalSearchModel;
         const fields = model.fields;
 
         if (fields.length > index) {
@@ -162,16 +163,17 @@ export default class HierarchicalSearchController {
     }
 
     public search(): void {
-        const model = this.hierarchicalSearchModel;
+        const model = this._hierarchicalSearchModel;
 
         this.queryResults();
         if (model.isMobile) {
-            model.tool.set("active", false);
+            this.hideWidget();
+           // model.tool.set("active", false);
         }
     }
 
     private queryResults(): Object {
-        const model = this.hierarchicalSearchModel;
+        const model = this._hierarchicalSearchModel;
 
         model.loading = true;
         const store = this.store;
@@ -190,15 +192,15 @@ export default class HierarchicalSearchController {
                 mapActionsConfig.filter = filter;
 
                 // Trigger map-actions with complete set of configurations
-                this.actionService.trigger(mapActions, mapActionsConfig);
+                this._actionService.trigger(mapActions, mapActionsConfig);
             } else {
-                this.logService.warn({
+                this._logService.warn({
                     id: 0,
                     message: model._i18n.get().noResultsError
                 });
             }
         }, (error) => {
-            this.logService.error({
+            this._logService.error({
                 id: error.code,
                 message: error
             });
@@ -218,7 +220,7 @@ export default class HierarchicalSearchController {
     }
 
     private getSearchObject(): Object {
-        const model = this.hierarchicalSearchModel;
+        const model = this._hierarchicalSearchModel;
 
         const searchObj = {};
         model.fields.forEach((field: Field) => {
@@ -232,7 +234,7 @@ export default class HierarchicalSearchController {
 
 
     public selectChanged(field: Field, index: number): void {
-        const model = this.hierarchicalSearchModel;
+        const model = this._hierarchicalSearchModel;
 
         const fields = model.fields;
         const nextIndex = index + 1;
@@ -246,7 +248,7 @@ export default class HierarchicalSearchController {
     }
 
     private resetSelects(index: number): void {
-        const model = this.hierarchicalSearchModel;
+        const model = this._hierarchicalSearchModel;
 
         const fields = model.fields;
         // reset fields after the current changed
@@ -260,12 +262,12 @@ export default class HierarchicalSearchController {
     }
 
     private resetSearch(): void {
-        const model = this.hierarchicalSearchModel;
+        const model = this._hierarchicalSearchModel;
 
         model.fields[0].value = undefined; // reset first field
         this.resetSelects(0); // reset subsequent fields
 
-        const actionService = model.actionService;
+        const actionService = model._actionService;
         actionService.trigger(["highlight"], { items: [] }); // reset highlight
     }
 
