@@ -29,27 +29,69 @@
     },
     "bundles": {
         "dn_hierarchicalsearch": {
-            "Config": {
-                "storeId": "flurstuecke_store",
-                "fields": [
-                    {
-                        "name": "NAMGMK",
-                        "label": "Gemarkung"
+            "HierarchicalSearchToggleTools": [
+                {
+                    "id": "flurstueckssuche",
+                    "title": "Flurstücke suchen",
+                    "tooltip": "Flurstücke suchen",
+                    "rules": {
+                        "roles": [
+                            "maAdmin",
+                            "maEditor"
+                        ],
+                        "ruleSuccessProperty": "enabled"
                     },
-                    {
-                        "name": "FLN",
-                        "label": "Flur"
-                    },
-                    {
-                        "name": "ZAE",
-                        "label": "Flurstück"
+                    "storeId": "flurstuecke_store",
+                    "fields": [
+                        {
+                            "name": "NAMGMK",
+                            "label": "Gemarkung"
+                        },
+                        {
+                            "name": "FLN",
+                            "label": "Flur"
+                        },
+                        {
+                            "name": "ZAE",
+                            "label": "Flurstück"
+                        }
+                    ],
+                    "mapActions": [
+                        "highlight",
+                        "zoomto"
+                    ],
+                    "mapActionsConfig": {
+                        "zoomto-scale": 5000
                     }
-                ],
-                "mapActions": ["highlight", "zoomto"],
-                "mapActionsConfig": {
-                    "zoomto-scale": 5000
+                },
+                {
+                    "id": "adresssuche",
+                    "title": "Adressen suchen",
+                    "tooltip": "Adressen suchen",
+                    "storeId": "flurstuecke_store",
+                    "fields": [
+                        {
+                            "name": "NAMGMK",
+                            "label": "Gemarkung"
+                        },
+                        {
+                            "name": "FLN",
+                            "label": "Flur"
+                        },
+                        {
+                            "name": "ZAE",
+                            "label": "Flurstück"
+                        }
+                    ],
+                    "mapActions": [
+                        "highlight",
+                        "zoomto"
+                    ],
+                    "mapActionsConfig": {
+                        "zoomto-scale": 5000
+                    }
                 }
-            }
+            ]
         },
         "agssearch": {
             "AGSStore": [
@@ -179,7 +221,8 @@
                     {
                         "id": "defaultToolSet",
                         "tools": [
-                            "hierarchicalSearchToggleTool"
+                            "flurstueckssuche",
+                            "adresssuche"
                         ],
                         "registerWidget": {
                             "widgetRole": "map_topleft"

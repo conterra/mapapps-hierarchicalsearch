@@ -17,23 +17,95 @@
 import VueDijit from "apprt-vue/VueDijit";
 import Vue from "apprt-vue/Vue";
 import Binding from "apprt-binding/Binding";
-import * as query from "esri/rest/query";
-import Query from "esri/rest/support/Query";
+import type { InjectedReference } from "apprt-core/InjectedReference";
+import ServiceResolver from "apprt/ServiceResolver";
+import ct_util from "ct/ui/desktop/util";
 import Filter from "ct/store/Filter";
 import ComplexQueryToSQL from "ct/store/ComplexQueryToSQL";
-import HierarchicalSearchModel from "./HierarchicalSearchModel";
-
-
+import Query from "esri/rest/support/Query";
+import * as query from "esri/rest/query";
 import { Field } from "./Interfaces";
+import HierarchicalSearchModel from "./HierarchicalSearchModel";
 import HierarchicalSearchWidget from "./HierarchicalSearchWidget.vue";
-
-
 
 export default class HierarchicalSearchController {
 
+    private _i18n!: InjectedReference<any>;
+    private bundleContext!: InjectedReference<any>;
+    private serviceResolver!: InjectedReference<any>;
+    private widgetServiceRegistration!: InjectedReference<any>;
     private hierarchicalSearchModel: typeof HierarchicalSearchModel;
+    private store: any;
 
-    public getFields(initialFields: Array<object>): Array<Field> {
+    activate(componentContext: InjectedReference<any>): void {
+        const bundleContext = this.bundleContext = componentContext.getBundleContext();
+        const serviceResolver = this.serviceResolver = new ServiceResolver({});
+        serviceResolver.setBundleCtx(bundleContext);
+    }
+
+    public showHierarchicalSearchTool(event: any): void {
+        const tool = event.tool;
+        const storeId = tool.storeId;
+        const fields = tool.fields;
+        const mapActions = tool.mapActions;
+        const mapActionsConfig = tool.mapActionsConfig;
+
+        const store = this.store = this.getStore(storeId);
+        const model = this.hierarchicalSearchModel;
+        const envs = this.bundleContext.getCurrentExecutionEnvironment();
+        model.isMobile = envs.some((env) => env.name === "Mobile");
+        model.fields = this.getFields(fields);
+        this.setUpSelect(0);
+        const vm = new Vue(HierarchicalSearchWidget);
+        vm.i18n = this._i18n.get().ui;
+        vm.$on("search", () => {
+            this.search();
+        });
+
+        vm.$on("reset", () => {
+            this.resetSearch();
+        });
+
+        vm.$on('selected', (field: Field, index: number) => {
+            this.selectChanged(field, index);
+        });
+
+        Binding.for(vm, model)
+            .syncAll("fields", "loading")
+            .enable()
+            .syncToLeftNow();
+
+        const widget = VueDijit(vm);
+
+        const serviceProperties = {
+            "widgetRole": "hierarchicalSearchWidget"
+        };
+        const interfaces = ["dijit.Widget"];
+        this.widgetServiceRegistration = this.bundleContext.registerService(interfaces, widget, serviceProperties);
+        setTimeout(() => {
+            const window: any = ct_util.findEnclosingWindow(widget);
+            if (window) {
+                window.set("title", tool.title);
+                window.on("Close", () => {
+                    this.hideWidget();
+                });
+            }
+        }, 100);
+    }
+
+    private hideWidget(): void {
+        const registration = this.widgetServiceRegistration;
+
+        // clear the reference
+        this.widgetServiceRegistration = null;
+
+        if (registration) {
+            // call unregister
+            registration.unregister();
+        }
+    }
+
+    private getFields(initialFields: Array<object>): Array<Field> {
         const fields: Array<Field> = initialFields.map((field: Field) => {
             field.value = null;
             field.loading = false;
@@ -45,7 +117,7 @@ export default class HierarchicalSearchController {
         return fields;
     }
 
-    public setUpSelect(index: number): void {
+    private setUpSelect(index: number): void {
         const model = this.hierarchicalSearchModel;
         const fields = model.fields;
 
@@ -60,8 +132,8 @@ export default class HierarchicalSearchController {
     private queryDistinctValues(field: Field, index: number): void {
         const model = this.hierarchicalSearchModel;
 
-        const queryUrl = model.store.target;
-        if(!queryUrl) {
+        const queryUrl = this.store.target;
+        if (!queryUrl) {
             console.error("Store has no target!");
             return;
         }
@@ -79,7 +151,7 @@ export default class HierarchicalSearchController {
             const complexQuery = this.getComplexQuery();
             queryObject.where = ComplexQueryToSQL.toSQLWhere(complexQuery, {});
         }
-        query.executeQueryJSON(model.store.target, queryObject).then(function (response) {
+        query.executeQueryJSON(this.store.target, queryObject).then(function (response) {
             response.features.forEach((feature) => {
                 field.items.push(feature.attributes[fieldName]);
             });
@@ -103,7 +175,7 @@ export default class HierarchicalSearchController {
         const store = model.store;
         const query = this.getComplexQuery();
         const filter = new Filter(store, query, {});
-        return filter.query({}, {fields: {geometry: 1}}).then((results: Array<object>) => {
+        return filter.query({}, { fields: { geometry: 1 } }).then((results: Array<object>) => {
             model.loading = false;
             if (results.length) {
                 // Access configured map-actions and their configs
@@ -185,52 +257,18 @@ export default class HierarchicalSearchController {
         });
     }
 
-    public resetSearch(): void {
+    private resetSearch(): void {
         const model = this.hierarchicalSearchModel;
 
         model.fields[0].value = undefined; // reset first field
         this.resetSelects(0); // reset subsequent fields
 
         const actionService = model.actionService;
-        actionService.trigger(["highlight"], {items: []}); // reset highlight
+        actionService.trigger(["highlight"], { items: [] }); // reset highlight
     }
-    /**
-     * Add showHierarchcalSearchTool
-     */
-    public showHierarchicalSearchTool(): void {
-        const model = this.hierarchicalSearchModel;
-        const envs = componentContext.getBundleContext().getCurrentExecutionEnvironment();
-        model.isMobile = envs.some((env) => env.name === "Mobile");
-        model.fields = this.getFields(model.fields);
-        this.setUpSelect(0);
-        const vm = this.vm = new Vue(HierarchicalSearchWidget);
-        vm.i18n = this._i18n.get().ui;
-        vm.$on("search", () => {
 
-            this.search();
-
-        });
-
-        vm.$on("reset", () => {
-
-            this.resetSearch();
-
-        });
-
-        vm.$on('selected', (field: Field, index: number) => {
-
-            this.selectChanged(field, index);
-
-        });
-
-        Binding.for(vm, model)
-
-            .syncAll("fields", "loading")
-
-            .enable()
-
-            .syncToLeftNow();
-        return VueDijit(this.vm);
-
+    private getStore(id) {
+        return this.serviceResolver.getService("ct.api.Store", "(id=" + id + ")");
     }
+
 }
