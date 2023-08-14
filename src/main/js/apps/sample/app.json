@@ -69,7 +69,7 @@
                     "id": "adresssuche",
                     "title": "Adressen suchen",
                     "tooltip": "Adressen suchen",
-                    "button":"icon-house",
+                    "button":"icon-web-map-search",
                     "storeId": "add_hamburg",
                     "fields": [
                         {
