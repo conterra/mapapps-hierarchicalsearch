@@ -65,8 +65,8 @@ export default class HierarchicalSearchController {
 
         let widget;
         if (this.widget) {
-            widget = this.widget
-        } else { 
+            widget = this.widget;
+        } else {
             widget = this.widget = this.getHierarchicalSearchWidget(); 
         }
 

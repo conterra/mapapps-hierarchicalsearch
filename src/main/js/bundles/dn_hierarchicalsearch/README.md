@@ -29,6 +29,7 @@ Add multiple searches
             "id": "flurstueckssuche",
             "title": "Flurstücke suchen",
             "tooltip": "Flurstücke suchen",
+            "button":"icon-select-mouse",
             "rules": {
                 "roles": [
                     "maAdmin",
@@ -63,6 +64,7 @@ Add multiple searches
             "id": "adresssuche",
             "title": "Adressen suchen",
             "tooltip": "Adressen suchen",
+            "button":"icon-house",
             "storeId": "add_hamburg",
             "fields": [
                 {

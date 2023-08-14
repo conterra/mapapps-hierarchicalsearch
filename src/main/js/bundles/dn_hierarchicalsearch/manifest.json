@@ -100,7 +100,7 @@
                 "title": "${tool.title}",
                 "tooltip": "${tool.tooltip}",
                 "toolRole": "toolset",
-                "iconClass": "icon-magnifier",
+                "iconClass": "${tool.button}",
                 "togglable": false,
                 "clickHandler": "showHierarchicalSearchTool",
                 "storeId": "",
