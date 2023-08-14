@@ -40,6 +40,7 @@ export default class HierarchicalSearchController {
     private store: any;
     private mapActions: any;
     private mapActionsConfig: any;
+    private widget: VueDijit;
 
     activate(componentContext: InjectedReference<any>): void {
         const bundleContext = this.bundleContext = componentContext.getBundleContext();
@@ -61,6 +62,32 @@ export default class HierarchicalSearchController {
         model.isMobile = envs.some((env) => env.name === "Mobile");
         model.fields = this.getFields(fields);
         this.setUpSelect(0);
+
+        let widget;
+        if (this.widget) {
+            widget = this.widget
+        } else { 
+            widget = this.widget = this.getHierarchicalSearchWidget(); 
+        }
+
+        const serviceProperties = {
+            "widgetRole": "hierarchicalSearchWidget"
+        };
+        const interfaces = ["dijit.Widget"];
+        this.widgetServiceRegistration = this.bundleContext.registerService(interfaces, widget, serviceProperties);
+        setTimeout(() => {
+            const window: any = ct_util.findEnclosingWindow(widget);
+            if (window) {
+                window.set("title", tool.title);
+                window.on("Close", () => {
+                    this.hideWidget();
+                });
+            }
+        }, 100);
+    }
+
+    public getHierarchicalSearchWidget(): VueDijit {
+        const model = this._hierarchicalSearchModel;
         const vm = new Vue(HierarchicalSearchWidget);
         vm.i18n = this._i18n.get().ui;
         vm.$on("search", () => {
@@ -80,23 +107,9 @@ export default class HierarchicalSearchController {
             .enable()
             .syncToLeftNow();
 
-        const widget = VueDijit(vm);
-
-        const serviceProperties = {
-            "widgetRole": "hierarchicalSearchWidget"
-        };
-        const interfaces = ["dijit.Widget"];
-        this.widgetServiceRegistration = this.bundleContext.registerService(interfaces, widget, serviceProperties);
-        setTimeout(() => {
-            const window: any = ct_util.findEnclosingWindow(widget);
-            if (window) {
-                window.set("title", tool.title);
-                window.on("Close", () => {
-                    this.hideWidget();
-                });
-            }
-        }, 100);
+        return VueDijit(vm);
     }
+
 
     private hideWidget(): void {
         const registration = this.widgetServiceRegistration;
@@ -168,7 +181,7 @@ export default class HierarchicalSearchController {
         this.queryResults();
         if (model.isMobile) {
             this.hideWidget();
-           // model.tool.set("active", false);
+            // model.tool.set("active", false);
         }
     }
 
