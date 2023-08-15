@@ -27,6 +27,7 @@ import * as query from "esri/rest/query";
 import { Field } from "./Interfaces";
 import HierarchicalSearchModel from "./HierarchicalSearchModel";
 import HierarchicalSearchWidget from "./HierarchicalSearchWidget.vue";
+import { ComplexQueryExpression } from "store-api/api";
 
 export default class HierarchicalSearchController {
 
@@ -40,7 +41,7 @@ export default class HierarchicalSearchController {
     private store: any;
     private mapActions: any;
     private mapActionsConfig: any;
-    private widget: VueDijit;
+    private widget: any;
 
     activate(componentContext: InjectedReference<any>): void {
         const bundleContext = this.bundleContext = componentContext.getBundleContext();
@@ -67,7 +68,7 @@ export default class HierarchicalSearchController {
         if (this.widget) {
             widget = this.widget;
         } else {
-            widget = this.widget = this.getHierarchicalSearchWidget(); 
+            widget = this.widget = this.getHierarchicalSearchWidget();
         }
 
         const serviceProperties = {
@@ -86,7 +87,7 @@ export default class HierarchicalSearchController {
         }, 100);
     }
 
-    public getHierarchicalSearchWidget(): VueDijit {
+    public getHierarchicalSearchWidget(): any {
         const model = this._hierarchicalSearchModel;
         const vm = new Vue(HierarchicalSearchWidget);
         vm.i18n = this._i18n.get().ui;
@@ -221,7 +222,7 @@ export default class HierarchicalSearchController {
         });
     }
 
-    private getComplexQuery(): __esri.query {
+    private getComplexQuery(): ComplexQueryExpression {
         const query = {};
         if (!query["$or"]) {
             query["$or"] = [];
