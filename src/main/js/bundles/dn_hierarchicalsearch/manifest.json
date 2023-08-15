@@ -74,18 +74,10 @@
     ],
     "components": [
         {
-            "name": "Config",
-            "impl": "./HierarchicalSearchModel",
-            "propertiesConstructor": true,
+            "name": "HierarchicalSearchModel",
             "provides": [
                 "dn_hierarchicalsearch.HierarchicalSearchModel"
-            ],
-            "properties": {
-                "storeId": "",
-                "fields": [],
-                "mapActions": [],
-                "mapActionsConfig": {}
-            }
+            ]
         },
         {
             "name": "HierarchicalSearchToggleTools",
