@@ -27,6 +27,7 @@ import * as query from "esri/rest/query";
 import { Field } from "./Interfaces";
 import HierarchicalSearchModel from "./HierarchicalSearchModel";
 import HierarchicalSearchWidget from "./HierarchicalSearchWidget.vue";
+import { ComplexQueryExpression } from "store-api/api";
 
 export default class HierarchicalSearchController {
 
@@ -40,7 +41,7 @@ export default class HierarchicalSearchController {
     private store: any;
     private mapActions: any;
     private mapActionsConfig: any;
-    private widget: VueDijit;
+    private widget: any;
 
     activate(componentContext: InjectedReference<any>): void {
         const bundleContext = this.bundleContext = componentContext.getBundleContext();
