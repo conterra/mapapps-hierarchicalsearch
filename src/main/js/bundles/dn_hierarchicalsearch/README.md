@@ -1,15 +1,14 @@
 # dn_hierarchicalsearch
 
 The Hierarchical Search Bundle is a new Widget for searching features via a drop-down menu based on attributed values.
-The menus will be filled automatically based on the attribute ID and the previous user selections.It is possible to search different feature sources.
+The menus will be filled automatically based on the attribute ID and the previous user selections. It is possible to search different feature sources.
 
 ## Usage
 
 1. First, you need to add the bundle "dn_hierarchicalsearch" to your app.
 2. After that, add an AGSSearch store to your app that is initialized with the help of a layerId.
 3. Finally you can customize the content of the drop-down menus.
-No further configuration is required, default values will be used.
-4. The "notifier" bundle can optionally be added to the app to provide the user with additional information used for troubleshooting the app.
+4. Optional: The "notifier" bundle can be added to the app to provide the user with additional information used for troubleshooting the app.
 
 ## Configuration Reference
 
