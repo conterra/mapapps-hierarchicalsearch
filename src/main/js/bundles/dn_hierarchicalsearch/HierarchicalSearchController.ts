@@ -47,7 +47,11 @@ export default class HierarchicalSearchController {
         const serviceResolver = this.serviceResolver = new ServiceResolver({});
         serviceResolver.setBundleCtx(bundleContext);
     }
-
+    /**
+     * Method that enables the hierarchical search function of the bundle
+     * @param event emitted by clickHandler, on click, use to access clicked tool
+     *
+     */
     public showHierarchicalSearchTool(event: any): void {
         this.hideWidget();
         const tool = event.tool;
@@ -67,7 +71,7 @@ export default class HierarchicalSearchController {
         if (this.widget) {
             widget = this.widget;
         } else {
-            widget = this.widget = this.getHierarchicalSearchWidget(); 
+            widget = this.widget = this.getHierarchicalSearchWidget();
         }
 
         const serviceProperties = {
@@ -86,6 +90,10 @@ export default class HierarchicalSearchController {
         }, 100);
     }
 
+    /**
+     * creates widget with eventhandlers and binding
+     * @returns VueDijit created widget
+     */
     public getHierarchicalSearchWidget(): VueDijit {
         const model = this._hierarchicalSearchModel;
         const vm = new Vue(HierarchicalSearchWidget);
@@ -174,14 +182,15 @@ export default class HierarchicalSearchController {
             field.loading = false;
         });
     }
-
+    /**
+     * Performs the search and hides widegt for mobile devices afterwards
+     */
     public search(): void {
         const model = this._hierarchicalSearchModel;
 
         this.queryResults();
         if (model.isMobile) {
             this.hideWidget();
-            // model.tool.set("active", false);
         }
     }
 
@@ -221,7 +230,7 @@ export default class HierarchicalSearchController {
         });
     }
 
-    private getComplexQuery(): __esri.query {
+    private getComplexQuery(): any {
         const query = {};
         if (!query["$or"]) {
             query["$or"] = [];
@@ -245,7 +254,11 @@ export default class HierarchicalSearchController {
         return searchObj;
     }
 
-
+    /**
+     * Method that monitors changes in the search input.
+     * @param field current field
+     * @param index index of the field
+     */
     public selectChanged(field: Field, index: number): void {
         const model = this._hierarchicalSearchModel;
 
