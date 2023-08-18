@@ -16,10 +16,11 @@
     "layout-widgets": [
         {
             "widgetRole": "hierarchicalSearchWidget",
-            "sublayout": ["desktop"],
+            "sublayout": [
+                "desktop"
+            ],
             "window": {
                 "autofocus": false,
-                "dockTool": "hierarchicalSearchToggleTool",
                 "closable": true,
                 "minimizeOnClose": true,
                 "resizable": true,
@@ -35,10 +36,12 @@
         },
         {
             "widgetRole": "hierarchicalSearchWidget",
-            "sublayout": ["tablet_landscape", "tablet_portrait"],
+            "sublayout": [
+                "tablet_landscape",
+                "tablet_portrait"
+            ],
             "window": {
                 "autofocus": false,
-                "dockTool": "hierarchicalSearchToggleTool",
                 "closable": true,
                 "minimizeOnClose": true,
                 "resizable": false,
@@ -51,10 +54,12 @@
         },
         {
             "widgetRole": "hierarchicalSearchWidget",
-            "sublayout": ["mobile_landscape", "mobile_portrait"],
+            "sublayout": [
+                "mobile_landscape",
+                "mobile_portrait"
+            ],
             "window": {
                 "autofocus": false,
-                "dockTool": "hierarchicalSearchToggleTool",
                 "minimizeOnClose": true,
                 "resizable": false,
                 "draggable": false,
@@ -69,54 +74,40 @@
     ],
     "components": [
         {
-            "name": "Config",
-            "impl": "./HierarchicalSearchModel",
-            "propertiesConstructor": true,
-            "provides": ["dn_hierarchicalsearch.HierarchicalSearchModel"],
-            "properties": {
-                "storeId": "",
-                "fields": [],
-                "mapActions": [],
-                "mapActionsConfig": {}
-            },
-            "references": [
-                {
-                    "name": "store",
-                    "providing": "ct.api.Store",
-                    "filter": "(id={storeId})"
-                },
-                {
-                    "name": "tool",
-                    "providing": "ct.tools.Tool",
-                    "filter": "(id=hierarchicalSearchToggleTool)"
-                },
-                {
-                    "name": "logService",
-                    "providing": "ct.framework.api.LogService"
-                },
-                {
-                    "name": "actionService",
-                    "providing": "map-actions.ActionService"
-                }
+            "name": "HierarchicalSearchModel",
+            "provides": [
+                "dn_hierarchicalsearch.HierarchicalSearchModel"
             ]
         },
         {
-            "name": "HierarchicalSearchWidgetFactory",
+            "name": "HierarchicalSearchToggleTools",
+            "impl": "ct/tools/Tool",
             "provides": [
-                "dijit.Widget",
-                "dn_hierarchicalsearch.HierarchicalSearchVueWidget"
+                "ct.tools.Tool"
             ],
-            "instanceFactory": true,
+            "propertiesConstructor": true,
+            "componentFactory": true,
             "properties": {
-                "widgetRole": "hierarchicalSearchWidget"
+                "id": "hierarchicalSearchToggleTool",
+                "title": "${tool.title}",
+                "tooltip": "${tool.tooltip}",
+                "toolRole": "toolset",
+                "iconClass": "${tool.button}",
+                "togglable": false,
+                "clickHandler": "showHierarchicalSearchTool",
+                "storeId": "",
+                "fields": [],
+                "mapActions": [
+                    "highlight",
+                    "zoomto"
+                ],
+                "mapActionsConfig": {
+                    "zoomto-scale": 5000
+                }
             },
             "references": [
                 {
-                    "name": "hierarchicalSearchModel",
-                    "providing": "dn_hierarchicalsearch.HierarchicalSearchModel"
-                },
-                {
-                    "name": "hierarchicalSearchController",
+                    "name": "handlerScope",
                     "providing": "dn_hierarchicalsearch.HierarchicalSearchController"
                 }
             ]
@@ -130,29 +121,25 @@
             "properties": {},
             "references": [
                 {
-                    "name": "hierarchicalSearchModel",
+                    "name": "_hierarchicalSearchModel",
                     "providing": "dn_hierarchicalsearch.HierarchicalSearchModel"
+                },
+                {
+                    "name": "_logService",
+                    "providing": "ct.framework.api.LogService"
+                },
+                {
+                    "name": "_actionService",
+                    "providing": "map-actions.ActionService"
                 }
             ]
         },
         {
-            "name": "HierarchicalSearchToggleTool",
-            "impl": "ct/tools/Tool",
-            "provides": ["ct.tools.Tool"],
-            "propertiesConstructor": true,
-            "properties": {
-                "id": "hierarchicalSearchToggleTool",
-                "title": "${tool.title}",
-                "tooltip": "${tool.tooltip}",
-                "toolRole": "toolset",
-                "iconClass": "icon-magnifier",
-                "togglable": true
-            }
-        },
-        {
             "name": "SendResultToResultUIAction",
             "impl": "./actions/SendResultToResultUIAction",
-            "provides": ["map-actions.Action"],
+            "provides": [
+                "map-actions.Action"
+            ],
             "references": [
                 {
                     "name": "resultViewerService",
@@ -168,7 +155,9 @@
         {
             "name": "SendResultToResultCenterAction",
             "impl": "./actions/SendResultToResultCenterAction",
-            "provides": ["map-actions.Action"],
+            "provides": [
+                "map-actions.Action"
+            ],
             "references": [
                 {
                     "name": "dataModel",

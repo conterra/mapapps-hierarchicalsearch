@@ -29,27 +29,75 @@
     },
     "bundles": {
         "dn_hierarchicalsearch": {
-            "Config": {
-                "storeId": "flurstuecke_store",
-                "fields": [
-                    {
-                        "name": "NAMGMK",
-                        "label": "Gemarkung"
+            "HierarchicalSearchToggleTools": [
+                {
+                    "id": "flurstueckssuche",
+                    "title": "Flurstücke suchen",
+                    "tooltip": "Flurstücke suchen",
+                    "button":"icon-select-mouse",
+                    "rules": {
+                        "roles": [
+                            "maAdmin",
+                            "maEditor"
+                        ],
+                        "ruleSuccessProperty": "enabled"
                     },
-                    {
-                        "name": "FLN",
-                        "label": "Flur"
-                    },
-                    {
-                        "name": "ZAE",
-                        "label": "Flurstück"
+                    "storeId": "flurstuecke_store",
+                    "fields": [
+                        {
+                            "name": "NAMGMK",
+                            "label": "Gemarkung"
+                        },
+                        {
+                            "name": "FLN",
+                            "label": "Flur"
+                        },
+                        {
+                            "name": "ZAE",
+                            "label": "Flurstück"
+                        }
+                    ],
+                    "mapActions": [
+                        "highlight",
+                        "zoomto"
+                    ],
+                    "mapActionsConfig": {
+                        "zoomto-scale": 5000
                     }
-                ],
-                "mapActions": ["highlight", "zoomto"],
-                "mapActionsConfig": {
-                    "zoomto-scale": 5000
+                },
+                {
+                    "id": "adresssuche",
+                    "title": "Adressen suchen",
+                    "tooltip": "Adressen suchen",
+                    "button":"icon-web-map-search",
+                    "storeId": "add_hamburg",
+                    "fields": [
+                        {
+                            "name": "portsname",
+                            "label": "Stadt"
+                        },
+                        {
+                            "name": "strname",
+                            "label": "Straße"
+                        },
+                        {
+                            "name": "hausnr",
+                            "label": "Hausnummer"
+                        },
+                        {
+                            "name": "zusatz",
+                            "label": "Zusatz"
+                        }
+                    ],
+                    "mapActions": [
+                        "highlight",
+                        "zoomto"
+                    ],
+                    "mapActionsConfig": {
+                        "zoomto-scale": 5000
+                    }
                 }
-            }
+            ]
         },
         "agssearch": {
             "AGSStore": [
@@ -66,7 +114,21 @@
                         "suggestContains": true
                     },
                     "fetchIdProperty": true
+                },
+                {
+                    "id": "add_hamburg",
+                    "title": "Addresse suchen",
+                    "description": "Beschreibung Addresssuche",
+                    "layerId": "add_hamburg",
+                    "useIn": [
+                        "selection"
+                    ],
+                    "filterOptions": {
+                        "suggestContains": true
+                    },
+                    "fetchIdProperty": true
                 }
+                
             ]
         },
         "banner": {
@@ -158,6 +220,14 @@
                             "outFields": [
                                 "*"
                             ]
+                        },
+                        {
+                            "id": "add_hamburg",
+                            "type": "AGS_FEATURE",
+                            "url": "https://services2.arcgis.com/jUpNdisbWqRpMo35/ArcGIS/rest/services/Adressen_Hamburg/FeatureServer/0",
+                            "outFields": [
+                                "*"
+                            ]
                         }
                     ]
                 },
@@ -179,7 +249,8 @@
                     {
                         "id": "defaultToolSet",
                         "tools": [
-                            "hierarchicalSearchToggleTool"
+                            "flurstueckssuche",
+                            "adresssuche"
                         ],
                         "registerWidget": {
                             "widgetRole": "map_topleft"
