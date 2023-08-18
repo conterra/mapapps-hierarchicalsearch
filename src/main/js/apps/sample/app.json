@@ -29,7 +29,7 @@
     },
     "bundles": {
         "dn_hierarchicalsearch": {
-            "HierarchicalSearchToggleTools": [
+            "HierarchicalSearchTools": [
                 {
                     "id": "flurstueckssuche",
                     "title": "Flurstücke suchen",
@@ -128,7 +128,7 @@
                     },
                     "fetchIdProperty": true
                 }
-                
+
             ]
         },
         "banner": {

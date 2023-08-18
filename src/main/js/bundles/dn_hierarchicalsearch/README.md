@@ -18,7 +18,7 @@ The menus will be filled automatically based on the attribute ID and the previou
 
 ```json
 "dn_hierarchicalsearch": {
-    "HierarchicalSearchToggleTools": [
+    "HierarchicalSearchTools": [
         {
             "id": "flurstueckssuche",
             "title": "Flurstücke suchen",

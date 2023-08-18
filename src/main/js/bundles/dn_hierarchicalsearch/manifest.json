@@ -80,7 +80,7 @@
             ]
         },
         {
-            "name": "HierarchicalSearchToggleTools",
+            "name": "HierarchicalSearchTools",
             "impl": "ct/tools/Tool",
             "provides": [
                 "ct.tools.Tool"
@@ -88,7 +88,7 @@
             "propertiesConstructor": true,
             "componentFactory": true,
             "properties": {
-                "id": "hierarchicalSearchToggleTool",
+                "id": "hierarchicalSearchTool",
                 "title": "${tool.title}",
                 "tooltip": "${tool.tooltip}",
                 "toolRole": "toolset",
