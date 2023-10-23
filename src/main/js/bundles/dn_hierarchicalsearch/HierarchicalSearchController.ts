@@ -294,7 +294,7 @@ export default class HierarchicalSearchController {
         model.fields[0].value = undefined; // reset first field
         this.resetSelects(0); // reset subsequent fields
 
-        const actionService = model._actionService;
+        const actionService = this._actionService;
         actionService.trigger(["highlight"], { items: [] }); // reset highlight
     }
 
