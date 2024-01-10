@@ -11,7 +11,8 @@
         "apprt-binding": "^4.2.2",
         "apprt-vuetify": "^4.2.2",
         "agssearch": "^4.2.2",
-        "map-actions": "^4.2.2"
+        "map-actions": "^4.2.2",
+        "result-api":"^4.15.0"
     },
     "layout-widgets": [
         {
@@ -136,7 +137,8 @@
                     "name": "_resultViewerService", 
                     "providing": "result-api.ResultViewerService", 
                     "cardinality": "0..1" 
-                } 
+                }
+            
             ]
         },
         {
