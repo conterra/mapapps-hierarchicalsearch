@@ -28,6 +28,8 @@ import { Field } from "./Interfaces";
 import HierarchicalSearchModel from "./HierarchicalSearchModel";
 import HierarchicalSearchWidget from "./HierarchicalSearchWidget.vue";
 import { ComplexQueryExpression } from "store-api/api";
+import async from "apprt-core/async";
+
 
 export default class HierarchicalSearchController {
 
@@ -37,11 +39,15 @@ export default class HierarchicalSearchController {
     private bundleContext!: InjectedReference<any>;
     private serviceResolver!: InjectedReference<any>;
     private widgetServiceRegistration!: InjectedReference<any>;
+    private _resultViewerService: InjectedReference<any>;
     private _hierarchicalSearchModel: typeof HierarchicalSearchModel;
     private store: any;
     private mapActions: any;
     private mapActionsConfig: any;
     private widget: any;
+    private dataTableTitle:any;
+    private complexQuery: any;
+    private queryOptions : any;
 
     activate(componentContext: InjectedReference<any>): void {
         const bundleContext = this.bundleContext = componentContext.getBundleContext();
@@ -101,6 +107,9 @@ export default class HierarchicalSearchController {
         vm.i18n = this._i18n.get().ui;
         vm.$on("search", () => {
             this.search();
+        });
+        vm.$on("displaysearch", () => {
+            this.displaysearch(this.tool, this.store, this.complexQuery, this.queryBuilderWidgetModel);
         });
 
         vm.$on("reset", () => {
@@ -194,6 +203,38 @@ export default class HierarchicalSearchController {
             this.hideWidget();
         }
     }
+    public async displaysearch(tool:any, store:any, complexQuery:any, queryBuilderWidgetModel:any): Promise<void>{
+        const dataTableFactory = this._resultViewerService.dataTableFactory;
+        const dataTable = await dataTableFactory.createDataTableFromStoreAndQuery(
+            {
+                dataTableTitle: this.dataTableTitle,
+                dataSource: this.store,
+                queryExpression: this.complexQuery,
+                queryOptions: this.queryOptions
+            }
+        );
+        const dataset = dataTable.dataset;
+        const datasetStateHandle = dataset.watch("state", (event) => {
+            const newState = event.value;
+            if (newState === "initialized" || newState === "init-error") {
+                this._setProcessing(tool, false, queryBuilderWidgetModel);
+            }
+        });
+        const tableCollection = dataTableFactory.createDataTableCollection([dataTable]);
+        const resultViewerServiceHandle = this._resultViewerService.open(tableCollection);
+
+    }
+    _setProcessing(tool: any, processing: any, queryBuilderWidgetModel:any) :any{
+        if (queryBuilderWidgetModel) {
+            async(() => {
+                queryBuilderWidgetModel.set("processing", processing);
+            });
+        }
+        if (tool) {
+            tool.set("processing", processing);
+        }
+    }
+
 
     private queryResults(): Object {
         const model = this._hierarchicalSearchModel;
