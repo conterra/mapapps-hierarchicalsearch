@@ -131,7 +131,12 @@
                 {
                     "name": "_actionService",
                     "providing": "map-actions.ActionService"
-                }
+                },
+                { 
+                    "name": "_resultViewerService", 
+                    "providing": "result-api.ResultViewerService", 
+                    "cardinality": "0..1" 
+                } 
             ]
         },
         {
