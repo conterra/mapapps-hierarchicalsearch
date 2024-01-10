@@ -70,6 +70,23 @@
                 <v-btn
                     shrink
                     ripple
+                    color="primary"
+                    :aria-label="i18n.displaysearch"
+                    :disabled="buttonIsDisabled"
+                    :aria-disabled="buttonIsDisabled"
+                    :loading="loading"
+                    @click="$emit('displaysearch')"
+                >
+                    <v-icon left>
+                        search
+                    </v-icon>
+                    {{ i18n.displaysearch }}
+                </v-btn>
+            </v-flex>
+            <v-flex shrink>
+                <v-btn
+                    shrink
+                    ripple
                     color="secondary"
                     :aria-label="i18n.reset"
                     :disabled="buttonIsDisabled"
