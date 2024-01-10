@@ -78,7 +78,7 @@
                     @click="$emit('displaysearch')"
                 >
                     <v-icon left>
-                        search
+                        icon-view-grid
                     </v-icon>
                     {{ i18n.displaysearch }}
                 </v-btn>
