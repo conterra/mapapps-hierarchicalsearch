@@ -151,6 +151,7 @@
                 "zoomAfterDeletion": false,
                 "zoomToClicked": false,
                 "centerClicked": false
+
             },
             "TriggerShowResultCenterCommand": {
                 "showToolOnData": true,
@@ -174,6 +175,13 @@
                 }
             }
         },
+
+        "result-api": {
+            "Config": {
+                "replace-opened-tables": true
+            }
+        },
+        
         "templates": {
             "TemplateModel": {
                 "_templates": [

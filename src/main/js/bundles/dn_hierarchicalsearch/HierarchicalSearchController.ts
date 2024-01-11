@@ -209,8 +209,9 @@ export default class HierarchicalSearchController {
             {
                 dataTableTitle: this.dataTableTitle,
                 dataSource: this.store,
-                queryExpression: this.complexQuery,
-                queryOptions: this.queryOptions
+                queryExpression: this.getComplexQuery(),
+                queryOptions: this.queryOptions,
+                filter: Filter(store, query, {})
             }
         );
         const dataset = dataTable.dataset;
