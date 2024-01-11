@@ -48,6 +48,7 @@ export default class HierarchicalSearchController {
     private dataTableTitle:any;
     private complexQuery: any;
     private queryOptions : any;
+    private showResultUIButton: boolean;
 
     activate(componentContext: InjectedReference<any>): void {
         const bundleContext = this.bundleContext = componentContext.getBundleContext();
@@ -80,6 +81,8 @@ export default class HierarchicalSearchController {
         } else {
             widget = this.widget = this.getHierarchicalSearchWidget();
         }
+        const vm = widget.getVM();
+        vm.showResultUIButton = tool.showResultUIButton;
 
         const serviceProperties = {
             "widgetRole": "hierarchicalSearchWidget"

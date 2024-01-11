@@ -35,6 +35,7 @@
                     "title": "Flurstücke suchen",
                     "tooltip": "Flurstücke suchen",
                     "button":"icon-select-mouse",
+                    "showResultUIButton": true,
                     "rules": {
                         "roles": [
                             "maAdmin",
@@ -181,7 +182,7 @@
                 "replace-opened-tables": true
             }
         },
-        
+
         "templates": {
             "TemplateModel": {
                 "_templates": [

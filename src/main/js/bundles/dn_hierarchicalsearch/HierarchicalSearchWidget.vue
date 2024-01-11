@@ -66,7 +66,10 @@
                     {{ i18n.search }}
                 </v-btn>
             </v-flex>
-            <v-flex shrink>
+            <v-flex
+                v-if="showResultUIButton"
+                shrink
+            >
                 <v-btn
                     shrink
                     ripple
@@ -115,6 +118,10 @@
                 }
             },
             loading: {
+                type: Boolean,
+                default: false
+            },
+            showResultUIButton: {
                 type: Boolean,
                 default: false
             },

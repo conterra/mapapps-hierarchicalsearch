@@ -10,6 +10,9 @@ The menus will be filled automatically based on the attribute ID and the previou
 3. Finally you can customize the content of the drop-down menus.
 4. Optional: The "notifier" bundle can be added to the app to provide the user with additional information used for troubleshooting the app.
 
+The display of the search result button can be configured for each hierarchical search via showResultUIButton.
+
+
 ## Configuration Reference
 
 ### HierarchicalSearchWidgetFactory:
@@ -24,6 +27,7 @@ The menus will be filled automatically based on the attribute ID and the previou
             "title": "Flurstücke suchen",
             "tooltip": "Flurstücke suchen",
             "button":"icon-select-mouse",
+            "showResultUIButton": true,
             "rules": {
                 "roles": [
                     "maAdmin",
