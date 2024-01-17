@@ -23,7 +23,7 @@
             "window": {
                 "autofocus": false,
                 "closable": true,
-                "minimizeOnClose": true,
+                "minimizeOnClose": false,
                 "resizable": true,
                 "marginBox": {
                     "w": 450,
@@ -44,7 +44,7 @@
             "window": {
                 "autofocus": false,
                 "closable": true,
-                "minimizeOnClose": true,
+                "minimizeOnClose": false,
                 "resizable": false,
                 "draggable": false,
                 "marginBox": {
@@ -61,7 +61,7 @@
             ],
             "window": {
                 "autofocus": false,
-                "minimizeOnClose": true,
+                "minimizeOnClose": false,
                 "resizable": false,
                 "draggable": false,
                 "marginBox": {

@@ -95,6 +95,7 @@ export default class HierarchicalSearchController {
                 window.set("title", tool.title);
                 window.on("Close", () => {
                     this.hideWidget();
+                    this.resetSearch();
                 });
             }
         }, 100);
@@ -137,7 +138,6 @@ export default class HierarchicalSearchController {
 
         // clear the reference
         this.widgetServiceRegistration = null;
-
         if (registration) {
             // call unregister
             registration.unregister();
