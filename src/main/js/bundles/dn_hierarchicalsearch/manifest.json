@@ -14,6 +14,14 @@
         "map-actions": "^4.2.2",
         "result-api":"^4.15.0"
     },
+    "CSS-Themes-Extension": [
+        {
+            "name": "*",
+            "files": [
+                "./css/styles.css"
+            ]
+        }
+    ],
     "layout-widgets": [
         {
             "widgetRole": "hierarchicalSearchWidget",

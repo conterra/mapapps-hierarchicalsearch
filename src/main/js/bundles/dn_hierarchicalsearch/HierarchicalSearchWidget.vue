@@ -46,62 +46,79 @@
             </v-layout>
         </v-container>
         <v-layout
-            row
+            column
             justify-end
         >
-            <v-flex shrink>
-                <v-btn
-                    shrink
-                    ripple
-                    color="primary"
-                    :aria-label="i18n.search"
-                    :disabled="buttonIsDisabled"
-                    :aria-disabled="buttonIsDisabled"
-                    :loading="loading"
-                    @click="$emit('search')"
+            <div flex>
+                <v-layout
+                    row
+                    justify-end
                 >
-                    <v-icon left>
-                        search
-                    </v-icon>
-                    {{ i18n.search }}
-                </v-btn>
-            </v-flex>
-            <v-flex
-                v-if="showResultUIButton"
-                shrink
+                    <v-flex shrink>
+                        <v-btn
+                            class="searchbutton"
+                            shrink
+                            ripple
+                            color="primary"
+                            :aria-label="i18n.search"
+                            :disabled="buttonIsDisabled"
+                            :aria-disabled="buttonIsDisabled"
+                            :loading="loading"
+                            @click="$emit('search')"
+                        >
+                            <v-icon left>
+                                search
+                            </v-icon>
+                            {{ i18n.search }}
+                        </v-btn>
+                    </v-flex>
+                    <v-flex
+                        v-if="showResultUIButton"
+                        shrink
+                    >
+                        <v-btn
+                            class="searchdisplaybutton"
+                            shrink
+                            ripple
+                            color="primary"
+                            :aria-label="i18n.displaysearch"
+                            :disabled="buttonIsDisabled"
+                            :aria-disabled="buttonIsDisabled"
+                            :loading="loading"
+                            @click="$emit('displaysearch')"
+                        >
+                            <v-icon left>
+                                icon-view-grid
+                            </v-icon>
+                            {{ i18n.displaysearch }}
+                        </v-btn>
+                    </v-flex>
+                </v-layout>
+            </div>
+            <div flex
             >
-                <v-btn
-                    shrink
-                    ripple
-                    color="primary"
-                    :aria-label="i18n.displaysearch"
-                    :disabled="buttonIsDisabled"
-                    :aria-disabled="buttonIsDisabled"
-                    :loading="loading"
-                    @click="$emit('displaysearch')"
+                <v-layout
+                    justify-end
                 >
-                    <v-icon left>
-                        icon-view-grid
-                    </v-icon>
-                    {{ i18n.displaysearch }}
-                </v-btn>
-            </v-flex>
-            <v-flex shrink>
-                <v-btn
-                    shrink
-                    ripple
-                    color="secondary"
-                    :aria-label="i18n.reset"
-                    :disabled="buttonIsDisabled"
-                    :aria-disabled="buttonIsDisabled"
-                    @click="$emit('reset')"
-                >
-                    <v-icon left>
-                        icon-undo
-                    </v-icon>
-                    {{ i18n.reset }}
-                </v-btn>
-            </v-flex>
+                    <v-flex shrink>
+                        <v-btn
+                            class="resetbutton"
+                            shrink
+                            ripple
+                            color="secondary"
+                            :aria-label="i18n.reset"
+                            :disabled="buttonIsDisabled"
+                            :aria-disabled="buttonIsDisabled"
+                            @click="$emit('reset')"
+                        >
+                            <v-icon left>
+                                icon-undo
+                            </v-icon>
+                            {{ i18n.reset }}
+                        </v-btn>
+                    </v-flex>
+                </v-layout>
+            </div>
         </v-layout>
     </div>
 </template>
