@@ -54,7 +54,9 @@
                     row
                     justify-end
                 >
-                    <v-flex shrink>
+                    <v-flex
+                        shrink
+                    >
                         <v-btn
                             class="searchbutton"
                             shrink
@@ -82,9 +84,9 @@
                             ripple
                             color="primary"
                             :aria-label="i18n.displaysearch"
-                            :disabled="buttonIsDisabled"
+                            :disabled="tableButtonDisabled"
                             :aria-disabled="buttonIsDisabled"
-                            :loading="loading"
+                            :loading="loading && buttonIsDisabled"
                             @click="$emit('displaysearch')"
                         >
                             <v-icon left>
@@ -124,6 +126,7 @@
 </template>
 <script>
     import Bindable from "apprt-vue/mixins/Bindable";
+import type from "esri/smartMapping/renderers/type";
 
     export default {
         mixins: [Bindable],
@@ -145,6 +148,10 @@
             fields: {
                 type: Array,
                 default: () => []
+            },
+            tableButtonDisabled: {
+                type: Boolean,
+                default: false
             }
         },
         computed: {
@@ -155,6 +162,11 @@
         methods: {
             fieldIsDisabled(field) {
                 return field.disabled;
+            },
+            handleSearchButtonClick(){
+                this.$emit('search');
+                this.tableButtonDisabled = true;
+
             }
         }
     };
