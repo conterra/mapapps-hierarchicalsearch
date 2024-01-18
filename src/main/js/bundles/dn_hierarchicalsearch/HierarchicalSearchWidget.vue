@@ -97,8 +97,7 @@
                     </v-flex>
                 </v-layout>
             </div>
-            <div flex
-            >
+            <div flex>
                 <v-layout
                     justify-end
                 >
@@ -126,7 +125,6 @@
 </template>
 <script>
     import Bindable from "apprt-vue/mixins/Bindable";
-import type from "esri/smartMapping/renderers/type";
 
     export default {
         mixins: [Bindable],
