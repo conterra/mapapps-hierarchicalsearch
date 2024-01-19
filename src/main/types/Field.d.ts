@@ -14,7 +14,7 @@
 /// limitations under the License.
 ///
 
-export interface Field {
+interface Field {
     name: string;
     value: string;
     loading: boolean;

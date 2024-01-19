@@ -15,7 +15,6 @@
 ///
 
 import { Mutable, properties } from "apprt-core/Mutable";
-import { Field } from "./Interfaces";
 
 function defineProperties<Impl, P>(mutableDefinition: any,
     mutableProperties: P): Impl & Mutable<P> {
