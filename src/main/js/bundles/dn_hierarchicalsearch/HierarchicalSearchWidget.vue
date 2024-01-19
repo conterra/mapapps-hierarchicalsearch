@@ -83,14 +83,14 @@
                             shrink
                             ripple
                             color="primary"
-                            :aria-label="i18n.displaysearch"
+                            :aria-label="i18n.showresultui"
                             :loading="tableButtonLoading"
-                            @click="$emit('displaysearch')"
+                            @click="$emit('showresultui')"
                         >
                             <v-icon left>
                                 icon-view-grid
                             </v-icon>
-                            {{ i18n.displaysearch }}
+                            {{ i18n.showresultui }}
                         </v-btn>
                     </v-flex>
                 </v-layout>

@@ -106,8 +106,8 @@ export default class HierarchicalSearchController {
         vm.$on("search", () => {
             this.search();
         });
-        vm.$on("displaysearch", () => {
-            this.displaysearch();
+        vm.$on("showresultui", () => {
+            this.showresultui();
         });
 
         vm.$on("reset", () => {
@@ -200,7 +200,7 @@ export default class HierarchicalSearchController {
             this.hideWidget();
         }
     }
-    public async displaysearch(): Promise<void>{
+    public async showresultui(): Promise<void>{
         const model = this._hierarchicalSearchModel;
         model.tableButtonLoading = true;
         const dataTableFactory = this._resultViewerService.dataTableFactory;
