@@ -27,9 +27,6 @@ import * as query from "esri/rest/query";
 import { Field } from "./Interfaces";
 import HierarchicalSearchModel from "./HierarchicalSearchModel";
 import HierarchicalSearchWidget from "./HierarchicalSearchWidget.vue";
-import { ComplexQueryExpression } from "store-api/api";
-import async from "apprt-core/async";
-
 
 export default class HierarchicalSearchController {
 
@@ -46,9 +43,6 @@ export default class HierarchicalSearchController {
     private mapActionsConfig: any;
     private widget: any;
     private dataTableTitle:any;
-    private complexQuery: any;
-    private queryOptions : any;
-    private showResultUIButton: boolean;
 
     activate(componentContext: InjectedReference<any>): void {
         const bundleContext = this.bundleContext = componentContext.getBundleContext();
@@ -113,7 +107,7 @@ export default class HierarchicalSearchController {
             this.search();
         });
         vm.$on("displaysearch", () => {
-            this.displaysearch(this.tool, this.store, this.complexQuery, this.queryBuilderWidgetModel);
+            this.displaysearch();
         });
 
         vm.$on("reset", () => {
@@ -125,7 +119,7 @@ export default class HierarchicalSearchController {
         });
 
         Binding.for(vm, model)
-            .syncAll("fields", "loading")
+            .syncAll("fields", "searchButtonLoading", "tableButtonLoading")
             .enable()
             .syncToLeftNow();
 
@@ -206,49 +200,41 @@ export default class HierarchicalSearchController {
             this.hideWidget();
         }
     }
-    public async displaysearch(tool:any, store:any, complexQuery:any, queryBuilderWidgetModel:any): Promise<void>{
+    public async displaysearch(): Promise<void>{
+        const model = this._hierarchicalSearchModel;
+        model.tableButtonLoading = true;
         const dataTableFactory = this._resultViewerService.dataTableFactory;
+        const query = this.getComplexQuery();
         const dataTable = await dataTableFactory.createDataTableFromStoreAndQuery(
             {
                 dataTableTitle: this.dataTableTitle,
                 dataSource: this.store,
-                queryExpression: this.getComplexQuery(),
-                queryOptions: this.queryOptions,
-                filter: Filter(store, query, {})
+                queryExpression: query,
+                queryOptions: {},
+                filter: Filter(this.store, query, {})
             }
         );
         const dataset = dataTable.dataset;
         const datasetStateHandle = dataset.watch("state", (event) => {
             const newState = event.value;
             if (newState === "initialized" || newState === "init-error") {
-                this._setProcessing(tool, false, queryBuilderWidgetModel);
+                model.tableButtonLoading = false;
             }
         });
         const tableCollection = dataTableFactory.createDataTableCollection([dataTable]);
         const resultViewerServiceHandle = this._resultViewerService.open(tableCollection);
 
     }
-    _setProcessing(tool: any, processing: any, queryBuilderWidgetModel:any) :any{
-        if (queryBuilderWidgetModel) {
-            async(() => {
-                queryBuilderWidgetModel.set("processing", processing);
-            });
-        }
-        if (tool) {
-            tool.set("processing", processing);
-        }
-    }
-
 
     private queryResults(): Object {
         const model = this._hierarchicalSearchModel;
 
-        model.loading = true;
+        model.searchButtonLoading = true;
         const store = this.store;
         const query = this.getComplexQuery();
         const filter = Filter(store, query, {});
         return filter.query({}, { fields: { geometry: 1 } }).then((results: Array<object>) => {
-            model.loading = false;
+            model.searchButtonLoading = false;
             if (results.length) {
                 // Access configured map-actions and their configs
                 const mapActions = this.mapActions;

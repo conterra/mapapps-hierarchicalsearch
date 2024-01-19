@@ -18,11 +18,7 @@ import { Mutable, properties } from "apprt-core/Mutable";
 import { Field } from "./Interfaces";
 
 function defineProperties<Impl, P>(mutableDefinition: any,
-    mutableProperties: {
-        fields: Field[]; // eigentlich ein Array<Field>
-        loading: boolean;
-        isMobile: boolean;
-    }): Impl & Mutable<P> {
+    mutableProperties: P): Impl & Mutable<P> {
     properties(mutableDefinition, mutableProperties);
     return mutableDefinition;
 }
@@ -32,14 +28,16 @@ class HierarchicalSearchModel extends Mutable {
 
 interface HierarchicalSearchModelProps {
     fields: Field[];
-    loading: boolean;
+    searchButtonLoading: boolean;
+    tableButtonLoading: boolean;
     isMobile: boolean;
 }
 
 export default defineProperties<HierarchicalSearchModel, HierarchicalSearchModelProps>(HierarchicalSearchModel,
     {
         fields: [],
-        loading: false,
+        searchButtonLoading: false,
+        tableButtonLoading: false,
         isMobile: false
     });
 

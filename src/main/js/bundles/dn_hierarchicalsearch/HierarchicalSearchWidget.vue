@@ -65,7 +65,7 @@
                             :aria-label="i18n.search"
                             :disabled="buttonIsDisabled"
                             :aria-disabled="buttonIsDisabled"
-                            :loading="loading"
+                            :loading="searchButtonLoading"
                             @click="$emit('search')"
                         >
                             <v-icon left>
@@ -84,9 +84,7 @@
                             ripple
                             color="primary"
                             :aria-label="i18n.displaysearch"
-                            :disabled="tableButtonDisabled"
-                            :aria-disabled="buttonIsDisabled"
-                            :loading="loading && buttonIsDisabled"
+                            :loading="tableButtonLoading"
                             @click="$emit('displaysearch')"
                         >
                             <v-icon left>
@@ -135,7 +133,11 @@
                     return {};
                 }
             },
-            loading: {
+            searchButtonLoading: {
+                type: Boolean,
+                default: false
+            },
+            tableButtonLoading: {
                 type: Boolean,
                 default: false
             },
@@ -146,10 +148,6 @@
             fields: {
                 type: Array,
                 default: () => []
-            },
-            tableButtonDisabled: {
-                type: Boolean,
-                default: false
             }
         },
         computed: {
@@ -160,11 +158,6 @@
         methods: {
             fieldIsDisabled(field) {
                 return field.disabled;
-            },
-            handleSearchButtonClick(){
-                this.$emit('search');
-                this.tableButtonDisabled = true;
-
             }
         }
     };
