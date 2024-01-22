@@ -83,14 +83,14 @@
                             shrink
                             ripple
                             color="primary"
-                            :aria-label="i18n.showresultui"
+                            :aria-label="i18n.showResultUi"
                             :loading="tableButtonLoading"
-                            @click="$emit('showresultui')"
+                            @click="$emit('show-result-ui')"
                         >
                             <v-icon left>
                                 icon-view-grid
                             </v-icon>
-                            {{ i18n.showresultui }}
+                            {{ i18n.showResultUi }}
                         </v-btn>
                     </v-flex>
                 </v-layout>

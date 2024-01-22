@@ -24,7 +24,6 @@ import Filter from "ct/store/Filter";
 import ComplexQueryToSQL from "ct/store/ComplexQueryToSQL";
 import Query from "esri/rest/support/Query";
 import * as query from "esri/rest/query";
-import { Field } from "./Interfaces";
 import HierarchicalSearchModel from "./HierarchicalSearchModel";
 import HierarchicalSearchWidget from "./HierarchicalSearchWidget.vue";
 
@@ -42,7 +41,7 @@ export default class HierarchicalSearchController {
     private mapActions: any;
     private mapActionsConfig: any;
     private widget: any;
-    private dataTableTitle:any;
+    private resultUiHandle: any;
 
     activate(componentContext: InjectedReference<any>): void {
         const bundleContext = this.bundleContext = componentContext.getBundleContext();
@@ -99,15 +98,15 @@ export default class HierarchicalSearchController {
      * creates widget with eventhandlers and binding
      * @returns VueDijit created widget
      */
-    public getHierarchicalSearchWidget(): VueDijit {
+    public getHierarchicalSearchWidget(): any {
         const model = this._hierarchicalSearchModel;
         const vm = new Vue(HierarchicalSearchWidget);
         vm.i18n = this._i18n.get().ui;
         vm.$on("search", () => {
             this.search();
         });
-        vm.$on("showresultui", () => {
-            this.showresultui();
+        vm.$on("show-result-ui", () => {
+            this.showResultUi();
         });
 
         vm.$on("reset", () => {
@@ -189,8 +188,9 @@ export default class HierarchicalSearchController {
             field.loading = false;
         });
     }
+
     /**
-     * Performs the search and hides widegt for mobile devices afterwards
+     * Performs the search and hides widget for mobile devices afterwards
      */
     public search(): void {
         const model = this._hierarchicalSearchModel;
@@ -200,18 +200,21 @@ export default class HierarchicalSearchController {
             this.hideWidget();
         }
     }
-    public async showresultui(): Promise<void>{
+
+    public async showResultUi(): Promise<void> {
         const model = this._hierarchicalSearchModel;
         model.tableButtonLoading = true;
         const dataTableFactory = this._resultViewerService.dataTableFactory;
         const query = this.getComplexQuery();
+        const store = this.store;
+        const metadata = await store.getMetadata();
         const dataTable = await dataTableFactory.createDataTableFromStoreAndQuery(
             {
-                dataTableTitle: this.dataTableTitle,
-                dataSource: this.store,
+                dataTableTitle: metadata.title || store.id,
+                dataSource: store,
                 queryExpression: query,
                 queryOptions: {},
-                filter: Filter(this.store, query, {})
+                filter: Filter(store, query, {})
             }
         );
         const dataset = dataTable.dataset;
@@ -224,6 +227,13 @@ export default class HierarchicalSearchController {
         const tableCollection = dataTableFactory.createDataTableCollection([dataTable]);
         const resultViewerServiceHandle = this._resultViewerService.open(tableCollection);
 
+        this.resultUiHandle = {
+            cancel() {
+                model.tableButtonLoading = false;
+                datasetStateHandle.remove();
+                resultViewerServiceHandle.remove();
+            }
+        };
     }
 
     private queryResults(): Object {
