@@ -25,7 +25,7 @@ module.exports = {
     ui: {
         search: "Suchen",
         showResultUi: "Im Ergebniscenter anzeigen",
-        reset: "Suche zurücksetzen",
+        reset: "Zurücksetzen",
         resultUiTitle: "Ergebnis der hierarchischen Suche",
         resultUiWarning: "Das Ergebnis kann nicht im Result-UI angezeigt werden, da es für die App nicht konfiguriert wurde.",
         resultcenterWarning: "Das Ergebnis kann nicht im Resultcenter angezeigt werden, da es für die App nicht konfiguriert wurde."

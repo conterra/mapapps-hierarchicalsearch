@@ -34,7 +34,7 @@
                     "id": "flurstueckssuche",
                     "title": "Flurstücke suchen",
                     "tooltip": "Flurstücke suchen",
-                    "button":"icon-select-mouse",
+                    "button": "icon-select-mouse",
                     "showResultUIButton": true,
                     "rules": {
                         "roles": [
@@ -60,7 +60,8 @@
                     ],
                     "mapActions": [
                         "highlight",
-                        "zoomto"
+                        "zoomto",
+                        "sendResultToResultUI"
                     ],
                     "mapActionsConfig": {
                         "zoomto-scale": 5000
@@ -70,7 +71,7 @@
                     "id": "adresssuche",
                     "title": "Adressen suchen",
                     "tooltip": "Adressen suchen",
-                    "button":"icon-web-map-search",
+                    "button": "icon-web-map-search",
                     "storeId": "add_hamburg",
                     "fields": [
                         {
@@ -129,7 +130,6 @@
                     },
                     "fetchIdProperty": true
                 }
-
             ]
         },
         "banner": {
@@ -152,7 +152,6 @@
                 "zoomAfterDeletion": false,
                 "zoomToClicked": false,
                 "centerClicked": false
-
             },
             "TriggerShowResultCenterCommand": {
                 "showToolOnData": true,
@@ -176,13 +175,11 @@
                 }
             }
         },
-
         "result-api": {
             "Config": {
                 "replace-opened-tables": true
             }
         },
-
         "templates": {
             "TemplateModel": {
                 "_templates": [
@@ -198,8 +195,8 @@
                                 ],
                                 "window": {
                                     "marginBox": {
-                                        "w": 420,
-                                        "h": 200,
+                                        "w": 556,
+                                        "h": 150,
                                         "t": 115,
                                         "l": 20
                                     }
