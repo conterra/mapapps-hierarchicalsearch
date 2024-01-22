@@ -37,9 +37,10 @@ export default class SendResultToResultUIAction {
         if (this.resultViewerService) {
             const store = options.source;
             const query = options["query"];
+            const metadata = await store.getMetadata();
 
             const dataTableFactory = this.resultViewerService.dataTableFactory;
-            const title = this._i18n.get().ui.resultUiTitle;
+            const title = metadata.title || this._i18n.get().ui.resultUiTitle;
 
             const dataTable = await dataTableFactory.createDataTableFromStoreAndQuery({
                 dataTableTitle: title,
@@ -59,4 +60,5 @@ export default class SendResultToResultUIAction {
             });
         }
     }
+
 }

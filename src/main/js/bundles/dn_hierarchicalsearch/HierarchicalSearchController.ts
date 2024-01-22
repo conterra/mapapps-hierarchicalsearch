@@ -35,13 +35,11 @@ export default class HierarchicalSearchController {
     private bundleContext!: InjectedReference<any>;
     private serviceResolver!: InjectedReference<any>;
     private widgetServiceRegistration!: InjectedReference<any>;
-    private _resultViewerService: InjectedReference<any>;
     private _hierarchicalSearchModel: typeof HierarchicalSearchModel;
     private store: any;
     private mapActions: any;
     private mapActionsConfig: any;
     private widget: any;
-    private resultUiHandle: any;
 
     activate(componentContext: InjectedReference<any>): void {
         const bundleContext = this.bundleContext = componentContext.getBundleContext();
@@ -195,7 +193,7 @@ export default class HierarchicalSearchController {
     public search(): void {
         const model = this._hierarchicalSearchModel;
 
-        this.queryResults();
+        this.queryResults(false);
         if (model.isMobile) {
             this.hideWidget();
         }
@@ -203,48 +201,27 @@ export default class HierarchicalSearchController {
 
     public async showResultUi(): Promise<void> {
         const model = this._hierarchicalSearchModel;
-        model.tableButtonLoading = true;
-        const dataTableFactory = this._resultViewerService.dataTableFactory;
-        const query = this.getComplexQuery();
-        const store = this.store;
-        const metadata = await store.getMetadata();
-        const dataTable = await dataTableFactory.createDataTableFromStoreAndQuery(
-            {
-                dataTableTitle: metadata.title || store.id,
-                dataSource: store,
-                queryExpression: query,
-                queryOptions: {},
-                filter: Filter(store, query, {})
-            }
-        );
-        const dataset = dataTable.dataset;
-        const datasetStateHandle = dataset.watch("state", (event) => {
-            const newState = event.value;
-            if (newState === "initialized" || newState === "init-error") {
-                model.tableButtonLoading = false;
-            }
-        });
-        const tableCollection = dataTableFactory.createDataTableCollection([dataTable]);
-        const resultViewerServiceHandle = this._resultViewerService.open(tableCollection);
 
-        this.resultUiHandle = {
-            cancel() {
-                model.tableButtonLoading = false;
-                datasetStateHandle.remove();
-                resultViewerServiceHandle.remove();
-            }
-        };
+        this.queryResults(true);
+        if (model.isMobile) {
+            this.hideWidget();
+        }
     }
 
-    private queryResults(): Object {
+    private queryResults(openInResultUi: boolean): Object {
         const model = this._hierarchicalSearchModel;
 
-        model.searchButtonLoading = true;
+        if (openInResultUi) {
+            model.tableButtonLoading = true;
+        } else {
+            model.searchButtonLoading = true;
+        }
         const store = this.store;
         const query = this.getComplexQuery();
         const filter = Filter(store, query, {});
         return filter.query({}, { fields: { geometry: 1 } }).then((results: Array<object>) => {
             model.searchButtonLoading = false;
+            model.tableButtonLoading = false;
             if (results.length) {
                 // Access configured map-actions and their configs
                 const mapActions = this.mapActions;
@@ -256,7 +233,11 @@ export default class HierarchicalSearchController {
                 mapActionsConfig.filter = filter;
 
                 // Trigger map-actions with complete set of configurations
-                this._actionService.trigger(mapActions, mapActionsConfig);
+                if (openInResultUi) {
+                    this._actionService.trigger(["sendResultToResultUI"], mapActionsConfig);
+                } else {
+                    this._actionService.trigger(mapActions, mapActionsConfig);
+                }
             } else {
                 this._logService.warn({
                     id: 0,
@@ -268,7 +249,8 @@ export default class HierarchicalSearchController {
                 id: error.code,
                 message: error
             });
-            model.loading = false;
+            model.searchButtonLoading = false;
+            model.tableButtonLoading = false;
         });
     }
 

@@ -11,8 +11,7 @@
         "apprt-binding": "^4.2.2",
         "apprt-vuetify": "^4.2.2",
         "agssearch": "^4.2.2",
-        "map-actions": "^4.2.2",
-        "result-api":"^4.15.0"
+        "map-actions": "^4.2.2"
     },
     "CSS-Themes-Extension": [
         {
@@ -141,11 +140,6 @@
                 {
                     "name": "_actionService",
                     "providing": "map-actions.ActionService"
-                },
-                {
-                    "name": "_resultViewerService",
-                    "providing": "result-api.ResultViewerService",
-                    "cardinality": "0..1"
                 }
 
             ]
