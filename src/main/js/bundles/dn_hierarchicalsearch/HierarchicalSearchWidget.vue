@@ -99,10 +99,6 @@
                 type: Boolean,
                 default: false
             },
-            showResultUIButton: {
-                type: Boolean,
-                default: false
-            },
             fields: {
                 type: Array,
                 default: () => []

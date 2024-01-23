@@ -111,8 +111,7 @@
                 ],
                 "mapActionsConfig": {
                     "zoomto-scale": 5000
-                },
-                "showResultUIButton": false
+                }
             },
             "references": [
                 {
