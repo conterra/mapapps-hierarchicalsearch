@@ -25,7 +25,6 @@ module.exports = {
         noResultsError: "No results found for your query!",
         ui: {
             search: "Search",
-            showResultUi: "Show in result center",
             reset: "Reset",
             resultUiTitle: "Hierarchical Search Result",
             resultUiWarning: "Result cannot be shown in result-ui as it is not configured for the app.",

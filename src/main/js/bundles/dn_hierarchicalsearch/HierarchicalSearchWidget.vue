@@ -66,20 +66,6 @@
                 {{ i18n.search }}
             </v-btn>
             <v-btn
-                class="mx-1"
-                shrink
-                ripple
-                color="primary"
-                :aria-label="i18n.showResultUi"
-                :loading="tableButtonLoading"
-                @click="$emit('show-result-ui')"
-            >
-                <v-icon left>
-                    icon-view-grid
-                </v-icon>
-                {{ i18n.showResultUi }}
-            </v-btn>
-            <v-btn
                 class="ml-1 mr-0"
                 shrink
                 ripple
@@ -110,10 +96,6 @@
                 }
             },
             searchButtonLoading: {
-                type: Boolean,
-                default: false
-            },
-            tableButtonLoading: {
                 type: Boolean,
                 default: false
             },

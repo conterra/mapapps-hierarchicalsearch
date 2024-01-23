@@ -28,7 +28,6 @@ class HierarchicalSearchModel extends Mutable {
 interface HierarchicalSearchModelProps {
     fields: Field[];
     searchButtonLoading: boolean;
-    tableButtonLoading: boolean;
     isMobile: boolean;
 }
 
@@ -36,7 +35,6 @@ export default defineProperties<HierarchicalSearchModel, HierarchicalSearchModel
     {
         fields: [],
         searchButtonLoading: false,
-        tableButtonLoading: false,
         isMobile: false
     });
 

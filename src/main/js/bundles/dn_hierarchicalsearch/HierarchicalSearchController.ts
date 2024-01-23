@@ -73,7 +73,6 @@ export default class HierarchicalSearchController {
             widget = this.widget = this.getHierarchicalSearchWidget();
         }
         const vm = widget.getVM();
-        vm.showResultUIButton = tool.showResultUIButton;
 
         const serviceProperties = {
             "widgetRole": "hierarchicalSearchWidget"
@@ -103,9 +102,6 @@ export default class HierarchicalSearchController {
         vm.$on("search", () => {
             this.search();
         });
-        vm.$on("show-result-ui", () => {
-            this.showResultUi();
-        });
 
         vm.$on("reset", () => {
             this.resetSearch();
@@ -116,7 +112,7 @@ export default class HierarchicalSearchController {
         });
 
         Binding.for(vm, model)
-            .syncAll("fields", "searchButtonLoading", "tableButtonLoading")
+            .syncAll("fields", "searchButtonLoading")
             .enable()
             .syncToLeftNow();
 
@@ -193,35 +189,21 @@ export default class HierarchicalSearchController {
     public search(): void {
         const model = this._hierarchicalSearchModel;
 
-        this.queryResults(false);
+        this.queryResults();
         if (model.isMobile) {
             this.hideWidget();
         }
     }
 
-    public async showResultUi(): Promise<void> {
+    private queryResults(): Object {
         const model = this._hierarchicalSearchModel;
 
-        this.queryResults(true);
-        if (model.isMobile) {
-            this.hideWidget();
-        }
-    }
-
-    private queryResults(openInResultUi: boolean): Object {
-        const model = this._hierarchicalSearchModel;
-
-        if (openInResultUi) {
-            model.tableButtonLoading = true;
-        } else {
-            model.searchButtonLoading = true;
-        }
+        model.searchButtonLoading = true;
         const store = this.store;
         const query = this.getComplexQuery();
         const filter = Filter(store, query, {});
         return filter.query({}, { fields: { geometry: 1 } }).then((results: Array<object>) => {
             model.searchButtonLoading = false;
-            model.tableButtonLoading = false;
             if (results.length) {
                 // Access configured map-actions and their configs
                 const mapActions = this.mapActions;
@@ -233,11 +215,7 @@ export default class HierarchicalSearchController {
                 mapActionsConfig.filter = filter;
 
                 // Trigger map-actions with complete set of configurations
-                if (openInResultUi) {
-                    this._actionService.trigger(["sendResultToResultUI"], mapActionsConfig);
-                } else {
-                    this._actionService.trigger(mapActions, mapActionsConfig);
-                }
+                this._actionService.trigger(mapActions, mapActionsConfig);
             } else {
                 this._logService.warn({
                     id: 0,
@@ -250,7 +228,6 @@ export default class HierarchicalSearchController {
                 message: error
             });
             model.searchButtonLoading = false;
-            model.tableButtonLoading = false;
         });
     }
 
