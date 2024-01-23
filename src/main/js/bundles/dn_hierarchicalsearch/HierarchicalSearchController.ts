@@ -72,7 +72,6 @@ export default class HierarchicalSearchController {
         } else {
             widget = this.widget = this.getHierarchicalSearchWidget();
         }
-        const vm = widget.getVM();
 
         const serviceProperties = {
             "widgetRole": "hierarchicalSearchWidget"
