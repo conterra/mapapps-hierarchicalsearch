@@ -13,32 +13,30 @@
         "agssearch": "^4.2.2",
         "map-actions": "^4.2.2"
     },
-    "CSS-Themes-Extension": [
-        {
-            "name": "*",
-            "files": [
-                "./css/styles.css"
-            ]
-        }
-    ],
     "layout-widgets": [
+        {
+            "widgetRole": "hierarchicalSearchWidget",
+            "window": {
+                "autofocus": false,
+                "closable": true,
+                "maximizable": true,
+                "minimizeOnClose": true,
+                "resizable": true
+            }
+        },
         {
             "widgetRole": "hierarchicalSearchWidget",
             "sublayout": [
                 "desktop"
             ],
             "window": {
-                "autofocus": false,
-                "closable": true,
-                "minimizeOnClose": false,
-                "resizable": true,
                 "marginBox": {
-                    "w": 556,
-                    "h": 154
+                    "w": 450,
+                    "h": 170
                 },
                 "minSize": {
-                    "w": 556,
-                    "h": 154
+                    "w": 450,
+                    "h": 170
                 }
             }
         },
@@ -49,14 +47,11 @@
                 "tablet_portrait"
             ],
             "window": {
-                "autofocus": false,
-                "closable": true,
-                "minimizeOnClose": false,
                 "resizable": false,
                 "draggable": false,
                 "marginBox": {
-                    "w": 556,
-                    "h": 150
+                    "w": 450,
+                    "h": 170
                 }
             }
         },
@@ -67,8 +62,6 @@
                 "mobile_portrait"
             ],
             "window": {
-                "autofocus": false,
-                "minimizeOnClose": false,
                 "resizable": false,
                 "draggable": false,
                 "marginBox": {
