@@ -32,11 +32,11 @@
             "window": {
                 "marginBox": {
                     "w": 450,
-                    "h": 170
+                    "h": 154
                 },
                 "minSize": {
                     "w": 450,
-                    "h": 170
+                    "h": 154
                 }
             }
         },
@@ -51,7 +51,7 @@
                 "draggable": false,
                 "marginBox": {
                     "w": 450,
-                    "h": 170
+                    "h": 154
                 }
             }
         },
