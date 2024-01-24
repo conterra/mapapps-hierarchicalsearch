@@ -16,21 +16,27 @@
     "layout-widgets": [
         {
             "widgetRole": "hierarchicalSearchWidget",
+            "window": {
+                "autofocus": false,
+                "closable": true,
+                "maximizable": true,
+                "minimizeOnClose": true,
+                "resizable": true
+            }
+        },
+        {
+            "widgetRole": "hierarchicalSearchWidget",
             "sublayout": [
                 "desktop"
             ],
             "window": {
-                "autofocus": false,
-                "closable": true,
-                "minimizeOnClose": true,
-                "resizable": true,
                 "marginBox": {
                     "w": 450,
-                    "h": 170
+                    "h": 154
                 },
                 "minSize": {
                     "w": 450,
-                    "h": 170
+                    "h": 154
                 }
             }
         },
@@ -41,14 +47,11 @@
                 "tablet_portrait"
             ],
             "window": {
-                "autofocus": false,
-                "closable": true,
-                "minimizeOnClose": true,
                 "resizable": false,
                 "draggable": false,
                 "marginBox": {
                     "w": 450,
-                    "h": 170
+                    "h": 154
                 }
             }
         },
@@ -59,8 +62,6 @@
                 "mobile_portrait"
             ],
             "window": {
-                "autofocus": false,
-                "minimizeOnClose": true,
                 "resizable": false,
                 "draggable": false,
                 "marginBox": {
@@ -132,6 +133,7 @@
                     "name": "_actionService",
                     "providing": "map-actions.ActionService"
                 }
+
             ]
         },
         {

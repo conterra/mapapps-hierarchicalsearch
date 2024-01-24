@@ -24,10 +24,8 @@ import Filter from "ct/store/Filter";
 import ComplexQueryToSQL from "ct/store/ComplexQueryToSQL";
 import Query from "esri/rest/support/Query";
 import * as query from "esri/rest/query";
-import { Field } from "./Interfaces";
 import HierarchicalSearchModel from "./HierarchicalSearchModel";
 import HierarchicalSearchWidget from "./HierarchicalSearchWidget.vue";
-import { ComplexQueryExpression } from "store-api/api";
 
 export default class HierarchicalSearchController {
 
@@ -86,6 +84,7 @@ export default class HierarchicalSearchController {
                 window.set("title", tool.title);
                 window.on("Close", () => {
                     this.hideWidget();
+                    this.resetSearch();
                 });
             }
         }, 100);
@@ -95,7 +94,7 @@ export default class HierarchicalSearchController {
      * creates widget with eventhandlers and binding
      * @returns VueDijit created widget
      */
-    public getHierarchicalSearchWidget(): VueDijit {
+    public getHierarchicalSearchWidget(): any {
         const model = this._hierarchicalSearchModel;
         const vm = new Vue(HierarchicalSearchWidget);
         vm.i18n = this._i18n.get().ui;
@@ -112,7 +111,7 @@ export default class HierarchicalSearchController {
         });
 
         Binding.for(vm, model)
-            .syncAll("fields", "loading")
+            .syncAll("fields", "searchButtonLoading")
             .enable()
             .syncToLeftNow();
 
@@ -125,7 +124,6 @@ export default class HierarchicalSearchController {
 
         // clear the reference
         this.widgetServiceRegistration = null;
-
         if (registration) {
             // call unregister
             registration.unregister();
@@ -183,8 +181,9 @@ export default class HierarchicalSearchController {
             field.loading = false;
         });
     }
+
     /**
-     * Performs the search and hides widegt for mobile devices afterwards
+     * Performs the search and hides widget for mobile devices afterwards
      */
     public search(): void {
         const model = this._hierarchicalSearchModel;
@@ -198,12 +197,12 @@ export default class HierarchicalSearchController {
     private queryResults(): Object {
         const model = this._hierarchicalSearchModel;
 
-        model.loading = true;
+        model.searchButtonLoading = true;
         const store = this.store;
         const query = this.getComplexQuery();
         const filter = Filter(store, query, {});
         return filter.query({}, { fields: { geometry: 1 } }).then((results: Array<object>) => {
-            model.loading = false;
+            model.searchButtonLoading = false;
             if (results.length) {
                 // Access configured map-actions and their configs
                 const mapActions = this.mapActions;
@@ -227,7 +226,7 @@ export default class HierarchicalSearchController {
                 id: error.code,
                 message: error
             });
-            model.loading = false;
+            model.searchButtonLoading = false;
         });
     }
 

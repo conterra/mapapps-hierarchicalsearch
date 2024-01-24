@@ -34,7 +34,7 @@
                     "id": "flurstueckssuche",
                     "title": "Flurstücke suchen",
                     "tooltip": "Flurstücke suchen",
-                    "button":"icon-select-mouse",
+                    "button": "icon-select-mouse",
                     "rules": {
                         "roles": [
                             "maAdmin",
@@ -59,7 +59,8 @@
                     ],
                     "mapActions": [
                         "highlight",
-                        "zoomto"
+                        "zoomto",
+                        "sendResultToResultUI"
                     ],
                     "mapActionsConfig": {
                         "zoomto-scale": 5000
@@ -69,7 +70,7 @@
                     "id": "adresssuche",
                     "title": "Adressen suchen",
                     "tooltip": "Adressen suchen",
-                    "button":"icon-web-map-search",
+                    "button": "icon-web-map-search",
                     "storeId": "add_hamburg",
                     "fields": [
                         {
@@ -128,7 +129,6 @@
                     },
                     "fetchIdProperty": true
                 }
-
             ]
         },
         "banner": {
@@ -174,6 +174,11 @@
                 }
             }
         },
+        "result-api": {
+            "Config": {
+                "replace-opened-tables": true
+            }
+        },
         "templates": {
             "TemplateModel": {
                 "_templates": [
@@ -189,8 +194,8 @@
                                 ],
                                 "window": {
                                     "marginBox": {
-                                        "w": 400,
-                                        "h": 140,
+                                        "w": 450,
+                                        "h": 154,
                                         "t": 115,
                                         "l": 20
                                     }

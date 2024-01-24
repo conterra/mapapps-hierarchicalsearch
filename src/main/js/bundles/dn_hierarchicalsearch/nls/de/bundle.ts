@@ -24,7 +24,7 @@ module.exports = {
     noResultsError: "Keine Ergebnisse f\u00fcr Ihre Abfrage gefunden!",
     ui: {
         search: "Suchen",
-        reset: "Suche zurücksetzen",
+        reset: "Zurücksetzen",
         resultUiTitle: "Ergebnis der hierarchischen Suche",
         resultUiWarning: "Das Ergebnis kann nicht im Result-UI angezeigt werden, da es für die App nicht konfiguriert wurde.",
         resultcenterWarning: "Das Ergebnis kann nicht im Resultcenter angezeigt werden, da es für die App nicht konfiguriert wurde."

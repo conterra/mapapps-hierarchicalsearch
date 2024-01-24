@@ -18,10 +18,9 @@
 <template>
     <div class="hierarchicalsearch">
         <v-container
-            class="pa-1"
+            class="pa-0"
             fluid
             grid-list-md
-            fill-height
         >
             <v-layout>
                 <v-flex
@@ -45,44 +44,43 @@
                 </v-flex>
             </v-layout>
         </v-container>
-        <v-layout
-            row
-            justify-end
+        <v-container
+            class="pa-0 pt-1 text-lg-right"
+            fluid
+            grid-list-xs
         >
-            <v-flex shrink>
-                <v-btn
-                    shrink
-                    ripple
-                    color="primary"
-                    :aria-label="i18n.search"
-                    :disabled="buttonIsDisabled"
-                    :aria-disabled="buttonIsDisabled"
-                    :loading="loading"
-                    @click="$emit('search')"
-                >
-                    <v-icon left>
-                        search
-                    </v-icon>
-                    {{ i18n.search }}
-                </v-btn>
-            </v-flex>
-            <v-flex shrink>
-                <v-btn
-                    shrink
-                    ripple
-                    color="secondary"
-                    :aria-label="i18n.reset"
-                    :disabled="buttonIsDisabled"
-                    :aria-disabled="buttonIsDisabled"
-                    @click="$emit('reset')"
-                >
-                    <v-icon left>
-                        icon-undo
-                    </v-icon>
-                    {{ i18n.reset }}
-                </v-btn>
-            </v-flex>
-        </v-layout>
+            <v-btn
+                class="ml-0 mr-1"
+                shrink
+                ripple
+                color="primary"
+                :aria-label="i18n.search"
+                :disabled="buttonIsDisabled"
+                :aria-disabled="buttonIsDisabled"
+                :loading="searchButtonLoading"
+                @click="$emit('search')"
+            >
+                <v-icon left>
+                    search
+                </v-icon>
+                {{ i18n.search }}
+            </v-btn>
+            <v-btn
+                class="ml-1 mr-0"
+                shrink
+                ripple
+                color="secondary"
+                :aria-label="i18n.reset"
+                :disabled="buttonIsDisabled"
+                :aria-disabled="buttonIsDisabled"
+                @click="$emit('reset')"
+            >
+                <v-icon left>
+                    icon-undo
+                </v-icon>
+                {{ i18n.reset }}
+            </v-btn>
+        </v-container>
     </div>
 </template>
 <script>
@@ -97,7 +95,7 @@
                     return {};
                 }
             },
-            loading: {
+            searchButtonLoading: {
                 type: Boolean,
                 default: false
             },
