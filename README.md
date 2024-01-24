@@ -1,6 +1,6 @@
 # Hierarchical Search
-The Hierarchical Search Bundle is a new Widget for searching features via a drop-down menu based on attributed values.
-The menus will be filled automatically based on the attribute ID and the previous user selections.
+The Hierarchical Search Bundle offers a widget for searching features via a drop-down menu based on attributed values. 
+The menus will be filled automaticaly based on the attribute ID and the previous user selections.
 
 ## Build Status
 [![devnet-bundle-snapshot](https://github.com/conterra/mapapps-hierarchicalsearch/actions/workflows/devnet-bundle-snapshot.yml/badge.svg)](https://github.com/conterra/mapapps-hierarchicalsearch/actions/workflows/devnet-bundle-snapshot.yml)
