@@ -1,6 +1,6 @@
 {
     "name": "dn_hierarchicalsearch",
-    "version": "3.0.2-SNAPSHOT",
+    "version": "3.0.2",
     "title": "${bundleName}",
     "description": "${bundleDescription}",
     "main": "",
