@@ -16,7 +16,6 @@
 
 import ".";
 import "ct/tools/Tool";
-import "./Interfaces";
 import "./HierarchicalSearchModel";
 import "./HierarchicalSearchController";
 import "./actions/SendResultToResultUIAction";
