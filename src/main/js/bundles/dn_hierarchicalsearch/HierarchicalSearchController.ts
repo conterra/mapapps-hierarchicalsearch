@@ -21,7 +21,7 @@ import type { InjectedReference } from "apprt-core/InjectedReference";
 import ServiceResolver from "apprt/ServiceResolver";
 import ct_util from "ct/ui/desktop/util";
 import Filter from "ct/store/Filter";
-import ComplexQueryToSQL from "ct/store/ComplexQueryToSQL";
+import {toSQLWhere} from "store-api/rest/ComplexQueryToSQL";
 import Query from "esri/rest/support/Query";
 import * as query from "esri/rest/query";
 import HierarchicalSearchModel from "./HierarchicalSearchModel";
@@ -172,7 +172,7 @@ export default class HierarchicalSearchController {
             queryObject.where = "1=1";
         } else {
             const complexQuery = this.getComplexQuery();
-            queryObject.where = ComplexQueryToSQL.toSQLWhere(complexQuery, {});
+            queryObject.where = toSQLWhere(complexQuery, {});
         }
         query.executeQueryJSON(this.store.target, queryObject).then(function (response) {
             response.features.forEach((feature) => {
