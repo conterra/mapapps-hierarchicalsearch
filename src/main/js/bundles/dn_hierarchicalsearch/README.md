@@ -1,20 +1,54 @@
 # dn_hierarchicalsearch
 
-The Hierarchical Search Bundle is a new Widget for searching features via a drop-down menu based on attributed values.
-The menus will be filled automatically based on the attribute ID and the previous user selections. It is possible to search different feature sources.
+This bundle offers a widget for searching features with several drop-down menus in hierarchical organized objects, such as addresses (city > street > address point). 
+Each menu is filled based on the previous user selection (for example all streets for the selected city are shown).
 
 ## Usage
 
-1. First, you need to add the bundle "dn_hierarchicalsearch" to your app.
-2. After that, add an AGSSearch store to your app that is initialized with the help of a layerId.
-3. Finally you can customize the content of the drop-down menus.
-4. Optional: The "notifier" bundle can be added to the app to provide the user with additional information used for troubleshooting the app.
+1. Add the bundle "dn_hierarchicalsearch" to your app.
+2. Add an AGSSearch store to your app.
+3. Add and customize the corresponding HierarchicalSearchTool.
+4. Add the new tool to a toolset.
 
 ## Configuration Reference
 
-### HierarchicalSearchWidgetFactory:
+### Add search stores
+```json
+"agssearch": {
+    "AGSStore": [
+        {
+            "id": "flurstuecke_store",
+            "title": "Flurstück suchen",
+            "description": "Beschreibung Flursuche",
+            "idProperty": "OBJECTID",
+            "layerId": "flurst_berlin",
+            "useIn": [
+                "selection"
+            ],
+            "filterOptions": {
+                "suggestContains": true
+            },
+            "fetchIdProperty": true
+        },
+        {
+            "id": "add_hamburg",
+            "title": "Addresse suchen",
+            "description": "Beschreibung Addresssuche",
+            "layerId": "add_hamburg",
+            "useIn": [
+                "selection"
+            ],
+            "filterOptions": {
+                "suggestContains": true
+            },
+            "fetchIdProperty": true
+        }
 
-#### Add multiple searches
+    ]
+},
+```
+
+### Add search tools
 
 ```json
 "dn_hierarchicalsearch": {
@@ -86,42 +120,6 @@ The menus will be filled automatically based on the attribute ID and the previou
                 "zoomto-scale": 5000
             }
         }
-    ]
-},
-```
-
-#### Add multiple search-stores
-```json
-"agssearch": {
-    "AGSStore": [
-        {
-            "id": "flurstuecke_store",
-            "title": "Flurstück suchen",
-            "description": "Beschreibung Flursuche",
-            "idProperty": "OBJECTID",
-            "layerId": "flurst_berlin",
-            "useIn": [
-                "selection"
-            ],
-            "filterOptions": {
-                "suggestContains": true
-            },
-            "fetchIdProperty": true
-        },
-        {
-            "id": "add_hamburg",
-            "title": "Addresse suchen",
-            "description": "Beschreibung Addresssuche",
-            "layerId": "add_hamburg",
-            "useIn": [
-                "selection"
-            ],
-            "filterOptions": {
-                "suggestContains": true
-            },
-            "fetchIdProperty": true
-        }
-
     ]
 },
 ```
