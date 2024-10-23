@@ -35,25 +35,18 @@
                     "title": "Flurstücke suchen",
                     "tooltip": "Flurstücke suchen",
                     "button": "icon-select-mouse",
-                    "rules": {
-                        "roles": [
-                            "maAdmin",
-                            "maEditor"
-                        ],
-                        "ruleSuccessProperty": "enabled"
-                    },
                     "storeId": "flurstuecke_store",
                     "fields": [
                         {
-                            "name": "NAMGMK",
+                            "name": "namgmk",
                             "label": "Gemarkung"
                         },
                         {
-                            "name": "FLN",
+                            "name": "fln",
                             "label": "Flur"
                         },
                         {
-                            "name": "ZAE",
+                            "name": "zae",
                             "label": "Flurstück"
                         }
                     ],
