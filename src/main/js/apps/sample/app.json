@@ -35,13 +35,6 @@
                     "title": "Flurstücke suchen",
                     "tooltip": "Flurstücke suchen",
                     "button": "icon-select-mouse",
-                    "rules": {
-                        "roles": [
-                            "maAdmin",
-                            "maEditor"
-                        ],
-                        "ruleSuccessProperty": "enabled"
-                    },
                     "storeId": "flurstuecke_store",
                     "fields": [
                         {
