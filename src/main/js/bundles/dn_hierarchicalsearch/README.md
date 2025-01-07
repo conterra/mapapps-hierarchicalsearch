@@ -86,7 +86,8 @@ Each menu is filled based on the previous user selection (for example all street
                 ],
                 "mapActionsConfig": {
                     "zoomto-scale": 5000
-                }
+                },
+                "resolveTypes": false
         },
         {
             "id": "adresssuche",
@@ -118,7 +119,8 @@ Each menu is filled based on the previous user selection (for example all street
             ],
             "mapActionsConfig": {
                 "zoomto-scale": 5000
-            }
+            },
+            "resolveTypes": false
         }
     ]
 },
@@ -132,3 +134,4 @@ Each menu is filled based on the previous user selection (for example all street
 | field.label      | String |                                                                                                                                                                                                         |                               | Label for the drop down element                       |
 | mapActions       | Array  | ```"zoomto"``` &#124; ```"openPopup"``` &#124; ```"highlight"``` &#124; ```"sendResultToResultUI"``` &#124; ```"sendResultToResultCenter"```                                                            | ```["zoomto", "highlight"]``` | Array map-actions to apply to result                  |
 | mapActionsConfig | Object | see [Configuration Reference](https://demos.conterra.de/mapapps/resources/jsregistry/root/map-actions/4.15.0/README.md#b%3Dmap-actions%3Bv%3D4.15.0%3Bvr%3D%5E4.15%3Bp%3Dmap.apps%3Bf%3Dmap-actions%3B) | ```{"zoomto-scale": 5000}```  | Object containing map-action configruation parameters |
+| resolveTypes| Boolean| true/false | false | If the store has types, this parameter should indicate if the codes of the types and domains or the name should be shown. If true the names will be shown. However it is important that the TypeIdField is the first field.

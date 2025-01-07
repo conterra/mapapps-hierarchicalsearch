@@ -30,6 +30,8 @@
                     <v-combobox
                         v-model="field.value"
                         :items="field.items"
+                        item-text="label"
+                        item-value="value"
                         :label="field.label"
                         :aria-label="field.label"
                         :disabled="fieldIsDisabled(field)"
