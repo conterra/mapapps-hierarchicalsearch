@@ -9,7 +9,7 @@ Each menu is filled based on the previous user selection (for example all street
 ## Sample App
 https://demos.conterra.de/mapapps/resources/apps/downloads_hierarchicalsearch/index.html
 
-![Screenshot Sample App Hierarchical Search](https://github.com/conterra/mapapps-hierarchical-search/blob/master/screenshot.JPG)
+![Screenshot Sample App Hierarchical Search](https://github.com/conterra/mapapps-hierarchical-search/blob/main/screenshot.JPG)
 
 ## Installation Guide
 **Requirement: map.apps 4.12.0**
