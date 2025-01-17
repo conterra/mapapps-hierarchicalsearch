@@ -40,12 +40,16 @@ export default class HierarchicalSearchController {
     private mapActions: any;
     private mapActionsConfig: any;
     private widget: any;
+    private types: any;
+    private domains: any;
+    private resolveTypes: boolean;
 
     activate(componentContext: InjectedReference<any>): void {
         const bundleContext = this.bundleContext = componentContext.getBundleContext();
         const serviceResolver = this.serviceResolver = new ServiceResolver({});
         serviceResolver.setBundleCtx(bundleContext);
     }
+
     /**
      * Method that enables the hierarchical search function of the bundle
      * @param event emitted by clickHandler, on click, use to access clicked tool
@@ -59,11 +63,15 @@ export default class HierarchicalSearchController {
         const fields = tool.fields;
         this.mapActions = tool.mapActions;
         this.mapActionsConfig = tool.mapActionsConfig;
+        this.resolveTypes = tool.resolveTypes;
+        this.types = {};
+        this.domains = {};
 
         const model = this._hierarchicalSearchModel;
         const envs = this.bundleContext.getCurrentExecutionEnvironment();
         model.isMobile = envs.some((env) => env.name === "Mobile");
         model.fields = this.getFields(fields);
+
         this.setUpSelect(0);
 
         let widget;
@@ -82,10 +90,10 @@ export default class HierarchicalSearchController {
             const window: any = ct_util.findEnclosingWindow(widget);
             if (window) {
                 window.set("title", tool.title);
-                window.on("Close", () => {
+                window.onHide = () => {
                     this.hideWidget();
                     this.resetSearch();
-                });
+                };
             }
         }, 100);
     }
@@ -154,8 +162,10 @@ export default class HierarchicalSearchController {
         }
     }
 
-    private queryDistinctValues(field: Field, index: number): void {
+    private async queryDistinctValues(field: Field, index: number): void {
+
         const queryUrl = this.store.target;
+        const model = this._hierarchicalSearchModel;
         if (!queryUrl) {
             console.error("Store has no target!");
             return;
@@ -170,13 +180,41 @@ export default class HierarchicalSearchController {
         });
         if (index === 0) {
             queryObject.where = "1=1";
+            if(this.resolveTypes && this.store.layer.types && this.store.layer.typeIdField === fieldName) {
+                this.store.layer.types.forEach((type) => {
+                    this.types[type.id] = type;
+                });
+            }
         } else {
             const complexQuery = this.getComplexQuery();
             queryObject.where = toSQLWhere(complexQuery, {});
+            if(this.resolveTypes && this.types && this.types[model.fields[0].value.value] && this.types[model.fields[0].value.value].domains[fieldName]) {
+                this.domains = {};
+                this.types[model.fields[0].value.value].domains[fieldName].codedValues.forEach((domain) => {
+                    this.domains[domain.code] = domain.name;
+                });
+            }
+            else {
+                this.domains = undefined;
+            }
         }
+
+        const layer = this.store.layer;
+        const types = this.types;
+        const domains = this.domains;
+        const resolveTypes = this.resolveTypes;
+
         query.executeQueryJSON(this.store.target, queryObject).then(function (response) {
             response.features.forEach((feature) => {
-                field.items.push(feature.attributes[fieldName]);
+                if (resolveTypes && index === 0 && layer.typeIdField == fieldName) {
+                    field.items.push({value: feature.attributes[fieldName], label: types[feature.attributes[fieldName]].name});
+                }
+                else if (resolveTypes && index !== 0 && domains ) {
+                    field.items.push({value: feature.attributes[fieldName], label: domains[feature.attributes[fieldName]]});
+                }
+                else {
+                    field.items.push({value: feature.attributes[fieldName], label: feature.attributes[fieldName]});
+                }
             });
             field.loading = false;
         });
@@ -247,7 +285,7 @@ export default class HierarchicalSearchController {
         const searchObj = {};
         model.fields.forEach((field: Field) => {
             if (field && field.value) {
-                searchObj[field.name] = field.value;
+                searchObj[field.name] = field.value.value;
             }
         });
 
