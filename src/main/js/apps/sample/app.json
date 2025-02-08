@@ -34,7 +34,7 @@
                     "id": "flurstueckssuche",
                     "title": "Flurstücke suchen",
                     "tooltip": "Flurstücke suchen",
-                    "button": "icon-select-mouse",
+                    "iconClass": "icon-select-mouse",
                     "storeId": "flurstuecke_store",
                     "fields": [
                         {
@@ -63,7 +63,7 @@
                     "id": "adresssuche",
                     "title": "Adressen suchen",
                     "tooltip": "Adressen suchen",
-                    "button": "icon-web-map-search",
+                    "iconClass": "icon-web-map-search",
                     "storeId": "add_hamburg",
                     "fields": [
                         {

@@ -93,7 +93,7 @@
                 "title": "${tool.title}",
                 "tooltip": "${tool.tooltip}",
                 "toolRole": "toolset",
-                "iconClass": "${tool.button}",
+                "iconClass": "icon-select-mouse",
                 "togglable": false,
                 "clickHandler": "showHierarchicalSearchTool",
                 "storeId": "",
@@ -133,7 +133,6 @@
                     "name": "_actionService",
                     "providing": "map-actions.ActionService"
                 }
-
             ]
         },
         {

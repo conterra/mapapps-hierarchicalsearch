@@ -1,6 +1,6 @@
 # dn_hierarchicalsearch
 
-This bundle offers a widget for searching features with several drop-down menus in hierarchical organized objects, such as addresses (city > street > address point). 
+This bundle offers a widget for searching features with several drop-down menus in hierarchical organized objects, such as addresses (city > street > address point).
 Each menu is filled based on the previous user selection (for example all streets for the selected city are shown).
 
 ## Usage
@@ -57,7 +57,7 @@ Each menu is filled based on the previous user selection (for example all street
             "id": "flurstueckssuche",
             "title": "Flurstücke suchen",
             "tooltip": "Flurstücke suchen",
-            "button":"icon-select-mouse",
+            "iconClass": "icon-select-mouse",
             "rules": {
                 "roles": [
                     "maAdmin",
@@ -92,7 +92,7 @@ Each menu is filled based on the previous user selection (for example all street
             "id": "adresssuche",
             "title": "Adressen suchen",
             "tooltip": "Adressen suchen",
-            "button":"icon-house",
+            "iconClass": "icon-house",
             "storeId": "add_hamburg",
             "fields": [
                 {
