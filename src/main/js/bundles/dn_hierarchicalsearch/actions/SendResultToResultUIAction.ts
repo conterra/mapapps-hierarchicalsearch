@@ -50,7 +50,9 @@ export default class SendResultToResultUIAction {
             });
 
             const dataTableCollection = dataTableFactory.createDataTableCollection([dataTable]);
-            this.resultViewerService.open(dataTableCollection);
+            if(options.items.length > 1) {
+                this.resultViewerService.open(dataTableCollection);
+            }
         }
         else {
             const warning = this._i18n.get().ui.resultUiWarning;
