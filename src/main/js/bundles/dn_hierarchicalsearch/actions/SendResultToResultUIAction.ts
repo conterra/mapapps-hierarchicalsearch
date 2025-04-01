@@ -50,7 +50,7 @@ export default class SendResultToResultUIAction {
             });
 
             const dataTableCollection = dataTableFactory.createDataTableCollection([dataTable]);
-            if(options.items.length > 1) {
+            if (options.items.length > 1) {
                 this.resultViewerService.open(dataTableCollection);
             }
         }
