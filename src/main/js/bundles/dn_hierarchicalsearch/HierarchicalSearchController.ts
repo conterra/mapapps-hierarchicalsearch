@@ -21,7 +21,7 @@ import type { InjectedReference } from "apprt-core/InjectedReference";
 import ServiceResolver from "apprt/ServiceResolver";
 import ct_util from "ct/ui/desktop/util";
 import Filter from "ct/store/Filter";
-import {toSQLWhere} from "store-api/rest/ComplexQueryToSQL";
+import { toSQLWhere } from "store-api/rest/ComplexQueryToSQL";
 import Query from "esri/rest/support/Query";
 import * as query from "esri/rest/query";
 import HierarchicalSearchModel from "./HierarchicalSearchModel";
@@ -150,15 +150,19 @@ export default class HierarchicalSearchController {
             const field: Field = fields[index];
             field.disabled = false;
             field.loading = true;
-            this.queryDistinctValues(field, index);
+            this.queryDistinctValues(field, index).then((fieldItemValues: string[]) => {
+                model.fields[index].items = fieldItemValues;
+                model.fields = model.fields.slice();
+                field.loading = false;
+            });
         }
     }
 
-    private queryDistinctValues(field: Field, index: number): void {
+    private async queryDistinctValues(field: Field, index: number): Promise<string[]> {
         const queryUrl = this.store.target;
         if (!queryUrl) {
             console.error("Store has no target!");
-            return;
+            return [];
         }
 
         const fieldName = field.name;
@@ -174,11 +178,9 @@ export default class HierarchicalSearchController {
             const complexQuery = this.getComplexQuery();
             queryObject.where = toSQLWhere(complexQuery, {});
         }
-        query.executeQueryJSON(this.store.target, queryObject).then(function (response) {
-            response.features.forEach((feature) => {
-                field.items.push(feature.attributes[fieldName]);
-            });
-            field.loading = false;
+
+        return query.executeQueryJSON(this.store.target, queryObject).then(function (response) {
+            return response.features.map((feature) => feature.attributes[fieldName]);
         });
     }
 

@@ -19,5 +19,5 @@ interface Field {
     value: string;
     loading: boolean;
     disabled: boolean;
-    items: Array<object>;
+    items: string[];
 }
