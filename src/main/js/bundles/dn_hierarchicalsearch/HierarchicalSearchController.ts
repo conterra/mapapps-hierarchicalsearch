@@ -196,7 +196,7 @@ export default class HierarchicalSearchController {
         }
     }
 
-    private queryResults(): Object {
+    private queryResults(): object {
         const model = this._hierarchicalSearchModel;
 
         model.searchButtonLoading = true;
@@ -243,7 +243,7 @@ export default class HierarchicalSearchController {
         return query;
     }
 
-    private getSearchObject(): Object {
+    private getSearchObject(): object {
         const model = this._hierarchicalSearchModel;
 
         const searchObj = {};
