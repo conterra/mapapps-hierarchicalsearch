@@ -94,15 +94,13 @@
                 default: function () {
                     return {};
                 }
-            },
-            searchButtonLoading: {
-                type: Boolean,
-                default: false
-            },
-            fields: {
-                type: Array,
-                default: () => []
             }
+        },
+        data() {
+            return {
+                fields: [],
+                searchButtonLoading: false
+            };
         },
         computed: {
             buttonIsDisabled() {
