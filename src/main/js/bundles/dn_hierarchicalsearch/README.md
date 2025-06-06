@@ -82,10 +82,12 @@ Each menu is filled based on the previous user selection (for example all street
                 ],
                 "mapActions": [
                     "highlight",
-                    "zoomto"
+                    "zoomto",
+                    "sendResultToResultUI"
                 ],
                 "mapActionsConfig": {
-                    "zoomto-scale": 5000
+                    "zoomto-scale": 5000,
+                    "alwaysOpenResultUI": true
                 }
         },
         {
@@ -125,10 +127,12 @@ Each menu is filled based on the previous user selection (for example all street
 ```
 
 | Property         | Type   | Possible Values                                                                                                                                                                                         | Default                       | Description                                           |
-| ---------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ----------------------------------------------------- |
+|------------------|--------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------|-------------------------------------------------------|
 | storeId          | String |                                                                                                                                                                                                         |                               | The ID of your AGSSearch store                        |
 | fields           | Array  |                                                                                                                                                                                                         |                               | Array of search fields                                |
 | field.name       | String |                                                                                                                                                                                                         |                               | Name of the field                                     |
 | field.label      | String |                                                                                                                                                                                                         |                               | Label for the drop down element                       |
 | mapActions       | Array  | ```"zoomto"``` &#124; ```"openPopup"``` &#124; ```"highlight"``` &#124; ```"sendResultToResultUI"``` &#124; ```"sendResultToResultCenter"```                                                            | ```["zoomto", "highlight"]``` | Array map-actions to apply to result                  |
 | mapActionsConfig | Object | see [Configuration Reference](https://demos.conterra.de/mapapps/resources/jsregistry/root/map-actions/4.15.0/README.md#b%3Dmap-actions%3Bv%3D4.15.0%3Bvr%3D%5E4.15%3Bp%3Dmap.apps%3Bf%3Dmap-actions%3B) | ```{"zoomto-scale": 5000}```  | Object containing map-action configruation parameters |
+
+The mapActionsConfig of the "sendResultToResultUI" also supports the parameter "alwaysOpenResultUI". If set to true, the result ui is opened even for single results.

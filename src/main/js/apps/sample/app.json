@@ -56,7 +56,8 @@
                         "sendResultToResultUI"
                     ],
                     "mapActionsConfig": {
-                        "zoomto-scale": 5000
+                        "zoomto-scale": 5000,
+                        "alwaysOpenResultUI": true
                     }
                 },
                 {
