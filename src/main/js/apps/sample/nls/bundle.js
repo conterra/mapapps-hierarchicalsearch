@@ -100,6 +100,16 @@ module.exports = {
             municipal: "municipal",
             zip: "Zip code",
             type: "Type"
+        },
+        hierarchicalSearch: {
+            flurstuecke: {
+                title: "Parcels",
+                tooltip: "Search for parcels"
+            },
+            adressen: {
+                title: "Addresses",
+                tooltip: "Search for addresses"
+            }
         }
     },
     "de": true

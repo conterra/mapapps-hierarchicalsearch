@@ -34,7 +34,6 @@
             "theme-autumn",
             "toc",
             "toolset",
-
             "dn_hierarchicalsearch",
             "dn_imprintprivacy"
         ],
@@ -47,10 +46,10 @@
             "HierarchicalSearchTools": [
                 {
                     "id": "flurstueckssuche",
-                    "title": "Flurstücke suchen",
-                    "tooltip": "Flurstücke suchen",
+                    "title": "${hierarchicalSearch.flurstuecke.title}",
+                    "tooltip": "${hierarchicalSearch.flurstuecke.tooltip}",
                     "iconClass": "icon-select-mouse",
-                    "storeId": "flurst_berlin",
+                    "storeId": "flurstuecke_store",
                     "fields": [
                         {
                             "name": "namgmk",
@@ -77,8 +76,8 @@
                 },
                 {
                     "id": "adresssuche",
-                    "title": "Adressen suchen",
-                    "tooltip": "Adressen suchen",
+                    "title": "${hierarchicalSearch.adressen.title}",
+                    "tooltip": "${hierarchicalSearch.adressen.tooltip}",
                     "iconClass": "icon-web-map-search",
                     "storeId": "add_hamburg",
                     "fields": [
@@ -112,7 +111,36 @@
         "agssearch": {
             "AutoStoreRegistration": {
                 "componentEnabled": true
-            }
+            },
+            "AGSStore": [
+                {
+                    "id": "flurstuecke_store",
+                    "title": "Flurstück suchen",
+                    "description": "Beschreibung Flursuche",
+                    "idProperty": "OBJECTID",
+                    "layerId": "flurst_berlin",
+                    "useIn": [
+                        "selection"
+                    ],
+                    "filterOptions": {
+                        "suggestContains": true
+                    },
+                    "fetchIdProperty": true
+                },
+                {
+                    "id": "add_hamburg",
+                    "title": "Addresse suchen",
+                    "description": "Beschreibung Addresssuche",
+                    "layerId": "add_hamburg",
+                    "useIn": [
+                        "selection"
+                    ],
+                    "filterOptions": {
+                        "suggestContains": true
+                    },
+                    "fetchIdProperty": true
+                }
+            ]
         },
         "banner": {
             "BannerWidget": {
@@ -169,7 +197,7 @@
                             "title": "${map.flurstuecke.title}",
                             "type": "AGS_FEATURE",
                             "url": "https://services2.arcgis.com/jUpNdisbWqRpMo35/ArcGIS/rest/services/Flurst_Berlin/FeatureServer/0",
-                            "visible": false,
+                            "visible": true,
                             "outFields": [
                                 "*"
                             ]
@@ -179,7 +207,7 @@
                             "title": "${map.adressen.title}",
                             "type": "AGS_FEATURE",
                             "url": "https://services2.arcgis.com/jUpNdisbWqRpMo35/ArcGIS/rest/services/Adressen_Hamburg/FeatureServer/0",
-                            "visible": false,
+                            "visible": true,
                             "outFields": [
                                 "*"
                             ]
@@ -510,7 +538,7 @@
         "toolset": {
             "ToolsetManager": {
                 "toolsets": [
-                     {
+                    {
                         "id": "defaultToolSet",
                         "tools": [
                             "flurstueckssuche",

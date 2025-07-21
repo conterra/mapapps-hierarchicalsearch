@@ -100,5 +100,15 @@ module.exports = {
         municipal: "st\xE4dtischer",
         zip: "PLZ",
         type: "Art"
+    },
+    hierarchicalSearch: {
+        flurstuecke: {
+            title: "Flurstücke",
+            tooltip: "Flurstücke suchen"
+        },
+        adressen: {
+            title: "Adressen",
+            tooltip: "Adressen suchen"
+        }
     }
 };
