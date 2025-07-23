@@ -1,5 +1,5 @@
 # Hierarchical Search
-This bundle offers a widget for searching features with several drop-down menus in hierarchical organized objects, such as addresses (city > street > address point). 
+This bundle offers a widget for searching features with several drop-down menus in hierarchical organized objects, such as addresses (city > street > address point).
 Each menu is filled based on the previous user selection (for example all streets for the selected city are shown).
 
 ## Bundle Status
@@ -7,7 +7,7 @@ Each menu is filled based on the previous user selection (for example all street
 ![Static Badge](https://img.shields.io/badge/tested_for_map.apps-4.16.0-%20?labelColor=%233E464F&color=%232FC050)
 
 ## Sample App
-https://demos.conterra.de/mapapps/resources/apps/downloads_hierarchicalsearch/index.html
+https://demos.conterra.de/mapapps/resources/apps/public_demo_hierarchicalsearch/index.html
 
 ![Screenshot Sample App Hierarchical Search](https://github.com/conterra/mapapps-hierarchical-search/blob/main/screenshot.JPG)
 
