@@ -22,8 +22,8 @@ import ServiceResolver from "apprt/ServiceResolver";
 import ct_util from "ct/ui/desktop/util";
 import Filter from "ct/store/Filter";
 import {toSQLWhere} from "store-api/rest/ComplexQueryToSQL";
-import Query from "esri/rest/support/Query";
-import * as query from "esri/rest/query";
+import Query from "@arcgis/core/rest/support/Query";
+import * as query from "@arcgis/core/rest/query";
 import HierarchicalSearchModel from "./HierarchicalSearchModel";
 import HierarchicalSearchWidget from "./HierarchicalSearchWidget.vue";
 

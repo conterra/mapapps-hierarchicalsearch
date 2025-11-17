@@ -7,11 +7,12 @@
     "vendor": "con terra GmbH",
     "productName": "devnet-mapapps-hierarchical-search",
     "dependencies": {
-        "apprt-vue": "^4.2.2",
-        "apprt-binding": "^4.2.2",
-        "apprt-vuetify": "^4.2.2",
-        "agssearch": "^4.2.2",
-        "map-actions": "^4.2.2"
+        "@arcgis/core": "^4.33.0",
+        "apprt-vue": "^4.20.0",
+        "apprt-binding": "^4.20.0",
+        "apprt-vuetify": "^4.20.0",
+        "agssearch": "^4.20.0",
+        "map-actions": "^4.20.0"
     },
     "layout-widgets": [
         {
