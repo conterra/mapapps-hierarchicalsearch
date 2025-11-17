@@ -1,6 +1,6 @@
 [![devnet-bundle-snapshot](https://github.com/conterra/mapapps-hierarchicalsearch/actions/workflows/devnet-bundle-snapshot.yml/badge.svg)](https://github.com/conterra/mapapps-hierarchicalsearch/actions/workflows/devnet-bundle-snapshot.yml)
 ![Static Badge](https://img.shields.io/badge/requires_map.apps-4.20.0-e5e5e5?labelColor=%233E464F&logoColor=%23e5e5e5)
-![Static Badge](https://img.shields.io/badge/tested_for_map.apps-4.16.0-%20?labelColor=%233E464F&color=%232FC050)
+![Static Badge](https://img.shields.io/badge/tested_for_map.apps-4.20.0-%20?labelColor=%233E464F&color=%232FC050)
 
 # Hierarchical Search
 This bundle offers a widget for searching features with several drop-down menus in hierarchical organized objects, such as addresses (city > street > address point).
